@@ -3,8 +3,9 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCharsTable extends Migration {
-	private $tableName = 'characters';
+class CreateCharactersTable extends Migration {
+
+	private static $tableName = "characters";
 
 	/**
 	 * Run the migrations.
@@ -13,7 +14,7 @@ class CreateCharsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create($this->tableName, function(Blueprint $table)
+		Schema::create($this::$tableName, function(Blueprint $table)
 		{
 			$table->engine = "InnoDB";
 			$table->integer('id')
@@ -32,7 +33,7 @@ class CreateCharsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop($this->tableName);
+		Schema::drop($this::$tableName);
 	}
 
 }

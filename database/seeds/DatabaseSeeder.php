@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DatabaseSeeder extends Seeder {
 
-	public static $characterData = getCharacterData();
+	public static $characterData;
 
 	/**
 	 * Run the database seeds.
@@ -21,10 +21,10 @@ class DatabaseSeeder extends Seeder {
 		$this->call("FormTableSeeder");
 		$this->command->info("Char Forms table seeded!");
 	}
-
-	public static function getCharacterData()
+	
+	private static function getCharacterData()
 	{
-		$json = file_get_contents(__DIR__ "/characters.json");
+		$json = file_get_contents(__DIR__ . "/characters.json");
 		return json_decode($json);
 		//$data = [];
 
@@ -41,3 +41,5 @@ class DatabaseSeeder extends Seeder {
 		}*/
 	}
 }
+
+DatabaseSeeder::$characterData = json_decode(file_get_contents(__DIR__ . "/../../characters.json"));

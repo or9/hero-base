@@ -1,5 +1,9 @@
 <?php
 
+use App\Form;
+use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
+
 class FormTableSeeder extends Seeder
 {
 	public function run()

@@ -4,7 +4,8 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateFormsTable extends Migration {
-	private $tableName = 'forms';
+
+	private static $tableName = "forms";
 
 	/**
 	 * Run the migrations.
@@ -13,12 +14,12 @@ class CreateFormsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create($this->tableName, function(Blueprint $table)
+		Schema::create($this::$tableName, function(Blueprint $table)
 		{
 			$table->engine = "InnoDB";
-			$table->integer("character_id")
+			$table->integer("fk_id_characters")
 				->unsigned();
-			$table->foreign("character_id")
+			$table->foreign("fk_id_characters")
 				->references("id")
 				->on("characters")
 				->onDelete("cascade")
@@ -38,7 +39,7 @@ class CreateFormsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop($this->tableName);
+		Schema::drop($this::$tableName);
 	}
 
 }
