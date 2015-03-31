@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFormTable extends Migration {
+class CreateFormsTable extends Migration {
 	private $tableName = 'forms';
 
 	/**
@@ -13,7 +13,7 @@ class CreateFormTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create($tableName, function(Blueprint $table)
+		Schema::create($this->tableName, function(Blueprint $table)
 		{
 			$table->engine = "InnoDB";
 			$table->integer("character_id")
@@ -38,7 +38,7 @@ class CreateFormTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop($tableName);
+		Schema::drop($this->tableName);
 	}
 
 }
