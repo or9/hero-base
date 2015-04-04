@@ -1,8 +1,10 @@
 <?php
 
-Route::get("/", "WelcomeController@index");
+//Route::get("/", "WelcomeController@index");
 
-Route::get("home", "HomeController@index");
+//Route::get("home", "HomeController@index");
+
+Route::get("/", "RootController@index");
 
 Route::get("characters", "GameController@characters");
 

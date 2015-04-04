@@ -22,24 +22,6 @@ class DatabaseSeeder extends Seeder {
 		$this->command->info("Char Forms table seeded!");
 	}
 	
-	private static function getCharacterData()
-	{
-		$json = file_get_contents(__DIR__ . "/characters.json");
-		return json_decode($json);
-		//$data = [];
-
-		/*$jsonIterator = new RecursiveIteratorIterator(
-			new RecursiveArrayIterator(json_decode($json, TRUE)),
-			RecursiveIteratorIterator::SELF_FIRST);
-
-		foreach($jsonIterator as $key => $val) {
-			if(is_array($val)) {
-				echo "$key:\n";
-			} else {
-				echo "$key => $val\n";
-			}
-		}*/
-	}
 }
 
 DatabaseSeeder::$characterData = json_decode(file_get_contents(__DIR__ . "/../../characters.json"));
