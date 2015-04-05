@@ -13,10 +13,10 @@ class FormTableSeeder extends Seeder
 		foreach(DatabaseSeeder::$characterData as $char) {
 			Form::create(array(
 				"fk_id_characters"	=> $char->position - 1,
-				"isolated"		=> $char->contextualForms->isolated,
-				"initial"		=> $char->contextualForms->initial,
-				"medial"		=> $char->contextualForms->medial,
-				"final"			=> $char->contextualForms->final
+				"isolated"					=> $char->contextualForms->isolated,
+				"initial"						=> $char->contextualForms->initial,
+				"medial"						=> $char->contextualForms->medial,
+				"final"							=> $char->contextualForms->final
 			));
 		}
 	}

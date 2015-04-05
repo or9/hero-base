@@ -1,3 +1,6 @@
+#Card Game  
+Using Laravel for this simple app is like pounding nails into the wall with a 50 lb sledgehammer. It's fulfilling and makes you strong.  
+
 ##Troubleshooting  
 If composer is giving issues on Arch Linux...
 ```

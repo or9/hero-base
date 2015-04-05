@@ -9,27 +9,21 @@ class GameController extends Controller {
 		return $this->middleware("user");
 	}
 
-	/**
-	 * @return Response
-	 */
+	/** @return Response */
 	public function characters() 
 	{
 		$response = DB::select("select * from characters");
 		return new Response($response);
 	}
 
-	/**
-	 * @return Response
-	 */
+	/** @return Response */
 	public function forms() 
 	{
 		$response = DB::select("select * from forms");
 		return new Response($response);
 	}
 
-	/**
-	 * @return Response
-	 */
+	/** @return Response */
 	public function scoreboard()
 	{
 		$response = DB::select("select * from scoreboard");

@@ -1,5 +1,15 @@
 <?php
 
+$configOptions = [];
+
+if (env("APP_ENV") != "local") {
+	$configOptions = [
+		PDO::MYSQL_ATTR_SSL_KEY		=> env("SSL_KEY"),
+		PDO::MYSQL_ATTR_SSL_CERT 	=> env("SSL_CERT"),
+		PDO::MSYQL_ATTR_SSL_CA		=> env("SSL_CA")
+	];
+}
+
 return [
 
 	/*
@@ -53,20 +63,21 @@ return [
 		],
 
 		'mysql' => [
-			'driver'    => 'mysql',
-			'host'      => env('DB_HOST', ''),
-			'database'  => env('DB_DATABASE', ''),
-			'username'  => env('DB_USERNAME', ''),
-			'password'  => env('DB_PASSWORD', ''),
-			'charset'   => 'utf8',
-			'collation' => 'utf8_unicode_ci',
-			'prefix'    => '',
-			'strict'    => false,
-			'options'	=> array(
+			'driver'	=> 'mysql',
+			'host'		=> env('DB_HOST'),
+			'database'	=> env('DB_DATABASE'),
+			'username'	=> env('DB_USERNAME'),
+			'password'	=> env('DB_PASSWORD'),
+			'charset'	=> 'utf8',
+			'collation'	=> 'utf8_unicode_ci',
+			'prefix'	=> '',
+			'strict'	=> false,
+			'options'	=> $configOptions
+			/*'options'	=> array(
 				PDO::MYSQL_ATTR_SSL_KEY		=> env("SSL_KEY"),
-				PDO::MYSQL_ATTR_SSL_CERT 	=> env("SSL_CERT")
+				PDO::MYSQL_ATTR_SSL_CERT 	=> env("SSL_CERT"),
 				//PDO::MSYQL_ATTR_SSL_CA		=> env("SSL_CA")
-			)
+			)*/
 		],
 
 		'pgsql' => [
