@@ -73,11 +73,6 @@ return [
 			'prefix'	=> '',
 			'strict'	=> false,
 			'options'	=> $configOptions
-			/*'options'	=> array(
-				PDO::MYSQL_ATTR_SSL_KEY		=> env("SSL_KEY"),
-				PDO::MYSQL_ATTR_SSL_CERT 	=> env("SSL_CERT"),
-				//PDO::MSYQL_ATTR_SSL_CA		=> env("SSL_CA")
-			)*/
 		],
 
 		'pgsql' => [
