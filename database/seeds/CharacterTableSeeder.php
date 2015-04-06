@@ -4,7 +4,7 @@ use App\Character as Char;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class CharacterTableSeeder extends Seeder 
+class CharacterTableSeeder extends Seeder
 {
 	public function run()
 	{
@@ -12,8 +12,8 @@ class CharacterTableSeeder extends Seeder
 
 		foreach(DatabaseSeeder::$characterData as $char) {
 			Char::create(array(
-				"id"				=> $char->position - 1,
-				"name"			=> $char->name,
+				"id"		=> $char->position - 1,
+				"name"		=> $char->name,
 				"translit"	=> $char->transliteration
 			));
 		}
