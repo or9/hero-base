@@ -6,6 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Cards</title>
 
+	<script src="{{ asset('/vendor/angularjs/angular.min.js') }}"></script>
+
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
 	<!-- Fonts -->
@@ -19,6 +21,7 @@
 	<![endif]-->
 </head>
 <body>
+	<h1>Hero Cards</h1>
 	<nav class="">
 	</nav>
 
