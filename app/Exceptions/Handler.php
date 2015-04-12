@@ -1,5 +1,6 @@
 <?php namespace App\Exceptions;
 
+use Route;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -36,8 +37,12 @@ class Handler extends ExceptionHandler {
 	 */
 	public function render($request, Exception $e)
 	{
-		if($e instanceOf \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
-			return route("index");
+		if($this->isHttpException($e)) {
+			// echo route("index");
+			if($e->getStatusCode() == 404) {
+				// do stuff
+			}
+
 		}
 
 		return parent::render($request, $e);

@@ -2,7 +2,7 @@
 
 Route::get("/", [
 	"as"	=> "index",
-	"uses"	=> "RootController@index"
+	"uses"	=> "PageviewController@index"
 ]);
 
 // API

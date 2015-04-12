@@ -25,7 +25,9 @@
 	<nav class="">
 	</nav>
 
-	@yield('content')
+	@yield("content")
+
+	@yield("footer")
 
 	<!-- Scripts -->
 </body>

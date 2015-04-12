@@ -1,7 +1,9 @@
 @extends('app')
 @section('content')
 
-<h2>Start</h2>
+<section id="content">
+	<h2>Start</h2>
 
+</section>
 
 @endsection

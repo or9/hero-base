@@ -1,36 +1,38 @@
-<? php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
-import Illuminate\Http\Response;
+use DB;
 
 class GameController extends Controller {
 
-	public function __construct()
+	public function __construct ()
 	{
 		//return $this->middleware("game");
 	}
 
 	/** @return Response */
-	public function characters()
+	public function characters ()
 	{
-		$response = DB::select("select * from characters");
-		//return new Response($response);
-		return Response::json($response);
+		$data = $this::getAllFromTable("characters");
+		return response()->json($data);
 	}
 
 	/** @return Response */
-	public function forms()
+	public function forms ()
 	{
-		$response = DB::select("select * from forms");
-		//return new Response($response);
-		return Response::json($response);
+		$data = $this::getAllFromTable("forms");
+		return response()->json($data);
 	}
 
 	/** @return Response */
-	public function scoreboard()
+	public function scoreboard ()
 	{
-		$response = DB::select("select * from scoreboard");
-		//return new Response($response);
-		return Response::json($response);
+		$data = $this::getAllFromTable("scoreboard");
+		return response()->json($data);
+	}
+
+	private static function getAllFromTable ($table)
+	{
+		return DB::select("select * from " . $table);
 	}
 
 }
