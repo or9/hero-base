@@ -6,7 +6,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Cards</title>
 
-	<script src="{{ asset('/vendor/angularjs/angular.min.js') }}"></script>
+	<script src="{{ asset('/vendor/angularjs/angular.js') }}"></script>
+
+	<script src="{{ asset('/js/app.js') }}"></script>
+	<script src="{{ asset('/js/cards/cardsCtrl.js') }}"></script>
+	<script src="{{ asset('/js/cards/cardsService.js') }}"></script>
+	<script src="{{ asset('/js/scoreboard/scoreboardCtrl.js') }}"></script>
+	<script src="{{ asset('/js/scoreboard/scoreboardService.js') }}"></script>
 
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
@@ -20,7 +26,7 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
 </head>
-<body>
+<body ng-app="cardgameApp">
 	<h1>Hero Cards</h1>
 	<nav class="">
 	</nav>

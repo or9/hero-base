@@ -1,8 +1,7 @@
-(function (undefined) {
+(function ($module, undefined) {
 	"use strict";
 
-	angular
-		.module("scoreboardService", [])
+	$module("scoreboardService", [])
 		.factory("scoreboard", scoreboard);
 
 	function scoreboard ($http) {
@@ -11,8 +10,14 @@
 			$http.get("/api/scoreboard");
 		}
 
+		function errorHandler (err) {
+			console.log("scoreboardService got err: ", err);
+		}
+
 		return {
-			get: get
+			get: get,
+			errorHandler: errorHandler
 		};
 	}
-}());
+
+} (angular.module));

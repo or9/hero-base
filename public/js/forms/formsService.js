@@ -1,6 +1,7 @@
-(function (undefined) {
-	angular
-		.module("formsService", [])
+(function ($module, undefined) {
+	"use strict";
+
+	$module("formsService", [])
 		.factory("forms", forms);
 
 	function forms ($http) {
@@ -9,8 +10,14 @@
 			$http.get("/api/forms");
 		}
 
+		function errorHandler (err) {
+			console.log("forms service got err: ", err);
+		}
+
 		return {
-			get: get
+			get: get,
+			errorHandler: errorHandler
 		};
 	}
-}());
+
+} (angular.module));

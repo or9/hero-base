@@ -1,8 +1,8 @@
 (function ($module, undefined) {
 	"use strict";
 
-	$module("CharactersCtrl", [])
-		.controller("CharactersController", CharactersController);
+	$module("CardsCtrl", [])
+		.controller("CardsController", CardsController);
 
 	CharactersController.prototype.loading = true;
 
