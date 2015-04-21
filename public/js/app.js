@@ -1,26 +1,28 @@
-(function ($module, undefined) {
+(function (undefined) {
 	"use strict";
 
-	$module("cardgameApp", [
-			//"CharactersCtrl",
-			//"charactersService",
-			//"FormsCtrl",
-			//"formsService",
-			"CardsCtrl",
-			"cardsService",
-			"ScoreboardCtrl",
-			"scoreboardService"
+	angular.module("cardgameApp", [
+			"ngRoute"
 		])
 		.config(config);
 
-	function config ($interpolateProvider, $routeProvider) {
+	function config ($routeProvider, $interpolateProvider) {
+
 		$interpolateProvider.startSymbol("[[");
 		$interpolateProvider.endSymbol("]]");
 
 		$routeProvider
 			.when("/", {
+				templateUrl: "CardsView",
 				controller: "CardsCtrl"
+			})
+			.when("/scoreboard", {
+				templateUrl: "ScoreboardView",
+				controller: "ScoreboardCtrl"
+			})
+			.otherwise({
+				redirectTo: "/"
 			});
 	}
 
-} (angular.module));
+} ());

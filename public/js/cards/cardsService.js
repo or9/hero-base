@@ -1,8 +1,7 @@
-(function ($module, undefined) {
+(function (app, undefined) {
 	"use strict";
 
-	$module("cardsService", [])
-		.factory("cards", cards);
+	app.factory("cards", cards);
 
 	function cards($http) {
 
@@ -25,4 +24,4 @@
 		};
 	}
 
-} (angular.module));
+} (angular.module("cardgameApp")));

@@ -1,8 +1,7 @@
-(function ($module, undefined) {
+(function (app, undefined) {
 	"use strict";
 
-	$module("scoreboardService", [])
-		.factory("scoreboard", scoreboard);
+	app.factory("scoreboardService", scoreboard);
 
 	function scoreboard ($http) {
 
@@ -20,4 +19,4 @@
 		};
 	}
 
-} (angular.module));
+} (angular.module("cardgameApp")));

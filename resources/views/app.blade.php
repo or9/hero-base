@@ -4,15 +4,18 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Cards</title>
+	<title>Hero Cards</title>
 
 	<script src="{{ asset('/vendor/angularjs/angular.js') }}"></script>
+	<script src="{{ asset('/vendor/angular-route/angular-route.min.js') }}"></script>
+
 
 	<script src="{{ asset('/js/app.js') }}"></script>
-	<script src="{{ asset('/js/cards/cardsCtrl.js') }}"></script>
+	<script src="{{ asset('/js/cards/CardsCtrl.js') }}"></script>
 	<script src="{{ asset('/js/cards/cardsService.js') }}"></script>
-	<script src="{{ asset('/js/scoreboard/scoreboardCtrl.js') }}"></script>
+	<script src="{{ asset('/js/scoreboard/ScoreboardCtrl.js') }}"></script>
 	<script src="{{ asset('/js/scoreboard/scoreboardService.js') }}"></script>
+
 
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 

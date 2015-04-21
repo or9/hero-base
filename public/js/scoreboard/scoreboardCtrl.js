@@ -1,11 +1,10 @@
-(function ($module, undefined) {
+(function (app, undefined) {
 	"use strict";
 
-	$module("ScoreboardCtrl", [])
-		.controller("scoreboardController", scoreboardController);
+	app.controller("scoreboardCtrl", scoreboardController);
 
 	function scoreboardController ($scope, scoreboard) {
 	}
 
 
-} (angular.module));
+} (angular.module("cardgameApp")));
