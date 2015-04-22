@@ -1,0 +1,10 @@
+{
+	"browser":	true,
+	"esnext":		true,
+	"eqeqeq":   true,
+	"immed":    true,
+	"latedef":  "nofunc",
+	"globals": 	{
+		"angular":	false
+	}
+}

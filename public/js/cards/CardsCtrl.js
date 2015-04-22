@@ -6,23 +6,21 @@
 	CardsController.prototype.loading = true;
 
 	function CardsController ($scope, cards) {
+		/*jshint validthis:true */
 
-		$scope.loading = true;
+		this.cards = cards.getCards()
+			.success(success.bind(this))
+			.error(failure.bind(this));
 
-		this.cards = cards.getCards().success(function (responseData) {
-			$scope.chars = responseData;
-			$scope.loading = false;
-		});
+		function success (responseData) {
+			this.chars = responseData;
+			this.loading = false;
+		}
 
-		/*
-		this.cards = cards.getCards().then(function () {
-			$scope.loading = false;
-			//CardsController.loading = false;
-		}, function () {
-			console.log("oops. failed to load the cards!");
-			//$scope.errorLoadingCards = true;
-		});
-		*/
+		function failure (err) {
+			cards.error(err);
+			this.loading = false;
+		}
 
 	}
 
