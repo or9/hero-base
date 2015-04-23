@@ -20,6 +20,7 @@ Create a user, `webapp` with all permissions (except grant privileges; they are 
 ```
 composer install
 composer update
+npm install  
 cp .env.example .env  
 php artisan migrate  
 php artisan db:seed  
