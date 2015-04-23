@@ -13,24 +13,27 @@
 			.success(getCardByIndex.bind(this, 0))
 			.error(failedToStart.bind(this));
 
-		function failedToStart (data, status) {
-			card.error({data: data, status: status });
-		}
-
 		function getCardByIndex (index, length) {
+			if (index >= length) {
+				return stop.call(this);
+			}
+
 			return cards.getCard(index)
 				.success(successGetCard.bind(this, length))
 				.error(failGetCard.bind(this));
 		}
 
 		function successGetCard (length, responseData, status, headers, config) {
-			if (responseData.id === null || responseData.id === undefined) {
-				this.loading = false;
-				return;
-			}
-
 			this.chars.push(responseData);
 			getCardByIndex.call(this, responseData.id + 1, length);
+		}
+
+		function stop () {
+			this.loading = false;
+		}
+
+		function failedToStart (data, status) {
+			card.error({data: data, status: status });
 		}
 
 		function failGetCard (data, status, headers, config) {
