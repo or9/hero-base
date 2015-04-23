@@ -9,9 +9,11 @@ class GameController extends Controller {
 		//return $this->middleware("game");
 	}
 
-	public function getLastIndex () {
+	public function lastIndex ()
+	{
 		$lastIndex = DB::table("characters")
-			->last();
+			->orderBy("id", "desc")
+			->pluck("id");
 
 		return response()->json($lastIndex);
 	}
@@ -26,10 +28,6 @@ class GameController extends Controller {
 		$data = DB::table("characters")
 			->whereId($id)
 			->first();
-
-		if (!$data) {
-			return response(null, 404);
-		}
 
 		return response()->json($data);
 	}

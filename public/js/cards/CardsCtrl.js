@@ -9,32 +9,36 @@
 	function CardsController ($scope, cards) {
 		/*jshint validthis:true */
 
-		var index = 0;
-		getCard.call(this, index);
-		//cards.getEachCard(success.bind(this), failure.bind(this));
+		cards.getLastIndex()
+			.success(getCardByIndex.bind(this, 0))
+			.error(failedToStart.bind(this));
 
-		function getCard () {
+		function failedToStart (data, status) {
+			card.error({data: data, status: status });
+		}
+
+		function getCardByIndex (index, length) {
 			return cards.getCard(index)
-				.success(success.bind(this))
-				.error(failure.bind(this));
+				.success(successGetCard.bind(this, length))
+				.error(failGetCard.bind(this));
 		}
 
-		function success (responseData, status, headers, config) {
-			console.log("responsedata? ", responseData);
-			this.chars.push(responseData);
-			index += 1;
-			getCard.call(this, index);
-		}
-
-		function failure (data, status, headers, config) {
-			if (status !== 404) {
-				cards.error({ data: data, status: status, headers: headers, config: config });
+		function successGetCard (length, responseData, status, headers, config) {
+			if (responseData.id === null || responseData.id === undefined) {
+				this.loading = false;
+				return;
 			}
 
-			this.loading = false;
+			this.chars.push(responseData);
+			getCardByIndex.call(this, responseData.id + 1, length);
 		}
 
+		function failGetCard (data, status, headers, config) {
+			cards.error({ data: data, status: status, headers: headers, config: config });
+			this.loading = false;
+		}
 	}
+
 
 
 

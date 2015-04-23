@@ -6,4 +6,5 @@ class Character extends Model {
 
 	protected $table = "characters";
 
+
 }
