@@ -9,6 +9,45 @@ class GameController extends Controller {
 		//return $this->middleware("game");
 	}
 
+	public function getLastIndex () {
+		$lastIndex = DB::table("characters")
+			->last();
+
+		return response()->json($lastIndex);
+	}
+
+	/**
+	 * Returns a response containing a single row
+	 * @param {int} Index
+	 * @return Response
+	 * */
+	public function characterById ($id)
+	{
+		$data = DB::table("characters")
+			->whereId($id)
+			->first();
+
+		if (!$data) {
+			return response(null, 404);
+		}
+
+		return response()->json($data);
+	}
+
+	public function getNumberOfCharacters ($startId = 0, $numberOfEntries = 5)
+	{
+		$data = DB::table("characters")
+			->skip($startId)
+			->take($numberOfEntries)
+			->get();
+
+		if (!$data) {
+			return response(null, 404);
+		}
+
+		return response()->json($data);
+	}
+
 	/** @return Response */
 	public function characters ()
 	{

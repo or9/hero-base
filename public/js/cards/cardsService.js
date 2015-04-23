@@ -5,8 +5,31 @@
 
 	function cards($http) {
 
-		function getCards () {
-			return $http.get("/api/characters");
+		function getCard (cardId) {
+			return $http.get("/api/character/".concat(cardId));
+		}
+
+		function getEachCard (successCallback, failureCallback) {
+			var index = 0;
+			return getCard(index)
+				.success(successCallback)
+				.error(failureCallback);
+		}
+
+		function getCards (startId, limit) {
+			if (!startId) {
+				return $http.get("/api/characters");
+			}
+
+			return $http.get("/api/characters"
+					.concat("/")
+					.concat(startId)
+					.concat("?")
+					.concat(limit));
+		}
+
+		function getLastIndex () {
+			return $http.get("/api/characters/last");
 		}
 
 		function getForms () {
@@ -18,9 +41,12 @@
 		}
 
 		return {
+			getCard: getCard,
 			getCards: getCards,
+			getEachCard: getEachCard,
+			getLastIndex: getLastIndex,
 			getForms: getForms,
-			errorHandler: errorHandler
+			error: errorHandler
 		};
 	}
 
