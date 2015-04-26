@@ -1,9 +1,18 @@
 (function (app, undefined) {
 	"use strict";
 
-	app.factory("cards", cards);
+	app.factory("Card", CardApi);
 
-	function cards($http) {
+	function CardApi($http) {
+
+		return {
+			getCard: getCard,
+			getCards: getCards,
+			getEachCard: getEachCard,
+			getLastIndex: getLastIndex,
+			getForms: getForms,
+			error: errorHandler
+		};
 
 		function getCard (cardId) {
 			return $http.get("/api/character/".concat(cardId));
@@ -37,17 +46,8 @@
 		}
 
 		function errorHandler (err) {
-			console.log("cards service encountered an error: ", err);
+			console.log("Card service encountered an error: ", err);
 		}
-
-		return {
-			getCard: getCard,
-			getCards: getCards,
-			getEachCard: getEachCard,
-			getLastIndex: getLastIndex,
-			getForms: getForms,
-			error: errorHandler
-		};
 	}
 
 } (angular.module("cardgameApp")));

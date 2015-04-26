@@ -11,10 +11,10 @@
 
 
 	<script src="{{ asset('/js/app.js') }}"></script>
-	<script src="{{ asset('/js/cards/CardsCtrl.js') }}"></script>
-	<script src="{{ asset('/js/cards/cardsService.js') }}"></script>
+	<script src="{{ asset('/js/card/CardCtrl.js') }}"></script>
+	<script src="{{ asset('/js/card/CardService.js') }}"></script>
 	<script src="{{ asset('/js/scoreboard/ScoreboardCtrl.js') }}"></script>
-	<script src="{{ asset('/js/scoreboard/scoreboardService.js') }}"></script>
+	<script src="{{ asset('/js/scoreboard/ScoreboardService.js') }}"></script>
 
 
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">

@@ -13,8 +13,8 @@
 
 		$routeProvider
 			.when("/", {
-				templateUrl: "CardsView",
-				controller: "CardsCtrl"
+				templateUrl: "CardView",
+				controller: "CardCtrl"
 			})
 			.when("/scoreboard", {
 				templateUrl: "ScoreboardView",

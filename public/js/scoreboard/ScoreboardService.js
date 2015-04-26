@@ -1,9 +1,9 @@
 (function (app, undefined) {
 	"use strict";
 
-	app.factory("scoreboardService", scoreboard);
+	app.factory("Scoreboard", Scoreboard);
 
-	function scoreboard ($http) {
+	function Scoreboard ($http) {
 
 		function get () {
 			$http.get("/api/scoreboard");

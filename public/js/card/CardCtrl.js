@@ -1,15 +1,15 @@
 (function (app, undefined) {
 	"use strict";
 
-	app.controller("CardsCtrl", CardsController);
+	app.controller("CardCtrl", CardController);
 
-	CardsController.prototype.loading = true;
-	CardsController.prototype.chars = [];
+	CardController.prototype.loading = true;
+	CardController.prototype.chars = [];
 
-	function CardsController ($scope, cards) {
+	function CardController ($scope, Card) {
 		/*jshint validthis:true */
 
-		cards.getLastIndex()
+		Card.getLastIndex()
 			.success(getCardByIndex.bind(this, 0))
 			.error(failedToStart.bind(this));
 
@@ -18,7 +18,7 @@
 				return stop.call(this);
 			}
 
-			return cards.getCard(index)
+			return Card.getCard(index)
 				.success(successGetCard.bind(this, length))
 				.error(failGetCard.bind(this));
 		}
@@ -33,11 +33,11 @@
 		}
 
 		function failedToStart (data, status) {
-			card.error({data: data, status: status });
+			Card.error({data: data, status: status });
 		}
 
 		function failGetCard (data, status, headers, config) {
-			cards.error({ data: data, status: status, headers: headers, config: config });
+			Card.error({ data: data, status: status, headers: headers, config: config });
 			this.loading = false;
 		}
 	}
