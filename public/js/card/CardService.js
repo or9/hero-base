@@ -1,9 +1,9 @@
 (function (app, undefined) {
 	"use strict";
 
-	app.factory("Card", CardApi);
+	app.factory("cardService", CardService);
 
-	function CardApi($http) {
+	function CardService($http) {
 
 		return {
 			getCard: getCard,
