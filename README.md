@@ -29,6 +29,10 @@ php artisan db:seed
 ```
 php artisan serve
 ```
+###Testing
+```
+karma start
+```  
 
 ##Troubleshooting  
 ###General  
