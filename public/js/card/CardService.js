@@ -7,42 +7,21 @@
 
 		return {
 			getCard: getCard,
-			getCards: getCards,
-			getEachCard: getEachCard,
 			getLastIndex: getLastIndex,
 			getForms: getForms,
 			error: errorHandler
 		};
 
 		function getCard (cardId) {
-			return $http.get("/api/character/".concat(cardId));
-		}
-
-		function getEachCard (successCallback, failureCallback) {
-			var index = 0;
-			return getCard(index)
-				.success(successCallback)
-				.error(failureCallback);
-		}
-
-		function getCards (startId, limit) {
-			if (!startId) {
-				return $http.get("/api/characters");
-			}
-
-			return $http.get("/api/characters"
-					.concat("/")
-					.concat(startId)
-					.concat("?")
-					.concat(limit));
+			return $http.get("/api/character/".concat( cardId ));
 		}
 
 		function getLastIndex () {
-			return $http.get("/api/characters/last");
+			return $http.get("/api/characters/length");
 		}
 
-		function getForms () {
-			return $http.get("/api/forms");
+		function getForms (formId) {
+			return $http.get("/api/forms").concat( formId );
 		}
 
 		function errorHandler (err) {

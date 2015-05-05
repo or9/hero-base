@@ -8,8 +8,6 @@ describe("CardService", function () {
 	}));
 
 	["getCard",
-	"getCards",
-	"getEachCard",
 	"getLastIndex",
 	"getForms"].forEach(function (method) {
 			assertCardServiceReturnsPromise(method);

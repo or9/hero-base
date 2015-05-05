@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use DB;
+use Character;
 
 class GameController extends Controller {
 
@@ -9,67 +10,11 @@ class GameController extends Controller {
 		//return $this->middleware("game");
 	}
 
-	public function lastIndex ()
-	{
-		$lastIndex = DB::table("characters")
-			->orderBy("id", "desc")
-			->pluck("id");
-
-		return response()->json($lastIndex);
-	}
-
-	/**
-	 * Returns a response containing a single row
-	 * @param {int} Index
-	 * @return Response
-	 * */
-	public function characterById ($id)
-	{
-		$data = DB::table("characters")
-			->whereId($id)
-			->first();
-
-		return response()->json($data);
-	}
-
-	public function getNumberOfCharacters ($startId = 0, $numberOfEntries = 5)
-	{
-		$data = DB::table("characters")
-			->skip($startId)
-			->take($numberOfEntries)
-			->get();
-
-		if (!$data) {
-			return response(null, 404);
-		}
-
-		return response()->json($data);
-	}
-
-	/** @return Response */
-	public function characters ()
-	{
-		$data = $this::getAllFromTable("characters");
-		return response()->json($data);
-	}
-
-	/** @return Response */
-	public function forms ()
-	{
-		$data = $this::getAllFromTable("forms");
-		return response()->json($data);
-	}
-
 	/** @return Response */
 	public function scoreboard ()
 	{
 		$data = $this::getAllFromTable("scoreboard");
 		return response()->json($data);
-	}
-
-	private static function getAllFromTable ($table)
-	{
-		return DB::select("select * from " . $table);
 	}
 
 }

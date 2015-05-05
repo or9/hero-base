@@ -10,13 +10,17 @@
 	<script src="{{ asset('/vendor/angular-route/angular-route.min.js') }}"></script>
 
 
+
 	<script src="{{ asset('/js/app.js') }}"></script>
+	<script src="{{ asset('/js/card/directive.js') }}"></script>
 	<script src="{{ asset('/js/card/CardCtrl.js') }}"></script>
 	<script src="{{ asset('/js/card/CardService.js') }}"></script>
+	<script src="{{ asset('/js/game/ctrl.js') }}"></script>
 	<script src="{{ asset('/js/scoreboard/ScoreboardCtrl.js') }}"></script>
 	<script src="{{ asset('/js/scoreboard/ScoreboardService.js') }}"></script>
 
 
+	<link href="{{ asset('/css/base.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
 	<!-- Fonts -->
@@ -31,8 +35,7 @@
 </head>
 <body ng-app="cardgameApp">
 	<h1>Hero Cards</h1>
-	<nav class="">
-	</nav>
+	<nav class=""></nav>
 
 	@yield("content")
 

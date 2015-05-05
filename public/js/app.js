@@ -13,11 +13,15 @@
 
 		$routeProvider
 			.when("/", {
-				templateUrl: "CardView.html",
+				templateUrl: "js/card/view.html",
 				controller: "CardCtrl"
 			})
+			.when("/game", {
+				templateUrl: "js/game/view.html",
+				controller: "GameCtrl"
+			})
 			.when("/scoreboard", {
-				templateUrl: "ScoreboardView.html",
+				templateUrl: "js/scoreboard/view.html",
 				controller: "ScoreboardCtrl"
 			})
 			.otherwise({

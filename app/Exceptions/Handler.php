@@ -25,7 +25,9 @@ class Handler extends ExceptionHandler {
 	 */
 	public function report(Exception $e)
 	{
+
 		return parent::report($e);
+
 	}
 
 	/**
@@ -37,11 +39,16 @@ class Handler extends ExceptionHandler {
 	 */
 	public function render($request, Exception $e)
 	{
-		if($this->isHttpException($e)) {
+		$pageNotFound = $this->isHttpException($e) && $e->getStatusCode() === 404;
+
+		if ($e instanceof ModelNotFoundException) {
+			// model not found exception
+			var_dump("model not found exception: " . $e);
+		}
+
+		if ($pageNotFound) {
 			// echo route("index");
-			if($e->getStatusCode() == 404) {
-				// do stuff
-			}
+			return redirect()->route("index");
 
 		}
 

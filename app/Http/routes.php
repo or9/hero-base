@@ -7,11 +7,9 @@ Route::get("/", [
 
 // API
 Route::group(["prefix" => "api"], function() {
-	Route::get("characters", "GameController@characters");
-	Route::get("characters/{startId?}?{numberOfEntries?}", "GameController@getNumberOfCharacters");
-	Route::get("characters/last", "GameController@lastIndex");
-	Route::get("character/{id?}", "GameController@characterById");
-
-	Route::get("forms", "GameController@forms");
+	Route::get("characters/length", "CardController@length");
+	Route::get("character/{id?}", "CardController@character");
+	Route::get("form/{id?}", "CardController@form");
 	Route::get("scoreboard", "GameController@scoreboard");
 });
+

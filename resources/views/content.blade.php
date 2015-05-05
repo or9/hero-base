@@ -1,14 +1,11 @@
 @extends('app')
 @section('content')
 
-<section id="content" ng-controller="CardCtrl as cards">
-	<h2>Start</h2>
-	<p>loading: [[ cards.loading ]]</p>
+<section id="content">
 
-	<ul class="card" id="card[[ char.id ]]" ng-repeat="char in cards.chars">
-		<li>[[ char.name ]]</li>
-		<li>[[ char.id ]]</li>
-	</ul>
+	<!--ng-view></ng-view-->
+	<card-list></card-list>
+	<div id="game" ng-controller="GameCtrl as game"></div>
 
 </section>
 
