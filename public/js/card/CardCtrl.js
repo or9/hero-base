@@ -3,11 +3,14 @@
 
 	app.controller("CardCtrl", CardController);
 
-	CardController.prototype.loading = true;
-	CardController.prototype.chars = [];
+	//CardController.prototype.loading = true;
+	//CardController.prototype.chars = [];
 
 	function CardController ($scope, cardService) {
 		/*jshint validthis:true */
+
+		$scope.loading = true;
+		$scope.chars = [];
 
 		cardService.getLastIndex()
 			.success(getCardByIndex.bind(this, 0))
@@ -24,12 +27,14 @@
 		}
 
 		function successGetCard (length, responseData, status, headers, config) {
-			this.chars.push(responseData);
+			//this.chars.push(responseData);
+			$scope.chars.push(responseData);
 			getCardByIndex.call(this, responseData.id + 1, length);
 		}
 
 		function stop () {
-			this.loading = false;
+			$scope.loading = false;
+			//this.loading = false;
 		}
 
 		function failedToStart (data, status) {
@@ -38,7 +43,8 @@
 
 		function failGetCard (data, status, headers, config) {
 			cardService.error({ data: data, status: status, headers: headers, config: config });
-			this.loading = false;
+			$scope.loading = false;
+			//this.loading = false;
 		}
 	}
 

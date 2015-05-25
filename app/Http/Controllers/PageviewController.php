@@ -2,6 +2,7 @@
 
 // use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Route;
 
 // use Illuminate\Http\Request;
 // use DB;
@@ -15,6 +16,7 @@ class PageviewController extends Controller {
 	 */
 	public function index()
 	{
+		// currentRouteName is index1
 		return view("content");
 	}
 

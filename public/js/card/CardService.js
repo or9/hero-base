@@ -8,7 +8,7 @@
 		return {
 			getCard: getCard,
 			getLastIndex: getLastIndex,
-			getForms: getForms,
+			getForm: getForm,
 			error: errorHandler
 		};
 
@@ -20,8 +20,8 @@
 			return $http.get("/api/characters/length");
 		}
 
-		function getForms (formId) {
-			return $http.get("/api/forms").concat( formId );
+		function getForm (formId) {
+			return $http.get("/api/form/".concat( formId ));
 		}
 
 		function errorHandler (err) {

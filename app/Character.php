@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Character extends Model {
 
 	protected $table = "characters";
+
 	protected $guarded = ["*"];
 
 	public $timestamps = false;
@@ -13,6 +14,9 @@ class Character extends Model {
 	public function form ()
 	{
 		return $this->hasOne("App\Form");
+	}
+
+	public function initialForm () {
 	}
 
 	/*

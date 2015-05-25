@@ -8,6 +8,6 @@ class Form extends Model {
 
 	public $timestamps = false;
 
-	protected $guarded["*"];
+	protected $guarded = ["*"];
 
 }
