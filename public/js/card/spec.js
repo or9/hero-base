@@ -5,7 +5,6 @@ describe("CardCtrl", function () {
 		scope,
 		$httpBackend;
 
-	var mockCardService = {};
 	var mockChar = {"id":0,"name":"ʾalif","translit":""};
 	var mockForm = {};
 
@@ -37,41 +36,6 @@ describe("CardCtrl", function () {
 		module("cardgameApp", function ($provide) {
 			//$provide.factory("cardService", ["$q", mockCardFactory]);
 		});
-
-		//inject(setupService);
-	}
-
-	function setupModule ($provide) {
-		console.log("ferfucksakes");
-		//$provide.value("cardService", mockCardService);
-		$provide.factory("cardService", ["$q", mockCardFactory]);
-	}
-
-	function setupService ($q) {
-		mockCardService = {
-			getLastIndex: function getLength () {
-				var defer = $q.defer();
-				var len = Object.keys(mockChar).length;
-				defer.resolve(len);
-				return defer.promise;
-			},
-			getForm: function getForm () {
-				var defer = $q.defer();
-				defer.resolve(mockForm);
-				return defer.promise;
-			},
-			getCard: function getChar () {
-				var defer = $q.defer();
-				defer.resolve(mockChar);
-				return defer.promise;
-			},
-			error: function errHandler () {
-				var defer = $q.defer();
-				defer.reject("Not tonight! QQ");
-				return defer.promise;
-			}
-
-		};
 	}
 
 	function setupController (_$rootScope_, _$controller_, _$httpBackend_, cardService) {
@@ -98,33 +62,6 @@ describe("CardCtrl", function () {
 
 		scope.$digest();
 
-	}
-
-	function mockCardFactory ($q) {
-		return {
-			getLastIndex: function getLength () {
-				var defer = $q.defer();
-				var len = Object.keys(mockChar).length;
-				defer.resolve(len);
-				return defer.promise;
-			},
-			getForm: function getForm () {
-				var defer = $q.defer();
-				defer.resolve(mockForm);
-				return defer.promise;
-			},
-			getCard: function getChar () {
-				var defer = $q.defer();
-				defer.resolve(mockChar);
-				return defer.promise;
-			},
-			error: function errHandler () {
-				var defer = $q.defer();
-				defer.reject("Not tonight! QQ");
-				return defer.promise;
-			}
-
-		};
 	}
 
 	function cleanupAfterEach () {
