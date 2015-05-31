@@ -15,10 +15,10 @@ describe("CardCtrl", function () {
 	describe("#(init)", function () {
 		it("should have status `loading` upon initialization", function () {
 
-			scope.loading.should.be.true;
+			scope.cards.loading.should.be.true;
 			$httpBackend.flush();
 			scope.$digest();
-			scope.loading.should.be.false;
+			scope.cards.loading.should.be.false;
 
 		});
 
@@ -26,7 +26,7 @@ describe("CardCtrl", function () {
 
 			$httpBackend.flush();
 			scope.$digest();
-			scope.chars.length.should.equal(1);
+			scope.cards.chars.length.should.equal(1);
 
 		});
 
@@ -55,7 +55,8 @@ describe("CardCtrl", function () {
 		$httpBackend.whenGET(url.form).respond( mockForm );
 
 
-		ctrl = _$controller_("CardCtrl", {
+		// use `Ctrl as ctrl` syntax to get scope.ctrl
+		ctrl = _$controller_("CardCtrl as cards", {
 			$scope: scope,
 			cardService: cardService
 		});

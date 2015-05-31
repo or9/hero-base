@@ -5,9 +5,14 @@
 
 	function CardService($http) {
 
+		var cardsListLength = getLastIndex();
+
 		return {
 			getCard: getCard,
 			getLastIndex: getLastIndex,
+			get cardsListLength () {
+				return cardsListLength;
+			},
 			getForm: getForm,
 			error: errorHandler
 		};

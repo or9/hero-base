@@ -1,6 +1,6 @@
 @extends("app")
 @section("footer")
 
-{{ time() }}
+&copy; &hellip; {{ time() }}
 
 @endsection

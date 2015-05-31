@@ -3,14 +3,18 @@
 
 	app.controller("CardCtrl", CardController);
 
-	//CardController.prototype.loading = true;
-	//CardController.prototype.chars = [];
+	CardController.prototype.loading = true;
+	CardController.prototype.chars = [];
 
 	function CardController ($scope, cardService) {
 		/*jshint validthis:true */
 
-		$scope.loading = true;
-		$scope.chars = [];
+		this.loading = true;
+		this.chars = [];
+
+		var tries = 0;
+		var currentIndex = 0;
+		//var length = cardService.cardsListLength;
 
 		cardService.getLastIndex()
 			.success(getCardByIndex.bind(this, 0))
@@ -21,30 +25,40 @@
 				return stop.call(this);
 			}
 
+			this.loading = true;
+			tries += 1;
+
 			return cardService.getCard(index)
 				.success(successGetCard.bind(this, length))
-				.error(failGetCard.bind(this));
+				.error(failGetCard.bind(this, index, length));
 		}
 
 		function successGetCard (length, responseData, status, headers, config) {
-			//this.chars.push(responseData);
-			$scope.chars.push(responseData);
 			getCardByIndex.call(this, responseData.id + 1, length);
+
+			currentIndex += 1;
+			tries = 0;
+
+			this.chars.push(responseData);
 		}
 
 		function stop () {
-			$scope.loading = false;
-			//this.loading = false;
+			this.loading = false;
 		}
 
 		function failedToStart (data, status) {
 			cardService.error({data: data, status: status });
+			stop.bind(this);
+
 		}
 
-		function failGetCard (data, status, headers, config) {
-			cardService.error({ data: data, status: status, headers: headers, config: config });
-			$scope.loading = false;
-			//this.loading = false;
+		function failGetCard (index, length, data, status, headers, config) {
+			cardService.error({ index: index, data: data, status: status, headers: headers, config: config });
+			if (tries >= 5) {
+				return;
+			}
+
+			return cardService.getCard.call(this, index, length);
 		}
 	}
 

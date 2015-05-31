@@ -14,15 +14,18 @@
 		$routeProvider
 			.when("/", {
 				templateUrl: "js/card/view.html",
-				controller: "CardCtrl"
+				controller: "CardCtrl",
+				controllerAs: "cards"
 			})
 			.when("/game", {
 				templateUrl: "js/game/view.html",
-				controller: "GameCtrl"
+				controller: "Game",
+				controllerAs: "game"
 			})
 			.when("/scoreboard", {
 				templateUrl: "js/scoreboard/view.html",
-				controller: "ScoreboardCtrl"
+				controller: "ctrl.scoreboard",
+				controllerAs: "scoreboard"
 			})
 			.otherwise({
 				redirectTo: "/"

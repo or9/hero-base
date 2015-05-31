@@ -1,13 +1,7 @@
-<section>
+<section class="loading [[ cards.loading ]]">
 		<h2>Start</h2>
 		<p>loading: [[ cards.loading ]]</p>
 
-		<ul class="card"
-			ng-repeat="char in cards.chars"
-			id="card[[ char.id ]]">
+		<card-list></card-list>
 
-			<li>[[ char.name ]]</li>
-			<li>[[ char.id ]]</li>
-
-		</ul>
 </section>

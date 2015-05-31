@@ -5,7 +5,7 @@
 	function Directive () {
 		return {
 			scope: true,
-			templateUrl: "js/card/view.html",
+			templateUrl: "card.html",
 			replace: true,
 			controller: "CardCtrl",
 			controllerAs: "cards"
