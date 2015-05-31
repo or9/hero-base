@@ -20,6 +20,7 @@ module.exports = function(config) {
 	'public/vendor/angular-route/angular-route.js',
 	'node_modules/angular-mocks/angular-mocks.js',
 	'public/js/lib/util.js',
+	'public/js/**/*.html',
 	'public/js/**/*.js',
 	'public/js/**/spec.*.js'
     ],
@@ -38,7 +39,13 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
 	//"public/**/*.js": ["coverage"]
+	"**/*.html": ["ng-html2js"]
     },
+
+	ngHtml2JsPreprocessor: {
+		stripPrefix: "public/",
+		moduleName: "templates"
+	},
 
 
     // test results reporter to use

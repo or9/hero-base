@@ -13,6 +13,16 @@ describe("CardCtrl", function () {
 	afterEach(cleanupAfterEach);
 
 	describe("#(init)", function () {
+		it("Should initialize controller scope", function() {
+			scope.cards.should.deep.equal({
+				loading: true,
+				chars: [],
+				selected: null
+			});
+
+			$httpBackend.flush();
+		});
+
 		it("should have status `loading` upon initialization", function () {
 
 			scope.cards.loading.should.be.true;
@@ -29,6 +39,7 @@ describe("CardCtrl", function () {
 			scope.cards.chars.length.should.equal(1);
 
 		});
+
 
 	});
 

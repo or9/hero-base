@@ -5,12 +5,14 @@
 
 	CardController.prototype.loading = true;
 	CardController.prototype.chars = [];
+	CardController.prototype.selected = null;
 
 	function CardController ($scope, cardService) {
 		/*jshint validthis:true */
 
 		this.loading = true;
 		this.chars = [];
+		this.selected = null;
 
 		var tries = 0;
 		var currentIndex = 0;
