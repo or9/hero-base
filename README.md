@@ -39,7 +39,8 @@ karma start
 `composer dump-autoload`  
 
 ###Testing  
-Avoid using `this` as `$scope`. It may work in browsers, but will break in PhantomJS in your tests. The version of PhantomJS that Karma uses is old and doesn't have bind, so it loads a polyfill, and that may be what causes it to break. Or maybe it's just that AngularJS isn't meant for testing. Possibly use `angular.bind`, e.g., `angular.bind(this, nextFn)`
+Using `this` rather than `$scope` can be problematic. It may work in browsers, but will break in PhantomJS in your tests. Maybe it's just that AngularJS isn't meant for testing. Possibly use `angular.bind`, e.g., `angular.bind(this, nextFn)`  
+Resolution: use `MyCtrl as myctrl` and `scope.myctrl.prop` to test values.
 
 ###Mac
 Issue: `Abort trap: 6`  

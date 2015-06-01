@@ -36,10 +36,36 @@
 			error: errorHandler
 		};
 
+		/**
+		 * Sends answer request to server. Expects success with true or false
+		 * @param cardId [string]
+		 * @return Promise
+		 */
 		function answer (cardId) {
-			return $http.post("/api/answer/".concat( cardId ));
+			tries += 1;
+
+			return $http.post("/api/answer/".concat( cardId ))
+				.then(success, failure);
+
+			function success (response) {
+				tries = 0;
+				return response.data;
+			}
+
+			function failure (data, status) {
+				if (tries >= retryLimit) {
+					return;
+				} else {
+					return answer(cardId);
+				}
+			}
 		}
 
+		/**
+		 * Returns a card with specified ID
+		 * @param index [int]
+		 * @return card [object]
+		 */
 		function getCard (index) {
 			loading = true;
 			var card = getbyId(index, cards);
@@ -48,6 +74,11 @@
 			return card;
 		}
 
+		/**
+		 * Returns a card's form with specified ID
+		 * @param index [int]
+		 * @return form [object]
+		 */
 		function getForm (index) {
 			loading = true;
 			var form = getbyId(index, forms);
@@ -56,6 +87,11 @@
 			return form;
 		}
 
+		/**
+		 * Gets relevant object from associated array
+		 * @private
+		 * @return card|form [object]
+		 */
 		function getbyId (index, arr) {
 			var i = 0;
 			index = index.toString();
@@ -70,6 +106,10 @@
 
 		}
 
+		/**
+		 * Load all cards
+		 * @return void
+		 */
 		function populateCards () {
 			loading = true;
 
@@ -82,6 +122,11 @@
 
 		}
 
+		/**
+		 * Request JSON card object from server and push to array of cards
+		 * @param cardId [string]
+		 * @return Promise
+		 */
 		function requestCard (cardId) {
 			tries += 1;
 
@@ -100,6 +145,10 @@
 				});
 		}
 
+		/**
+		 * Gets the length of array from server
+		 * @return Promise
+		 */
 		function requestLastIndex () {
 			tries += 1;
 
@@ -118,6 +167,11 @@
 				});
 		}
 
+		/**
+		 * Request JSON form object from server and push to array of forms
+		 * @param formId [string]
+		 * @return Promise
+		 */
 		function requestForm (formId) {
 			tries += 1;
 

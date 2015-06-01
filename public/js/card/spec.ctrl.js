@@ -63,20 +63,34 @@ describe("CardCtrl", function () {
 	describe("#answer", function () {
 		it("should make a request with the selected answer", function () {
 			scope.cards.selected = 0;
-			scope.$digest();
 			$httpBackend.expectPOST("/api/answer/0").respond(200, { status: true });
+			scope.cards.answer();
+			$httpBackend.flush();
+
+		});
+
+		it("should reset selected card upon true answer", function () {
+			scope.cards.selected = 0;
+			$httpBackend.expectPOST("/api/answer/0").respond(200, { status: true });
+			scope.cards.loading.should.be.true;
+			scope.cards.answer();
+			$httpBackend.flush();
+
+			scope.cards.loading.should.be.false;
+			var selected = scope.cards.selected;
+			expect(selected).to.be.null;
+
+		});
+
+		it("Should not reset selected upon false answer", function () {
+			scope.cards.selected = 0;
+			$httpBackend.expectPOST("/api/answer/0").respond(200, { status: false });
 
 			scope.cards.answer();
-
 			$httpBackend.flush();
-		});
 
-		it("should handle success", function () {
-			$httpBackend.flush();
-		});
-
-		it("should handle failure", function () {
-			$httpBackend.flush();
+			scope.cards.loading.should.be.false;
+			scope.cards.selected.should.equal(0);
 		});
 
 	});

@@ -12,15 +12,35 @@
 		this.select = select.bind(this);
 		this.answer = answer.bind(this);
 
+		checkInitStatus.call(this);
+
 		function select (cardId) {
 			this.selected = cardId;
 		}
 
 		function answer () {
-			cardService.answer(this.selected);
+			this.loading = true;
+			cardService.answer(this.selected)
+				.then(	answerSuccess.bind(this));
 		}
 
-		checkInitStatus.call(this);
+		function answerSuccess (responseData) {
+			this.loading = false;
+
+			if (responseData.status === true) {
+				correct.call(this);
+			} else {
+				incorrect.call(this);
+			}
+
+		}
+
+		function correct () {
+			this.selected = null;
+		}
+
+		function incorrect () {
+		}
 
 		function checkInitStatus () {
 			var isReady = cardService.lastIndex !== 0;
