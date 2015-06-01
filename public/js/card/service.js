@@ -30,10 +30,15 @@
 			get lastIndex() {
 				return lastIndex;
 			},
+			answer: answer,
 			getCard: getCard,
 			getForm: getForm,
 			error: errorHandler
 		};
+
+		function answer (cardId) {
+			return $http.post("/api/answer/".concat( cardId ));
+		}
 
 		function getCard (index) {
 			loading = true;

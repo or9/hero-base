@@ -9,7 +9,6 @@ describe("CardService", function () {
 	"getForm",
 	"error"].forEach(function (method) {
 		it("should reveal a method " + method, function() {
-			//var response = cardService[method]();
 			cardService[method].should.not.be.null;
 		});
 	});

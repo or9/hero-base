@@ -7,9 +7,18 @@
 		/*jshint validthis:true */
 
 		this.loading = true;
-		this.ready = false;
 		this.chars = cardService.cards;
 		this.selected = null;
+		this.select = select.bind(this);
+		this.answer = answer.bind(this);
+
+		function select (cardId) {
+			this.selected = cardId;
+		}
+
+		function answer () {
+			cardService.answer(this.selected);
+		}
 
 		checkInitStatus.call(this);
 
