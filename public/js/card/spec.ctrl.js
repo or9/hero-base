@@ -17,20 +17,13 @@ describe("CardCtrl", function () {
 			scope.cards.should.deep.equal({
 				loading: true,
 				chars: [],
-				selected: null
+				selected: null,
+				ready: false
 			});
 
 			$httpBackend.flush();
 		});
 
-		it("should have status `loading` upon initialization", function () {
-
-			scope.cards.loading.should.be.true;
-			$httpBackend.flush();
-			scope.$digest();
-			scope.cards.loading.should.be.false;
-
-		});
 
 		it("Should immediately add card models to scope", function () {
 

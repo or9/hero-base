@@ -3,7 +3,6 @@
 	app.directive("cardList", Directive);
 
 	function Directive () {
-		console.log("directiving");
 		return {
 			scope: true,
 			templateUrl: function (e, attr) {

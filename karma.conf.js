@@ -38,14 +38,9 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-	//"public/**/*.js": ["coverage"]
-	"**/*.html": ["ng-html2js"]
+	// "public/**/*.js": ["coverage"]
+	// "**/*.html": ["ng-html2js"]
     },
-
-	ngHtml2JsPreprocessor: {
-		stripPrefix: "public/",
-		moduleName: "templates"
-	},
 
 
     // test results reporter to use
