@@ -1,10 +1,12 @@
-(function (app, undefined) {
+(function (app, doc, undefined) {
 	"use strict";
 
 	app.controller("CardCtrl", cardController);
 
 	function cardController ($scope, cardService) {
 		/*jshint validthis:true */
+
+		var selectedClass = "selected";
 
 		this.loading = true;
 		this.chars = cardService.cards;
@@ -15,7 +17,14 @@
 		checkInitStatus.call(this);
 
 		function select (cardId) {
+			var previous = doc.getElementById("card" + this.selected);
+			if (previous) {
+				previous.classList.remove("selected");
+			}
+
 			this.selected = cardId;
+			doc.getElementById("card" + cardId)
+				.classList.add(selectedClass);
 		}
 
 		function answer () {
@@ -36,6 +45,8 @@
 		}
 
 		function correct () {
+			doc.getElementById("card" + this.selected)
+				.classList.remove(selectedClass);
 			this.selected = null;
 		}
 
@@ -62,4 +73,4 @@
 	}
 
 
-} (angular.module("cardgameApp")));
+} (angular.module("cardgameApp"), document));

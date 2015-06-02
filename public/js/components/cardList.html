@@ -1,6 +1,8 @@
 <ul class="cardlist"
 	ng-repeat="char in cards.chars"
-	id="card[[ char.id ]]">
+	id="card[[ char.id ]]"
+ 	ng-click="cards.select(char.id)"
+	>
 
 	<li>[[ char.name ]]</li>
 	<li>[[ char.id ]]</li>

@@ -8,9 +8,13 @@ describe("CardCtrl", function () {
 
 	var mockChar = {"id":0,"name":"ʾalif","translit":""};
 	var mockForm = {};
-	var cardElementHtml = "<ul ng-click='cards.select(0)' id='card0'>" +
-		"<li>ʾalif<li>" +
+	var cardElementHtml = "<ul ng-click='cards.select(0)' id='card0' class='card'>" +
+		"<li>test1<li>" +
 		"<li>0</li>";
+	var cardElement2Html = "<ul ng-click='cards.select(1)' id='card1' class='card'>" +
+		"<li>test2<li>" +
+		"<li>1</li>";
+
 
 	beforeEach(module("cardgameApp"));
 	beforeEach(inject(setupController));
@@ -50,12 +54,29 @@ describe("CardCtrl", function () {
 		it("should set the selected element to selected property", function () {
 
 			var element = $compile(cardElementHtml)(scope);
+			document.body.appendChild(element[0]);
 			element[0].click();
 			scope.$digest();
 			scope.cards.selected.should.equal(0);
 
 			$httpBackend.flush();
 
+		});
+
+		it("should unselect a previous element", function () {
+
+			var body = document.body;
+			var element = $compile(cardElementHtml)(scope)[0];
+			var element2 = $compile(cardElement2Html)(scope)[0];
+			body.appendChild(element);
+			body.appendChild(element2);
+			element.click();
+			element2.click();
+			scope.cards.selected.should.equal(1);
+			element2.classList.contains("selected").should.be.true;
+			element.classList.contains("selected").should.be.false;
+
+			$httpBackend.flush();
 		});
 
 	});
