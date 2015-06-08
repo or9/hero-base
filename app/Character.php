@@ -10,10 +10,16 @@ class Character extends Model {
 
 	public $timestamps = false;
 
+	/**
+	 * Will hold references to each card retrieved from DB
+	 */
+	public static $charList = [];
+
 
 	public function form ()
 	{
-		return $this->hasOne("App\Form");
+		// first arg is model, second is foreign key name
+		return $this->hasOne("App\Form", "fk_id_characters");
 	}
 
 	public function initialForm () {

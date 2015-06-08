@@ -22,12 +22,13 @@ class CardController extends Controller {
 	}
 
 	/** @return Response */
-	public function form ($id)
+	public function form ($id = null)
 	{
 
-		if (!$id && $id !== 0) {
-
-			$data = $this::getAllFromTable("forms");
+		if (!$id && (string)$id !== "0") {
+			//$data = Character::find("*")->form;
+			$data = Character::with("form")->get();
+			var_dump($data[0]);
 
 		} else {
 
@@ -44,9 +45,9 @@ class CardController extends Controller {
 	 * @param {int?} Index
 	 * @return Response
 	 * */
-	public function character ($id)
+	public function character ($id = null)
 	{
-		if (!$id && $id * 1 !== 0) {
+		if (!$id && (string)$id !== "0") {
 
 			$data = Character::all();
 

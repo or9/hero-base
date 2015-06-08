@@ -1,3 +1,4 @@
+var gulp = require("gulp");
 var elixir = require('laravel-elixir');
 var util = require("gulp-util");
 var exec = require("child_process").exec;
@@ -10,19 +11,16 @@ gulp.task("watch", watch);
 gulp.task("default", ["phpunit", "watch"]);
 
 
-/*
- |--------------------------------------------------------------------------
- | Elixir Asset Management
- |--------------------------------------------------------------------------
- |
- | Elixir provides a clean, fluent API for defining some basic Gulp tasks
- | for your Laravel application. By default, we are compiling the Less
- | file for our application, as well as publishing vendor resources.
- |
- */
-
 elixir(function(mix) {
     mix.less('app.less');
+
+    mix.task("karmaunit", ["public/js/**/spec.*",
+			"gulpfile.js"]);
+
+    mix.task("phpunit", ["tests/**/*",
+			"app/**/*.php",
+			"bootstrap/**/*.php",
+			"resources/**/*"]);
 });
 
 function phpunit () {
@@ -42,9 +40,10 @@ function watch () {
 	gulp.watch([
 		"app/**/*.php",
 		"tests/**/*",
-		"resources/**/*.php",
+		"resources/**/*",
 		"bootstrap/**/*.php",
-		"public/**/*",
+		"public/**/*.js",
+		"public/**/*.html",
 		"gulpfile.js"
 
 	], ["phpunit", "karmaunit"]);

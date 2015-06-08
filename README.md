@@ -31,12 +31,24 @@ php artisan serve
 ```
 ###Testing
 ```
-karma start
+grunt watch
 ```  
+Laravel bootstraps the application with `elixer` so this can interfere with normal `gulp watch` style tasks. Solution is to put them into `elixer` configuration. First inclination is to delete `elixer`, but it's pretty cool. Instead of running all tasks, it will only run the relevant ones. For instance,  
+```
+elixir(function(mix) {
+    mix.less('app.less');
+
+    mix.task("karmaunit", ["public/**/*.js", "public/**/*.html"]);
+
+    mix.task("phpunit", ["tests/**/*", "app/**/*.php", "resources/**/*"]);
+});
+```  
+The above tasks will run their corresponding portions only. If Javascript or HTML is changed, `karma` will run unit tests; if PHP files and tests are changed, `phpunit` will run; and if styles are changed in their default Laravel pattern, the `less` task will run. This prevents the output from getting cluttered, and allows the most relevant tests or tasks to be seen easily.
 
 ##Troubleshooting  
 ###General  
 `composer dump-autoload`  
+Logging: `var_dump` or `print_r`  
 
 ###Testing  
 Using `this` rather than `$scope` can be problematic. It may work in browsers, but will break in PhantomJS in your tests. Maybe it's just that AngularJS isn't meant for testing. Possibly use `angular.bind`, e.g., `angular.bind(this, nextFn)`  
