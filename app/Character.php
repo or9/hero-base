@@ -22,7 +22,8 @@ class Character extends Model {
 		return $this->hasOne("App\Form", "fk_id_characters");
 	}
 
-	public function initialForm () {
+	public function initialForm ()
+	{
 	}
 
 	/*
@@ -31,7 +32,5 @@ class Character extends Model {
 		return $this->hasMany("App\Diacrytic");
 	}
 	*/
-
-
 
 }
