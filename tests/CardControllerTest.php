@@ -2,6 +2,10 @@
 
 class CardControllerTest extends TestCase {
 
+	public function __construct ()
+	{
+	}
+
 	/**
 	 * A basic functional test example.
 	 *

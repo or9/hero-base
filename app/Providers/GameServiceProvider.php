@@ -2,7 +2,7 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class SomethingProvider extends ServiceProvider {
+class GameServiceProvider extends ServiceProvider {
 
 	/**
 	 * Bootstrap the application services.
@@ -21,7 +21,10 @@ class SomethingProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		$this->app->singleton("GameService", function ($app)
+		{
+			return new GameService();
+		});
 	}
 
 }
