@@ -28,7 +28,7 @@ class CardController extends Controller {
 		if (!$id && (string)$id !== "0") {
 			//$data = Character::find("*")->form;
 			$data = Character::with("form")->get();
-			var_dump($data[0]);
+			//var_dump($data[0]);
 
 		} else {
 
