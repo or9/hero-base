@@ -1,17 +1,13 @@
 <?php namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Services\GameService;
 
 class GameServiceProvider extends ServiceProvider {
 
-	/**
-	 * Bootstrap the application services.
-	 *
-	 * @return void
-	 */
-	public function boot()
+	public function boot ()
 	{
-		//
+		// wtf
 	}
 
 	/**
@@ -21,10 +17,15 @@ class GameServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+		// DO NOT use full namespace here
 		$this->app->singleton("GameService", function ($app)
 		{
 			return new GameService();
 		});
+
+		//$gameService = new GameService();
+
+		//$this->app->instance("GameService", $gameService);
 	}
 
 }

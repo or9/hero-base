@@ -1,9 +1,26 @@
 <?php
 
+use \App\Services\GameService;
+//use \App\Http\Controllers\CardController;
+
 class CardControllerTest extends TestCase {
 
-	public function __construct ()
+	private $gameService;
+	//private $cardController;
+
+	public function setUp ()
 	{
+		parent::setUp();
+		$this->gameService = Mockery::mock("GameService");
+		$this->app->instance("\App\Services\GameService",
+			$this->gameService);
+		//$this->cardController = new CardController($this->gameServiceMock);
+	}
+
+	public function tearDown ()
+	{
+		Mockery::close();
+		parent::tearDown();
 	}
 
 	/**
@@ -58,5 +75,22 @@ class CardControllerTest extends TestCase {
 	{
 		$response = $this->call("get", "/api/form");
 		$this->assertEquals(200, $response->getStatusCode());
+	}
+
+	/**
+	 * Should update GameService with values
+	 * @return void
+	 */
+	public function testCallGameService ()
+	{
+
+		//$this->gameService->shouldReceive("add")->once()->andReturn(array());
+
+		$this->call("GET", "/api/character");
+		$this->action("GET", "CardController@character");
+
+		//$this->gameService->add(1234);
+
+		//$this->assertGreaterThan(0, $gameService->countRemaining());
 	}
 }

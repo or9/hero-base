@@ -49,6 +49,7 @@ The above tasks will run their corresponding portions only. If Javascript or HTM
 ###General  
 `composer dump-autoload`  
 Logging: `var_dump` or `print_r`  
+Laravel will not load your provider files correctly. You _must_ do a `composer dump-autoload` as well as a `composer update` in order for it to load a new provider. Otherwise you'll be confused.
 
 ###Testing  
 Using `this` rather than `$scope` can be problematic. It may work in browsers, but will break in PhantomJS in your tests. Maybe it's just that AngularJS isn't meant for testing. Possibly use `angular.bind`, e.g., `angular.bind(this, nextFn)`  

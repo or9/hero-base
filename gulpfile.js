@@ -19,6 +19,7 @@ elixir(function(mix) {
 
     mix.task("phpunit", ["tests/**/*",
 			"app/**/*.php",
+			"config/**/*.php",
 			"bootstrap/**/*.php",
 			"resources/**/*"]);
 });

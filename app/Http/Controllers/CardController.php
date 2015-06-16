@@ -2,12 +2,21 @@
 
 use DB;
 use App\Character;
+use App\Services\GameService as GameService;
+//use App;
 
 class CardController extends Controller {
 
-	public function __construct ()
+	private $gameService;
+
+	/**
+	 * constructs a CardController
+	 * @param GameService
+	 * @return void
+	 */
+	public function __construct (GameService $gameService)
 	{
-		//return $this->middleware("game");
+		$this->gameService = $gameService;
 	}
 
 	/**
@@ -26,7 +35,6 @@ class CardController extends Controller {
 	{
 
 		if (!$id && (string)$id !== "0") {
-			//$data = Character::find("*")->form;
 			$data = Character::with("form")->get();
 			//var_dump($data[0]);
 
@@ -41,7 +49,7 @@ class CardController extends Controller {
 	}
 
 	/**
-	 * Returns a response containing a single row
+	 * Returns a response containing a single row or all rows
 	 * @param {int?} Index
 	 * @return Response
 	 * */
@@ -50,12 +58,17 @@ class CardController extends Controller {
 		if (!$id && (string)$id !== "0") {
 
 			$data = Character::all();
+			$data = $data[0];
 
 		} else {
 
 			$data = Character::find($id);
 
 		}
+
+		print_r($this->gameService);
+		$this->gameService->add($data);
+
 
 		return response()->json($data);
 	}

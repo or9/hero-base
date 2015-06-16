@@ -15,8 +15,12 @@ class GameService {
 			$this->remaining[$index] = $item;
 		} else {
 			// add elements at correct index
+
 			$items = array_column($item, "original");
-			$this->remaining = array_column($items, null, "id");
+			$items = array_column($items, null, "id");
+
+			$this->remaining = array_replace($this->remaining, $items);
+
 		}
 	}
 
@@ -25,9 +29,4 @@ class GameService {
 		return count($this->remaining);
 	}
 
-	private function fillRemaining ($items)
-	{
-		//$this->remaining = array_column($items)
-		//$this->remaining[] = $items;
-	}
 }
