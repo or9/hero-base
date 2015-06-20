@@ -58,6 +58,52 @@ class GameServiceTest extends \TestCase {
 
 	}
 
+
+	public function testAnswer ()
+	{
+		$gameService = new GameService;
+
+		$isCorrect = $gameService->answer(0);
+		$this->assertEquals(true, $isCorrect);
+
+		$isCorrect = $gameService->answer("0");
+		$this->assertEquals(true, $isCorrect);
+
+	}
+
+
+	public function testIncorrectAnswer ()
+	{
+		$gameService = new GameService;
+		$isCorrect = $gameService->answer(1);
+		$this->assertEquals(false, $isCorrect);
+
+		$isCorrect = $gameService->answer("1");
+		$this->assertEquals(false, $isCorrect);
+	}
+
+
+	public function testNaNAnswer ()
+	{
+		$gameService = new GameService;
+
+		$isCorrect = $gameService->answer("herp derp");
+		$this->assertEquals(false, $isCorrect);
+
+		$isCorrect = $gameService->answer(null);
+		$this->assertEquals(false, $isCorrect);
+	}
+
+	public function testNextCard ()
+	{
+		$gameService = new GameService;
+		$gameService->add($this->mockData);
+
+		$nextId = $gameService->next();
+		$this->assertInternalType("string", $nextId);
+	}
+
+
 	private function getMockCardModel ($id, $content)
 	{
 		return Array(

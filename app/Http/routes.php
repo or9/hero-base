@@ -14,6 +14,10 @@ Route::group(["prefix" => "api"], function() {
 
 	Route::get("form/{id?}", "CardController@form");
 
+	Route::get("answer/{id}", "GameController@answer");
+
+	Route::get("next", "GameController@next");
+
 	Route::get("scoreboard", "ScoreboardController@get");
 
 });

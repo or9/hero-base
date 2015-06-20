@@ -2,7 +2,7 @@
 
 //use \App\Services\GameService;
 
-class CardControllerTest extends TestCase {
+class GameControllerTest extends TestCase {
 
 	//private $gameService;
 	//private $cardController;
@@ -31,54 +31,41 @@ class CardControllerTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testGetLength ()
+	public function testGetAnswerCorrect ()
 	{
-		$response = $this->call('GET', '/api/characters/length');
+		print_r("corr");
+		$response = $this->call('GET', '/api/answer/0');
 
+		//var_dump($response);
 		$this->assertEquals(200, $response->getStatusCode());
+		$this->assertEquals("true", $response->getContent());
+	}
+
+	public function testGetAnswerIncorrect ()
+	{
+		$response = $this->call("GET", "/api/answer/1");
+		$this->assertEquals(200, $response->getStatusCode());
+		//var_dump($response);
+		$this->assertEquals("false", $response->getContent());
+	}
+
+	public function testRequiresAnswerId ()
+	{
+		$response = $this->call("GET", "/api/answer");
+		$this->assertEquals(302, $response->getStatusCode());
+
 	}
 
 	/**
  	 * Should get a character
 	 * @return void
 	 */
-	public function testGetCharacterReference ()
+	public function testGetNextCard ()
 	{
-		$response = $this->call("GET", "/api/character/1");
+		$response = $this->call("GET", "/api/next");
 		$this->assertEquals(200, $response->getStatusCode());
 	}
 
-	/**
-	 * Should get all characters
-	 * @return void
-	 */
-	public function testGetAllCharacterReferences ()
-	{
-		$response = $this->call("GET", "/api/character");
-		$this->assertEquals(200, $response->getStatusCode());
-	}
-
-
-	/**
-	 * A basic functional test example.
-	 *
-	 * @return void
-	 */
-	public function testGetSingleForm ()
-	{
-		$response = $this->call('GET', '/api/form/0');
-		$this->assertEquals(200, $response->getStatusCode());
-	}
-
-	/**
-	 * Get all forms
-	 * @return void
-	 */
-	public function testGetAllForms ()
-	{
-		$response = $this->call("get", "/api/form");
-		$this->assertEquals(200, $response->getStatusCode());
-	}
 
 	/**
 	 * Should update GameService with values

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\ServiceProvider;
 use App\Services\GameService;
+//use App;
 
 class GameServiceProvider extends ServiceProvider {
 
@@ -17,15 +18,18 @@ class GameServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+
+		//return $this->app->instance("GameService", $gameService);
+
 		// DO NOT use full namespace here
+
 		$this->app->singleton("GameService", function ($app)
 		{
-			return new GameService();
+			return new GameService;
 		});
 
-		//$gameService = new GameService();
+		//$this->app->singleton("GameService", new GameService);
 
-		//$this->app->instance("GameService", $gameService);
 	}
 
 }
