@@ -5,23 +5,52 @@ var exec = require("child_process").exec;
 var sys = require("sys");
 var karma = require("karma").server;
 
+var files = {};
+files.php = [
+	"tests/**/*",
+	"app/**/*.php",
+	"config/**/*.php",
+	"bootstrap/**/*.php",
+	"resources/**/*.blade*"
+];
+
+files.javascript = [
+	"public/**/*.js",
+	"public/**/*.html",
+	"gulpfile.js"
+];
+
 gulp.task("phpunit", phpunit);
 gulp.task("karmaunit", karmaunit);
-gulp.task("watch", watch);
-gulp.task("default", ["phpunit", "watch"]);
-
+//gulp.task("watch", watch);
+gulp.task("gulp-watch", watch);
+gulp.task("default", ["phpunit", "karmaunit", "watch"]);
 
 elixir(function(mix) {
-    mix.less('app.less');
+	mix.less('app.less');
 
-    mix.task("karmaunit", ["public/js/**/spec.*",
-			"gulpfile.js"]);
+	mix.task("karmaunit", files.javascript);
 
-    mix.task("phpunit", ["tests/**/*",
-			"app/**/*.php",
-			"config/**/*.php",
-			"bootstrap/**/*.php",
-			"resources/**/*"]);
+	mix.task("phpunit", files.php);
+
+	// mix.scripts([
+	//		"vendor/angularjs/angular.min.js",
+	//		"vendor/angular-route/angular-route.min.js",
+	//
+	//	], "public/js/framework.js")
+	//
+	//	.scripts([
+	//		"app.js",
+	//		"card/*.js",
+	//		"!card/spec.*.js",
+	//		"components/*",
+	//		"scoreboard/*.js",
+	//		"!scoreboard/spec.*.js"
+	//
+	//	], "public/js/app.min.js");
+	//
+	// mix.scriptsIn("somepath/js", "somepath/js/compiled.js");
+
 });
 
 function phpunit () {
@@ -38,15 +67,12 @@ function karmaunit (done) {
 }
 
 function watch () {
-	gulp.watch([
-		"app/**/*.php",
-		"tests/**/*",
-		"resources/**/*",
-		"bootstrap/**/*.php",
-		"public/**/*.js",
-		"public/**/*.html",
-		"gulpfile.js"
+	gulp.watch(files.php, ["phpunit"]);
 
-	], ["phpunit", "karmaunit"]);
+	gulp.watch(files.javascript, ["karmaunit"]);
+
+	// what's the less task?
+	//gulp.watch(["resources/**/*.less",
+	//], []);
 }
 

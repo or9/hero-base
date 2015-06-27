@@ -31,7 +31,7 @@ class GameService {
 	 * @param {string} answerIndex
 	 * return {boolean}
 	 */
-	public function answer ($answerIndex)
+	public function answer ($answerIndex = null)
 	{
 		$isCorrect = false;
 

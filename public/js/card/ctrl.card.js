@@ -30,13 +30,13 @@
 		function answer () {
 			this.loading = true;
 			cardService.answer(this.selected)
-				.then(	answerSuccess.bind(this));
+				.then(answerSuccess.bind(this));
 		}
 
 		function answerSuccess (responseData) {
 			this.loading = false;
 
-			if (responseData.status === true) {
+			if (responseData === "true") {
 				correct.call(this);
 			} else {
 				incorrect.call(this);
@@ -51,6 +51,7 @@
 		}
 
 		function incorrect () {
+			// nothing yet…
 		}
 
 		function checkInitStatus () {

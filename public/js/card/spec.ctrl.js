@@ -1,3 +1,4 @@
+/* jshint expr: true */
 describe("CardCtrl", function () {
 	"use strict";
 
@@ -92,12 +93,13 @@ describe("CardCtrl", function () {
 
 		it("should reset selected card upon true answer", function () {
 			scope.cards.selected = 0;
-			$httpBackend.expectPOST("/api/answer/0").respond(200, { status: true });
+			$httpBackend.expectPOST("/api/answer/0").respond( 200, "true" );
 			scope.cards.loading.should.be.true;
 			scope.cards.answer();
 			$httpBackend.flush();
 
 			scope.cards.loading.should.be.false;
+			//scope.$digest();
 			var selected = scope.cards.selected;
 			expect(selected).to.be.null;
 
@@ -105,7 +107,7 @@ describe("CardCtrl", function () {
 
 		it("Should not reset selected upon false answer", function () {
 			scope.cards.selected = 0;
-			$httpBackend.expectPOST("/api/answer/0").respond(200, { status: false });
+			$httpBackend.expectPOST("/api/answer/0").respond( 200, "false" );
 
 			scope.cards.answer();
 			$httpBackend.flush();

@@ -37,7 +37,7 @@
 		};
 
 		/**
-		 * Sends answer request to server. Expects success with true or false
+		 * Sends answer request to server. Expects text/plain true or false
 		 * @param cardId [string]
 		 * @return Promise
 		 */
