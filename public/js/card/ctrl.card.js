@@ -6,15 +6,18 @@
 	function cardController ($scope, cardService) {
 		/*jshint validthis:true */
 
-		var selectedClass = "selected";
+		var SELECTED_CLASS = "selected";
+		var NUMBER_OF_ANSWERS = 5;
 
 		this.loading = true;
 		this.chars = cardService.cards;
 		this.selected = null;
+		this.current = null;
 		this.select = select.bind(this);
 		this.answer = answer.bind(this);
 
 		checkInitStatus.call(this);
+		this.current = next.call(this);
 
 		function select (cardId) {
 			var previous = doc.getElementById("card" + this.selected);
@@ -24,10 +27,28 @@
 
 			this.selected = cardId;
 			doc.getElementById("card" + cardId)
-				.classList.add(selectedClass);
+				.classList.add(SELECTED_CLASS);
+		}
+
+		function next () {
+			cardService.next()
+				.then(showCurrent.bind(this))
+				.then(shuffleAnswers.bind(this));
+		}
+
+		function showCurrent (responseValue) {
+			this.current = responseValue;
+		}
+
+		function shuffleAnswers () {
+			if (!this.ready) {
+			}
+
+
 		}
 
 		function answer () {
+			// could simply use true / false from service…
 			this.loading = true;
 			cardService.answer(this.selected)
 				.then(answerSuccess.bind(this));
@@ -46,7 +67,7 @@
 
 		function correct () {
 			doc.getElementById("card" + this.selected)
-				.classList.remove(selectedClass);
+				.classList.remove(SELECTED_CLASS);
 			this.selected = null;
 		}
 
@@ -59,7 +80,7 @@
 			var loaded = this.chars.length === cardService.lastIndex;
 
 			if (!isReady || !loaded) {
-				return setTimeout(checkInitStatus.bind(this), 200);
+				return setTimeout(checkInitStatus.bind(this), 50);
 			}
 
 			this.loading = false;

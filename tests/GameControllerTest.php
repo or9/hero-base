@@ -64,6 +64,7 @@ class GameControllerTest extends TestCase {
 	{
 		$response = $this->call("GET", "/api/next");
 		$this->assertEquals(200, $response->getStatusCode());
+		$this->assertInternalType("string", $response->getContent());
 	}
 
 

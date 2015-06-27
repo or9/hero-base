@@ -27,6 +27,7 @@ class GameController extends Controller {
 		} else {
 			$data = "false";
 		}
+
 		return response($data, 200)
 			->header("Content-Type", "text/plain");
 	}
@@ -38,7 +39,9 @@ class GameController extends Controller {
 	public function next ()
 	{
 		$data = $this->gameService->next();
-		return response()->json($data);
+
+		return response($data, 200)
+			->header("Content-Type", "text/plain");
 	}
 
 }

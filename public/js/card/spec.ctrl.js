@@ -9,6 +9,7 @@ describe("CardCtrl", function () {
 
 	var mockChar = {"id":0,"name":"ʾalif","translit":""};
 	var mockForm = {};
+
 	var cardElementHtml = "<ul ng-click='cards.select(0)' id='card0' class='card'>" +
 		"<li>test1<li>" +
 		"<li>0</li>";
@@ -21,13 +22,14 @@ describe("CardCtrl", function () {
 	beforeEach(inject(setupController));
 	afterEach(cleanupAfterEach);
 
-	describe("#(init)", function () {
+	describe("#[init]", function () {
 		it("Should initialize controller scope", function() {
 			scope.cards.should.include.keys(
 				"loading",
 				"chars",
 				"selected",
-				"select"
+				"select",
+				"current"
 			);
 			$httpBackend.flush();
 			scope.$digest();
@@ -42,6 +44,24 @@ describe("CardCtrl", function () {
 
 		});
 
+		it("Should call #next to set first current card", function () {
+
+			$httpBackend.expectGET("/api/next").respond( 200, "2" );
+			$httpBackend.flush();
+			scope.$digest();
+
+			scope.cards.current.should.equal("2");
+
+
+
+
+		});
+
+
+	});
+
+	describe("#next", function () {
+		//
 
 	});
 
@@ -85,7 +105,7 @@ describe("CardCtrl", function () {
 	describe("#answer", function () {
 		it("should make a request with the selected answer", function () {
 			scope.cards.selected = 0;
-			$httpBackend.expectPOST("/api/answer/0").respond(200, { status: true });
+			$httpBackend.expectPOST("/api/answer/0").respond(200, "true" );
 			scope.cards.answer();
 			$httpBackend.flush();
 
@@ -129,6 +149,7 @@ describe("CardCtrl", function () {
 			leng: "/api/characters/length",
 			char: "/api/character/0",
 			form: "/api/form/0",
+			next: "/api/next",
 			sendAnswer: "/api/answer"
 
 		};
@@ -141,7 +162,9 @@ describe("CardCtrl", function () {
 		$httpBackend.whenGET(url.leng).respond(200, 1);
 		$httpBackend.whenGET(url.char).respond( mockChar );
 		$httpBackend.whenGET(url.form).respond( mockForm );
-		$httpBackend.whenPOST(url.answer).respond( 200 );
+		$httpBackend.whenGET(url.next).respond( 200, "2" );
+
+		$httpBackend.whenPOST(url.answer).respond( 200, "true" );
 
 
 		// use `Ctrl as ctrl` syntax to get scope.ctrl

@@ -9,7 +9,6 @@
 		var forms = [];
 		var lastIndex = 0;
 		var index = 0;
-		var tries = 0;
 		var retryLimit = 5;
 		var loading = true;
 
@@ -30,6 +29,7 @@
 			get lastIndex() {
 				return lastIndex;
 			},
+			next: next,
 			answer: answer,
 			getCard: getCard,
 			getForm: getForm,
@@ -37,18 +37,40 @@
 		};
 
 		/**
+		 * Get the next answer
+		 * @return Promise
+		 */
+		function next (tries) {
+			tries = tries || 0;
+
+			return $http.get("/api/next")
+				.then(success, fail);
+
+			function success (response) {
+				return response.data;
+			}
+
+			function fail (data, status) {
+				if (tries >= retryLimit) {
+					return;
+				} else {
+					return next(tries += 1);
+				}
+			}
+		}
+
+		/**
 		 * Sends answer request to server. Expects text/plain true or false
 		 * @param cardId [string]
 		 * @return Promise
 		 */
-		function answer (cardId) {
-			tries += 1;
+		function answer (cardId, tries) {
+			tries = tries || 0;
 
 			return $http.post("/api/answer/".concat( cardId ))
 				.then(success, failure);
 
 			function success (response) {
-				tries = 0;
 				return response.data;
 			}
 
@@ -56,7 +78,7 @@
 				if (tries >= retryLimit) {
 					return;
 				} else {
-					return answer(cardId);
+					return answer(cardId, tries += 1);
 				}
 			}
 		}
@@ -127,12 +149,11 @@
 		 * @param cardId [string]
 		 * @return Promise
 		 */
-		function requestCard (cardId) {
-			tries += 1;
+		function requestCard (cardId, tries) {
+			tries = tries || 0;
 
 			return $http.get("/api/character/".concat( cardId ))
 				.success(function (data) {
-					tries = 0;
 					cards.push(data);
 					return data;
 				})
@@ -140,7 +161,7 @@
 					if (tries >= retryLimit) {
 						errorHandler(data);
 					} else {
-						return requestCard(cardId);
+						return requestCard(cardId, tries += 1);
 					}
 				});
 		}
@@ -149,12 +170,11 @@
 		 * Gets the length of array from server
 		 * @return Promise
 		 */
-		function requestLastIndex () {
-			tries += 1;
+		function requestLastIndex (tries) {
+			tries = tries || 0;
 
 			return $http.get("/api/characters/length")
 				.success(function (data) {
-					tries = 0;
 					lastIndex = data;
 				})
 				.error(function (data, status) {
@@ -162,7 +182,7 @@
 						errorHandler(data, status);
 						loading = false;
 					} else {
-						return requestLastIndex();
+						return requestLastIndex(tries += 1);
 					}
 				});
 		}
@@ -172,12 +192,11 @@
 		 * @param formId [string]
 		 * @return Promise
 		 */
-		function requestForm (formId) {
-			tries += 1;
+		function requestForm (formId, tries) {
+			tries = tries || 0;
 
 			return $http.get("/api/form/".concat( formId ))
 				.success(function (data) {
-					tries = 0;
 					forms.push(data);
 					return data;
 				})
@@ -185,8 +204,7 @@
 					if (tries >= retryLimit) {
 						errorHandler(data);
 					} else {
-						tries += 1;
-						return requestForm(formId);
+						return requestForm(formId, tries += 1);
 					}
 
 
@@ -194,7 +212,6 @@
 		}
 
 		function errorHandler (err) {
-			tries = 0;
 			console.log("Card service encountered an error: ", err);
 		}
 	}
