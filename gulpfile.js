@@ -22,7 +22,6 @@ files.javascript = [
 
 gulp.task("phpunit", phpunit);
 gulp.task("karmaunit", karmaunit);
-//gulp.task("watch", watch);
 gulp.task("gulp-watch", watch);
 gulp.task("default", ["phpunit", "karmaunit", "watch"]);
 
@@ -70,9 +69,5 @@ function watch () {
 	gulp.watch(files.php, ["phpunit"]);
 
 	gulp.watch(files.javascript, ["karmaunit"]);
-
-	// what's the less task?
-	//gulp.watch(["resources/**/*.less",
-	//], []);
 }
 
