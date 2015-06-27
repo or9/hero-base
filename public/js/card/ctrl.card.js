@@ -8,11 +8,14 @@
 
 		var SELECTED_CLASS = "selected";
 		var NUMBER_OF_ANSWERS = 5;
+		var watchReady;
 
+		this.ready = false;
 		this.loading = true;
 		this.chars = cardService.cards;
 		this.selected = null;
 		this.current = null;
+		this.availableChoices = [];
 		this.select = select.bind(this);
 		this.answer = answer.bind(this);
 
@@ -40,39 +43,69 @@
 			this.current = responseValue;
 		}
 
-		function shuffleAnswers () {
-			if (!this.ready) {
+		function watchForReady () {
+			if (this.ready) {
+				return true;
 			}
 
+			watchReady = $scope.$watch(this.ready, function (newVal) {
+				if (newVal === true) {
+					watch();
+				}
+			}, false);
+		}
 
+		function shuffleAnswers () {
+			if (!watchForReady.call(this)) {
+				return setTimeout(shuffleAnswers.bind(this), 10);
+			}
+
+			var rando = [];
+			var thing;
+
+			for (var i = 0; i < NUMBER_OF_ANSWERS - 1; i += 1) {
+				// Because Karma can't run a while loop
+
+				thing = this.chars[Math.floor(Math.random() * this.chars.length)];
+
+				if (!thing || !thing.id) {
+					continue;
+				}
+
+				rando.push(parseInt(thing.id, 10));
+			}
+
+			rando.push(parseInt(this.current, 10));
+
+			this.availableChoices = shuffle(rando);
+
+		}
+
+		function shuffle (array) {
+			return array.sort(function () {
+				return 0.5 - Math.random();
+			});
 		}
 
 		function answer () {
-			// could simply use true / false from service…
 			this.loading = true;
+
 			cardService.answer(this.selected)
-				.then(answerSuccess.bind(this));
-		}
-
-		function answerSuccess (responseData) {
-			this.loading = false;
-
-			if (responseData === "true") {
-				correct.call(this);
-			} else {
-				incorrect.call(this);
-			}
-
+				.then(correct.bind(this), incorrect.bind(this))
+				.then(next.bind(this));
 		}
 
 		function correct () {
+			this.loading = false;
+
 			doc.getElementById("card" + this.selected)
 				.classList.remove(SELECTED_CLASS);
+
 			this.selected = null;
 		}
 
 		function incorrect () {
-			// nothing yet…
+			this.loading = false;
 		}
 
 		function checkInitStatus () {
@@ -87,8 +120,6 @@
 			this.ready = true;
 
 			// why does angularjs suck this much?
-			// because they have a $timeout method
-			// still stupid. I will not import $timeout
 			$scope.$digest();
 		}
 

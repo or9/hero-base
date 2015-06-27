@@ -3,7 +3,7 @@
 
 	app.factory("cardService", CardService);
 
-	function CardService($http) {
+	function CardService($http, $q) {
 
 		var cards = [];
 		var forms = [];
@@ -71,7 +71,13 @@
 				.then(success, failure);
 
 			function success (response) {
-				return response.data;
+				return $q(function(resolve, reject) {
+					if (response.data === "true") {
+						resolve(response.data);
+					} else {
+						reject(response.data);
+					}
+				});
 			}
 
 			function failure (data, status) {

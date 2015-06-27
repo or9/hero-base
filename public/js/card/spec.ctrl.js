@@ -29,7 +29,8 @@ describe("CardCtrl", function () {
 				"chars",
 				"selected",
 				"select",
-				"current"
+				"current",
+				"availableChoices"
 			);
 			$httpBackend.flush();
 			scope.$digest();
@@ -52,16 +53,30 @@ describe("CardCtrl", function () {
 
 			scope.cards.current.should.equal("2");
 
+		});
 
+		it("Should randomly shuffle scope.availableChoices", function () {
+
+			var i = 0;
+			var comparison = [];
+
+			scope.cards.ready = true;
+
+			while (i < 32) {
+				scope.cards.chars.push({ id: String(i) });
+				comparison.push(i);
+				i += 1;
+			}
+
+			$httpBackend.flush();
+			scope.$digest();
+
+			scope.cards.availableChoices.length.should.be.lessThan(9);
+			scope.cards.availableChoices.should.not.deep.equal(comparison);
 
 
 		});
 
-
-	});
-
-	describe("#next", function () {
-		//
 
 	});
 
