@@ -2,8 +2,17 @@
 
 class GameService {
 
-	private $remaining = [];
-	private $currentAnswerIndex = "0";
+	const CACHE_NAME = "GAME_SERVICE_";
+	const REMAINING = self::CACHE_NAME . "REMAINING";
+	const CURRENT_ANSWER_INDEX = self::CACHE_NAME . "CURRENT_ANSWER_INDEX";
+
+	private static $remaining = [];
+	private static $current_answer_index = "0";
+
+	public function __construct () {
+		self::$remaining = apc_fetch(self::REMAINING);
+		self::$current_answer_index = apc_fetch(self::CURRENT_ANSWER_INDEX);
+	}
 
 	/**
  	 * Add ID of item to this->remaining array
@@ -13,17 +22,21 @@ class GameService {
 	public function add ($item)
 	{
 		if (count($item) === 1) {
+
 			$index = $item["original"]["id"];
-			$this->remaining[$index] = $item;
+			self::$remaining[$index] = $item;
+
 		} else {
 			// add elements at correct index
 
 			$items = array_column($item, "original");
 			$items = array_column($items, null, "id");
 
-			$this->remaining = array_replace($this->remaining, $items);
+			self::$remaining = array_replace(self::$remaining, $items);
 
 		}
+
+		apc_store(self::REMAINING, self::$remaining);
 	}
 
 	/**
@@ -33,10 +46,12 @@ class GameService {
 	 */
 	public function answer ($answerIndex = null)
 	{
-		$isCorrect = false;
+		self::$current_answer_index = apc_fetch(self::CURRENT_ANSWER_INDEX);
 
-		if (strval($answerIndex) === $this->currentAnswerIndex) {
-			$isCorrect = true;
+		$isCorrect = "false";
+
+		if (strval($answerIndex) === self::$current_answer_index) {
+			$isCorrect = "true";
 		}
 
 		return $isCorrect;
@@ -48,8 +63,13 @@ class GameService {
 	 */
 	public function next ()
 	{
-		$this->currentAnswerIndex = (string) array_rand($this->remaining);
-		return $this->currentAnswerIndex;
+		self::$current_answer_index = (string) array_rand(self::$remaining)["id"];
+
+		//return print_r(array_rand(self::$remaining));
+
+		apc_store(self::CURRENT_ANSWER_INDEX, self::$current_answer_index);
+
+		return self::$current_answer_index;
 	}
 
 	/**
@@ -57,7 +77,16 @@ class GameService {
 	 */
 	public function countRemaining ()
 	{
-		return count($this->remaining);
+		return count(self::$remaining);
+	}
+
+	public function reset ()
+	{
+		self::$remaining = [];
+		self::$current_answer_index = "0";
+
+		apc_delete(self::REMAINING);
+		apc_delete(self::CURRENT_ANSWER_INDEX);
 	}
 
 }

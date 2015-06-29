@@ -5,7 +5,6 @@ class GameServiceTest extends \TestCase {
 	private $mockData = [];
 	private $gameService;
 
-
 	public function __construct ()
 	{
 		$this->gameService = new GameService;
@@ -19,41 +18,43 @@ class GameServiceTest extends \TestCase {
 
 	public function testGameServiceArray ()
 	{
+		$this->gameService->reset();
 		$this->assertEquals(0, $this->gameService->countRemaining());
 	}
 
 	public function testAddToRemaining ()
 	{
+		$this->gameService->reset();
 		$this->gameService->add($this->mockData[0]);
 		$this->assertEquals(1, $this->gameService->countRemaining());
 	}
 
 	public function testAddAll ()
 	{
-		$gameService = new GameService;
+		$this->gameService->reset();
 		$mockAltData = [$this->getMockCardModel(3, "3 stuff"),
 			$this->getMockCardModel(7, "7 stuff"),
 			$this->getMockCardModel(9, "99 stuff")];
 
-		$gameService->add($mockAltData);
-		$this->assertEquals(count($mockAltData), $gameService->countRemaining());
+		$this->gameService->add($mockAltData);
+		$this->assertEquals(count($mockAltData), $this->gameService->countRemaining());
 	}
 
 	public function testModifyRemainingWithArrays ()
 	{
-		$gameService = new GameService;
+		$this->gameService->reset();
 
 		$mockAltData = [
 			$this->getMockCardModel(99, "red balloons"),
 			$this->getMockCardModel(33, "blue baboons")
 		];
 
-		$gameService->add($this->mockData);
-		$gameService->add($mockAltData);
+		$this->gameService->add($this->mockData);
+		$this->gameService->add($mockAltData);
 
 		$this->assertEquals(
 			count($this->mockData) + count($mockAltData),
-			$gameService->countRemaining()
+			$this->gameService->countRemaining()
 		);
 
 	}
@@ -61,45 +62,50 @@ class GameServiceTest extends \TestCase {
 
 	public function testAnswer ()
 	{
-		$gameService = new GameService;
+		$this->gameService->reset();
 
-		$isCorrect = $gameService->answer(0);
-		$this->assertEquals(true, $isCorrect);
+		apc_store("GAME_SERVICE_CURRENT_ANSWER_INDEX", "0");
 
-		$isCorrect = $gameService->answer("0");
-		$this->assertEquals(true, $isCorrect);
+		//$this->gameService->add($this->mockData[0]);
+		$isCorrect = $this->gameService->answer(0);
+		$this->assertEquals("true", $isCorrect);
+
+		$isCorrect = $this->gameService->answer("0");
+		$this->assertEquals("true", $isCorrect);
+
+		apc_delete("GAME_SERVICE_CURRENT_ANSWER_INDEX");
 
 	}
 
 
 	public function testIncorrectAnswer ()
 	{
-		$gameService = new GameService;
-		$isCorrect = $gameService->answer(1);
-		$this->assertEquals(false, $isCorrect);
+		$this->gameService->reset();
+		$isCorrect = $this->gameService->answer(1);
+		$this->assertEquals("false", $isCorrect);
 
-		$isCorrect = $gameService->answer("1");
-		$this->assertEquals(false, $isCorrect);
+		$isCorrect = $this->gameService->answer("1");
+		$this->assertEquals("false", $isCorrect);
 	}
 
 
 	public function testNaNAnswer ()
 	{
-		$gameService = new GameService;
+		$this->gameService->reset();
 
-		$isCorrect = $gameService->answer("herp derp");
-		$this->assertEquals(false, $isCorrect);
+		$isCorrect = $this->gameService->answer("herp derp");
+		$this->assertEquals("false", $isCorrect);
 
-		$isCorrect = $gameService->answer(null);
-		$this->assertEquals(false, $isCorrect);
+		$isCorrect = $this->gameService->answer(null);
+		$this->assertEquals("false", $isCorrect);
 	}
 
 	public function testNextCard ()
 	{
-		$gameService = new GameService;
-		$gameService->add($this->mockData);
+		$this->gameService->reset();
+		$this->gameService->add($this->mockData);
 
-		$nextId = $gameService->next();
+		$nextId = $this->gameService->next();
 		$this->assertInternalType("string", $nextId);
 	}
 

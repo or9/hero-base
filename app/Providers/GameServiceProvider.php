@@ -23,6 +23,15 @@ class GameServiceProvider extends ServiceProvider {
 
 		// DO NOT use full namespace here
 
+		//$gameService = new GameService;
+		//$this->app->instance("GameService", $gameService);
+
+		/*
+		$gameService = new GameService;
+
+		$this->app->singleton("GameService", $gameService);
+		 */
+
 		$this->app->singleton("GameService", function ($app)
 		{
 			return new GameService;

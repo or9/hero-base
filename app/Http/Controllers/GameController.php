@@ -7,11 +7,12 @@ use App;
 
 class GameController extends Controller {
 
-	private $gameService;
+	protected static $gameService;
 
-	public function __construct ()
+	public function __construct (GameService $gameService)
 	{
-		$this->gameService = App::make("GameService");
+		self::$gameService = $gameService;
+		//$this->gameService = App::make("GameService");
 	}
 
 	/**
@@ -20,9 +21,9 @@ class GameController extends Controller {
 	 */
 	public function answer ($answerIndex)
 	{
-		$data = $this->gameService->answer($answerIndex);
+		$data = self::$gameService->answer($answerIndex);
 
-		if ($data) {
+		if ($data === "true") {
 			$data = "true";
 		} else {
 			$data = "false";
@@ -38,7 +39,7 @@ class GameController extends Controller {
 	 */
 	public function next ()
 	{
-		$data = $this->gameService->next();
+		$data = self::$gameService->next();
 
 		return response($data, 200)
 			->header("Content-Type", "text/plain");

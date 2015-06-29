@@ -8,20 +8,18 @@ use App;
 class CardController extends Controller {
 
 	// If this is static will it be shared across sessions?
-	private $gameService;
+	protected static $gameService;
 
 	/**
 	 * constructs a CardController
 	 * @param GameService
 	 * @return void
 	 */
-	//public function __construct (GameService $gameService)
-	public function __construct ()
+	public function __construct (GameService $gameService)
 	{
-		// Dependency injection does not work with mocks in L5
-		//$this->gameService = $gameService;
+		self::$gameService = $gameService;
 
-		$this->gameService = App::make("GameService");
+		//$this->gameService = App::make("GameService");
 	}
 
 	/**
@@ -71,7 +69,7 @@ class CardController extends Controller {
 
 		}
 
-		$this->gameService->add($data);
+		self::$gameService->add($data);
 
 
 		return response()->json($data);

@@ -33,20 +33,20 @@ class GameControllerTest extends TestCase {
 	 */
 	public function testGetAnswerCorrect ()
 	{
-		print_r("corr");
-		$response = $this->call('GET', '/api/answer/0');
+		apc_store("GAME_SERVICE_CURRENT_ANSWER_INDEX", "99");
+		$response = $this->call('GET', '/api/answer/99');
 
-		//var_dump($response);
 		$this->assertEquals(200, $response->getStatusCode());
 		$this->assertEquals("true", $response->getContent());
 	}
 
 	public function testGetAnswerIncorrect ()
 	{
+		apc_store("GAME_SERVICE_CURRENT_ANSWER_INDEX", "123");
 		$response = $this->call("GET", "/api/answer/1");
 		$this->assertEquals(200, $response->getStatusCode());
-		//var_dump($response);
 		$this->assertEquals("false", $response->getContent());
+		apc_delete("GAME_SERVICE_CURRENT_ANSWER_INDEX");
 	}
 
 	public function testRequiresAnswerId ()
