@@ -12,9 +12,11 @@
 		var retryLimit = 5;
 		var loading = true;
 
+		/*
 		requestLastIndex()
 			.success(populateCards)
 			.error(errorHandler);
+			*/
 
 		return {
 			get cards() {
@@ -32,6 +34,7 @@
 			next: next,
 			answer: answer,
 			getCard: getCard,
+			requestCard: requestCard,
 			getForm: getForm,
 			error: errorHandler
 		};
@@ -41,18 +44,21 @@
 		 * @return Promise
 		 */
 		function next (tries) {
+			var defer = $q.defer();
 			tries = tries || 0;
 
-			return $http.get("/api/next")
+			$http.get("/api/next")
 				.then(success, fail);
 
+			return defer.promise;
+
 			function success (response) {
-				return response.data;
+				defer.resolve(response.data);
 			}
 
 			function fail (data, status) {
 				if (tries >= retryLimit) {
-					return;
+					defer.reject("attempts exceeded");
 				} else {
 					return next(tries += 1);
 				}
@@ -82,7 +88,7 @@
 
 			function failure (data, status) {
 				if (tries >= retryLimit) {
-					return;
+					$q.reject("retries exceeded");
 				} else {
 					return answer(cardId, tries += 1);
 				}
@@ -157,8 +163,9 @@
 		 */
 		function requestCard (cardId, tries) {
 			tries = tries || 0;
+			var endpoint = "/api/character/".concat( cardId );
 
-			return $http.get("/api/character/".concat( cardId ))
+			return $http.get(endpoint)
 				.success(function (data) {
 					cards.push(data);
 					return data;
@@ -208,7 +215,7 @@
 				})
 				.error(function (data, status) {
 					if (tries >= retryLimit) {
-						errorHandler(data);
+						return errorHandler(data);
 					} else {
 						return requestForm(formId, tries += 1);
 					}
@@ -219,6 +226,7 @@
 
 		function errorHandler (err) {
 			console.log("Card service encountered an error: ", err);
+			return $q.reject("Card service encountered an error: ", err);
 		}
 	}
 

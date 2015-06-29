@@ -6,6 +6,7 @@
 		return {
 			scope: true,
 			templateUrl: function (e, attr) {
+				//console.log("cardList directive e? ", e, " attr? ", attr);
 				return "/js/components/cardList.html";
 			},
 			replace: true,

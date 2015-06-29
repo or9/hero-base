@@ -2,7 +2,16 @@
 		<h2>Start</h2>
 		<p>loading: [[ cards.loading ]]</p>
 
+		list: 
 		<card-list></card-list>
+
+		current: 
+		<card-current value="cards.chars[cards.current]"></card-current>
+
+		choo choo choose me:
+		<card-choices 
+				 	ng-repeat="choice in cards.availableChoices"
+					choice="choice"></card-choices>
 
 		<button id="answer" ng-click="cards.answer()">
 			Submit &#13;

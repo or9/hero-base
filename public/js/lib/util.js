@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 if (!Function.prototype.bind) {
   Function.prototype.bind = function(oThis) {
     if (typeof this !== 'function') {
@@ -22,3 +23,4 @@ if (!Function.prototype.bind) {
     return fBound;
   };
 }
+/* jshint ignore:end */

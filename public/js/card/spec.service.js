@@ -1,3 +1,4 @@
+/* jshint expr: true */
 describe("CardService", function () {
 
 	var cardService, $httpBackend;

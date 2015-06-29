@@ -32,23 +32,26 @@ describe("CardCtrl", function () {
 				"current",
 				"availableChoices"
 			);
-			$httpBackend.flush();
+
+
 			scope.$digest();
+
+
 		});
 
 
 		it("Should immediately add card models to scope", function () {
 
-			$httpBackend.flush();
 			scope.$digest();
-			scope.cards.chars.length.should.equal(1);
+			scope.cards.chars.length.should.equal(5);
 
 		});
 
 		it("Should call #next to set first current card", function () {
 
-			$httpBackend.expectGET("/api/next").respond( 200, "2" );
-			$httpBackend.flush();
+
+			scope.$digest();
+			scope.$apply();
 			scope.$digest();
 
 			scope.cards.current.should.equal("2");
@@ -60,15 +63,12 @@ describe("CardCtrl", function () {
 			var i = 0;
 			var comparison = [];
 
-			scope.cards.ready = true;
-
 			while (i < 32) {
 				scope.cards.chars.push({ id: String(i) });
 				comparison.push(i);
 				i += 1;
 			}
 
-			$httpBackend.flush();
 			scope.$digest();
 
 			scope.cards.availableChoices.length.should.be.lessThan(9);
@@ -83,7 +83,6 @@ describe("CardCtrl", function () {
 	describe("#select", function () {
 		it("should provide a click handler", function () {
 			scope.cards.select.should.be.a("function");
-			$httpBackend.flush();
 
 		});
 
@@ -94,8 +93,6 @@ describe("CardCtrl", function () {
 			element[0].click();
 			scope.$digest();
 			scope.cards.selected.should.equal(0);
-
-			$httpBackend.flush();
 
 		});
 
@@ -112,7 +109,6 @@ describe("CardCtrl", function () {
 			element2.classList.contains("selected").should.be.true;
 			element.classList.contains("selected").should.be.false;
 
-			$httpBackend.flush();
 		});
 
 	});
@@ -129,11 +125,9 @@ describe("CardCtrl", function () {
 		it("should reset selected card upon true answer", function () {
 			scope.cards.selected = 0;
 			$httpBackend.expectPOST("/api/answer/0").respond( 200, "true" );
-			scope.cards.loading.should.be.true;
 			scope.cards.answer();
 			$httpBackend.flush();
 
-			scope.cards.loading.should.be.false;
 			//scope.$digest();
 			var selected = scope.cards.selected;
 			expect(selected).to.be.null;
@@ -163,6 +157,7 @@ describe("CardCtrl", function () {
 		var url = {
 			leng: "/api/characters/length",
 			char: "/api/character/0",
+			chars: "/api/character/",
 			form: "/api/form/0",
 			next: "/api/next",
 			sendAnswer: "/api/answer"
@@ -176,17 +171,24 @@ describe("CardCtrl", function () {
 		// otherwise number [1] is interpreted as status
 		$httpBackend.whenGET(url.leng).respond(200, 1);
 		$httpBackend.whenGET(url.char).respond( mockChar );
+		$httpBackend.whenGET(url.chars).respond( [
+			mockChar, mockChar, mockChar, mockChar, mockChar
+		]);
 		$httpBackend.whenGET(url.form).respond( mockForm );
 		$httpBackend.whenGET(url.next).respond( 200, "2" );
 
 		$httpBackend.whenPOST(url.answer).respond( 200, "true" );
 
+		$httpBackend.expectGET("/api/character/");
 
 		// use `Ctrl as ctrl` syntax to get scope.ctrl
 		ctrl = _$controller_("CardCtrl as cards", {
 			$scope: scope,
 			cardService: cardService
 		});
+
+
+		$httpBackend.flush();
 
 	}
 

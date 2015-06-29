@@ -1,10 +1,8 @@
-<ul class="card"
-	ng-repeat="char in cards.chars"
-	id="card[[ char.id ]]"
- 	ng-click="cards.select(char.id)"
-	>
+<flash-card 
+	ng-repeat="character in cards.chars"
+	class="card" 
+ 	character="[[ character ]]"
+ 	id="card[[ character.id ]]"
+ 	ng-click="cards.select(character.id)">
 
-	<li>[[ char.name ]]</li>
-	<li>[[ char.id ]]</li>
-
-</ul>
+</flash-card>
