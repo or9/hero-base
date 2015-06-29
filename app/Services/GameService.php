@@ -6,7 +6,7 @@ class GameService {
 	const REMAINING = self::CACHE_NAME . "REMAINING";
 	const CURRENT_ANSWER_INDEX = self::CACHE_NAME . "CURRENT_ANSWER_INDEX";
 
-	private static $remaining = [];
+	private static $remaining = array();
 	private static $current_answer_index = "0";
 
 	public function __construct () {
@@ -19,22 +19,23 @@ class GameService {
 	 * @param char | chars
 	 * @return void
 	 */
-	public function add ($item)
+	public function add ($data)
 	{
-		if (count($item) === 1) {
 
-			$index = $item["original"]["id"];
-			self::$remaining[$index] = $item;
+		$data = json_decode($data->getContent(), true);
+
+		if (array_key_exists("id", $data)) {
+
+			$index = $data["id"];
+			self::$remaining[$index] = $data;
 
 		} else {
 			// add elements at correct index
 
-			$items = array_column($item, "original");
-			$items = array_column($items, null, "id");
-
-			self::$remaining = array_replace(self::$remaining, $items);
+			self::$remaining = array_replace(self::$remaining, $data);
 
 		}
+
 
 		apc_store(self::REMAINING, self::$remaining);
 	}
@@ -63,9 +64,8 @@ class GameService {
 	 */
 	public function next ()
 	{
-		self::$current_answer_index = (string) array_rand(self::$remaining)["id"];
-
-		//return print_r(array_rand(self::$remaining));
+		// array_rand returns KEYS
+		self::$current_answer_index = (string) array_rand(apc_fetch(self::REMAINING));
 
 		apc_store(self::CURRENT_ANSWER_INDEX, self::$current_answer_index);
 

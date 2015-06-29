@@ -58,10 +58,9 @@ class CardController extends Controller {
 	 * */
 	public function character ($id = null)
 	{
-		if (!$id && (string)$id !== "0") {
+		if ($id === null) {
 
 			$data = Character::all();
-			$data = $data[0];
 
 		} else {
 
@@ -69,8 +68,7 @@ class CardController extends Controller {
 
 		}
 
-		self::$gameService->add($data);
-
+		self::$gameService->add(response()->json($data));
 
 		return response()->json($data);
 	}
