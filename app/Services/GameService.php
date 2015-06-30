@@ -6,12 +6,16 @@ class GameService {
 	const REMAINING = self::CACHE_NAME . "REMAINING";
 	const CURRENT_ANSWER_INDEX = self::CACHE_NAME . "CURRENT_ANSWER_INDEX";
 
-	private static $remaining = array();
+	private static $remaining;
 	private static $current_answer_index = "0";
 
 	public function __construct () {
 		self::$remaining = apc_fetch(self::REMAINING);
 		self::$current_answer_index = apc_fetch(self::CURRENT_ANSWER_INDEX);
+
+		if (!self::$remaining) {
+			self::$remaining = [];
+		}
 	}
 
 	/**
