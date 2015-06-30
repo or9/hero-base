@@ -5,7 +5,8 @@
 	function Directive () {
 		return {
 			scope: {
-				choice: "@",
+				cardInfo: "=info",
+				answerChoice: "@",
 				select: "&select",
 				answer: "&answer"
 			},

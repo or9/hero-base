@@ -35,6 +35,7 @@
 			answer: answer,
 			getCard: getCard,
 			requestCard: requestCard,
+			requestForm: requestForm,
 			getForm: getForm,
 			error: errorHandler
 		};
@@ -206,22 +207,26 @@
 		 * @return Promise
 		 */
 		function requestForm (formId, tries) {
+			var defer = $q.defer();
+
 			tries = tries || 0;
 
-			return $http.get("/api/form/".concat( formId ))
+			$http.get("/api/form/".concat( formId ))
 				.success(function (data) {
 					forms.push(data);
-					return data;
+					defer.resolve(data);
 				})
 				.error(function (data, status) {
 					if (tries >= retryLimit) {
-						return errorHandler(data);
+						return defer.reject(data);
 					} else {
 						return requestForm(formId, tries += 1);
 					}
 
 
 				});
+
+			return defer.promise;
 		}
 
 		function errorHandler (err) {

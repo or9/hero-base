@@ -5,7 +5,7 @@
 	function Directive () {
 		return {
 			scope: {
-				value: "=value"
+				cardInfo: "=info"
 			},
 			templateUrl: function (e, attr) {
 				//console.log("cardCurrent directive e? ", e, " attr? ", attr);

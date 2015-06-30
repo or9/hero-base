@@ -6,12 +6,13 @@
 		<card-list></card-list>
 
 		current: 
-		<card-current value="cards.chars[cards.current]"></card-current>
+		<card-current info="cards.current"></card-current>
 
 		choo choo choose me:
 		<card-choices 
 				 	ng-repeat="choice in cards.availableChoices"
-					choice="choice"></card-choices>
+					ng-click="cards.select( [[ choice ]] )"
+					info="cards.chars[ [[choice]] ]"></card-choices>
 
 		<button id="answer" ng-click="cards.answer()">
 			Submit &#13;

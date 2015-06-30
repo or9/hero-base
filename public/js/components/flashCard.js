@@ -5,7 +5,7 @@
 	function Directive () {
 		return {
 			scope: {
-				character: "=character"
+				cardInfo: "=info"
 			},
 			templateUrl: function (e, attr) {
 				//console.log("flashCard directive e? ", e, " attr? ", attr);

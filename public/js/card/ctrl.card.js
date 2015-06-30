@@ -12,14 +12,13 @@
 		this.loading = true;
 		this.chars = null;
 		this.selected = null;
-		this.current = null;
+		this.current = {};
 		this.availableChoices = [];
 		this.select = select.bind(this);
 		this.answer = answer.bind(this);
 
 		cardService.requestCard("")
 			.success(initCharacters.bind(this))
-			//.then(initCharacters.bind(this))
 			.then(nextQuestion.bind(this));
 
 		function initCharacters (response) {
@@ -34,7 +33,19 @@
 		}
 
 		function showCurrent (indexValue) {
-			this.current = indexValue;
+			cardService.requestForm(indexValue)
+				.then(setCurrentForm.bind(this));
+
+			function setCurrentForm (data) {
+				this.current = this.current || {};
+				this.current.initial = data.initial;
+				this.current.medial = data.medial;
+				this.current.final = data.final;
+				this.current.isolated = data.isolated;
+				this.current.id = indexValue;
+			}
+
+
 			// maybe delete?
 			//delete this.chars[indexValue];
 		}

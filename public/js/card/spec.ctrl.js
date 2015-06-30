@@ -54,7 +54,7 @@ describe("CardCtrl", function () {
 			scope.$apply();
 			scope.$digest();
 
-			scope.cards.current.should.equal("2");
+			scope.cards.current.should.include.keys("id", "initial", "medial", "final");
 
 		});
 
@@ -174,12 +174,15 @@ describe("CardCtrl", function () {
 		$httpBackend.whenGET(url.chars).respond( [
 			mockChar, mockChar, mockChar, mockChar, mockChar
 		]);
+		$httpBackend.whenGET("/api/form/2").respond(200, {initial: "", medial: "", final: "", isolated: ""});
+
 		$httpBackend.whenGET(url.form).respond( mockForm );
 		$httpBackend.whenGET(url.next).respond( 200, "2" );
 
 		$httpBackend.whenPOST(url.answer).respond( 200, "true" );
 
 		$httpBackend.expectGET("/api/character/");
+		$httpBackend.expectGET("/api/form/2");
 
 		// use `Ctrl as ctrl` syntax to get scope.ctrl
 		ctrl = _$controller_("CardCtrl as cards", {
