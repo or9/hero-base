@@ -28,26 +28,17 @@
 		function nextQuestion () {
 
 			return cardService.next()
-				.then(showCurrent.bind(this))
+				.then(cardService.requestForm)
+				.then(showCurrentForm.bind(this))
 				.then(shuffleAnswers.bind(this));
 		}
 
-		function showCurrent (indexValue) {
-			cardService.requestForm(indexValue)
-				.then(setCurrentForm.bind(this));
-
-			function setCurrentForm (data) {
-				this.current = this.current || {};
-				this.current.initial = data.initial;
-				this.current.medial = data.medial;
-				this.current.final = data.final;
-				this.current.isolated = data.isolated;
-				this.current.id = indexValue;
+		function showCurrentForm (data) {
+			for (var prop in data) {
+				this.current[prop] = data[prop];
 			}
 
-
-			// maybe delete?
-			//delete this.chars[indexValue];
+			this.current.id = data.fk_id_characters;
 		}
 
 		function shuffleAnswers () {
@@ -60,7 +51,7 @@
 				rando.push(tmp.shift().id);
 			}
 
-			rando.push(parseInt(this.current, 10));
+			rando.push(parseInt(this.current.id, 10));
 
 			this.availableChoices = shuffle(rando);
 			this.loading = false;

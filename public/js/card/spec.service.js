@@ -8,6 +8,8 @@ describe("CardService", function () {
 
 	["getCard",
 	"getForm",
+	"requestCard",
+	"requestForm",
 	"error"].forEach(function (method) {
 		it("should reveal a method " + method, function() {
 			cardService[method].should.not.be.null;

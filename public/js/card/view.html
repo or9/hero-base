@@ -1,21 +1,30 @@
 <section class="loading [[ cards.loading ]]">
-		<h2>Start</h2>
-		<p>loading: [[ cards.loading ]]</p>
+	<h2>Card Game</h2>
+		<p>Loading: [[ cards.loading ]]</p>
 
+		<!--
 		list: 
 		<card-list></card-list>
+		-->
 
-		current: 
+		<p>Selected: [[ cards.selected ]]</p>
+
+		<p>
+		Question: <br />
 		<card-current info="cards.current"></card-current>
+		</p>
 
-		choo choo choose me:
-		<card-choices 
-				 	ng-repeat="choice in cards.availableChoices"
-					ng-click="cards.select( [[ choice ]] )"
-					info="cards.chars[ [[choice]] ]"></card-choices>
+		<fieldset>
+			<legend>choo choo choose me: </legend>
 
-		<button id="answer" ng-click="cards.answer()">
-			Submit &#13;
-		</button>
+			<card-choices 
+						ng-repeat="choice in cards.availableChoices"
+						ng-click="cards.select( [[ choice ]] )"
+						info="cards.chars[ [[choice]] ]"></card-choices>
+
+			<button id="answer" ng-click="cards.answer()">
+				Submit &#13;
+			</button>
+		</fieldset>
 
 </section>
