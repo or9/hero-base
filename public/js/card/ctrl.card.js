@@ -3,7 +3,7 @@
 
 	app.controller("CardCtrl", cardController);
 
-	function cardController ($scope, $q, cardService) {
+	function cardController ($scope, $q, $sce, cardService) {
 		/*jshint validthis:true */
 
 		var SELECTED_CLASS = "selected";
@@ -16,6 +16,7 @@
 		this.availableChoices = [];
 		this.select = select.bind(this);
 		this.answer = answer.bind(this);
+		this.renderHtml = $sce.trustAsHtml;
 
 		cardService.requestCard("")
 			.success(initCharacters.bind(this))
@@ -27,18 +28,32 @@
 
 		function nextQuestion () {
 
+			this.loading = true;
+
 			return cardService.next()
 				.then(cardService.requestForm)
 				.then(showCurrentForm.bind(this))
 				.then(shuffleAnswers.bind(this));
+
 		}
 
 		function showCurrentForm (data) {
 			for (var prop in data) {
-				this.current[prop] = data[prop];
+				this.current[prop] = getChar(data[prop]);
+				console.log("this.prop? ", this.current[prop]);
 			}
 
 			this.current.id = data.fk_id_characters;
+			this.current.form = "&#x" + data.initial;
+
+			function getChar (code) {
+				var isCharCode = code.length === 4;
+				if (!isCharCode) {
+					return;
+				}
+
+				return "&#x" + code;
+			}
 		}
 
 		function shuffleAnswers () {
@@ -54,6 +69,7 @@
 			rando.push(parseInt(this.current.id, 10));
 
 			this.availableChoices = shuffle(rando);
+
 			this.loading = false;
 
 			function shuffle (array) {
@@ -71,8 +87,8 @@
 			}
 
 			this.selected = cardId;
-			doc.getElementById("card" + cardId)
-				.classList.add(SELECTED_CLASS);
+			//doc.getElementById("card" + cardId)
+			//	.classList.add(SELECTED_CLASS);
 		}
 
 		function answer () {
@@ -97,12 +113,13 @@
 
 			function incorrect (response) {
 				this.loading = false;
-				$q.reject(response);
+				return $q.reject(response);
 			}
 
 		}
 
 	}
+
 
 
 } (angular.module("cardgameApp"), document));

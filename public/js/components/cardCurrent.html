@@ -1,4 +1,8 @@
-<div id="current_[[ cardInfo.id ]]">
+<div 
+	class="question" 
+	id="card[[ cardInfo.id ]]"
+	render-html="[[ cardInfo.form ]]">
+
 	[[ cardInfo.initial ]] 
 	<br />
 	[[ cardInfo.medial ]] 
@@ -6,4 +10,5 @@
 	[[ cardInfo.final ]] 
 	<br />
 	[[ cardInfo.isolated ]] 
+
 </div>

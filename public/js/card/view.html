@@ -7,20 +7,18 @@
 		<card-list></card-list>
 		-->
 
-		<p>Selected: [[ cards.selected ]]</p>
-
-		<p>
-		Question: <br />
-		<card-current info="cards.current"></card-current>
-		</p>
+		<card-current info="cards.current">
+		</card-current>
 
 		<fieldset>
-			<legend>choo choo choose me: </legend>
+			<legend>choo choo choose me: [[ cards.selected ]]</legend>
 
 			<card-choices 
 						ng-repeat="choice in cards.availableChoices"
 						ng-click="cards.select( [[ choice ]] )"
-						info="cards.chars[ [[choice]] ]"></card-choices>
+						info="cards.chars[ [[ choice ]] ]"
+						render-html="renderHtml(charCode)">
+			</card-choices>
 
 			<button id="answer" ng-click="cards.answer()">
 				Submit &#13;

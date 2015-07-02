@@ -5,14 +5,12 @@
 	function Directive () {
 		return {
 			scope: {
-				cardInfo: "=info"
+				cardInfo: "=info",
+				trust: "&renderHtml"
 			},
 			templateUrl: function (e, attr) {
-				//console.log("cardCurrent directive e? ", e, " attr? ", attr);
 				return "/js/components/cardCurrent.html";
 			},
-			// controller
-			// controllerAs
 			replace: true,
 			restrict: "E"
 		};

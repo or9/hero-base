@@ -5,10 +5,10 @@
 		"transliteration": "",
 		"position": 1,
 		"contextualForms": {
-			"isolated": "FE83",
+			"isolated": "\uFE83",
 			"initial": "",
 			"medial": "",
-			"final": "FE84"
+			"final": "\uFE84"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -20,10 +20,10 @@
 		"transliteration": "",
 		"position": 2,
 		"contextualForms": {
-			"isolated": "FE8F",
-			"initial": "FE91",
-			"medial": "FE92",
-			"final": "FE90"
+			"isolated": "\uFE8F",
+			"initial": "\uFE91",
+			"medial": "\uFE92",
+			"final": "\uFE90"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -35,10 +35,10 @@
 		"transliteration": "",
 		"position": 3,
 		"contextualForms": {
-			"isolated": "FE98",
-			"initial": "FE97",
-			"medial": "FE98",
-			"final": "FE96"
+			"isolated": "\uFE98",
+			"initial": "\uFE97",
+			"medial": "\uFE98",
+			"final": "\uFE96"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -50,10 +50,10 @@
 		"transliteration": "",
 		"position": 4,
 		"contextualForms": {
-			"isolated": "FE99",
-			"initial": "FE9B",
-			"medial": "FE9C",
-			"final": "FE9A"
+			"isolated": "\uFE99",
+			"initial": "\uFE9B",
+			"medial": "\uFE9C",
+			"final": "\uFE9A"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -65,10 +65,10 @@
 		"transliteration": "",
 		"position": 5,
 		"contextualForms": {
-			"isolated": "FE9D",
-			"initial": "FE9F",
-			"medial": "FEA0",
-			"final": "FE9E"
+			"isolated": "\uFE9D",
+			"initial": "\uFE9F",
+			"medial": "\uFEA0",
+			"final": "\uFE9E"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -80,10 +80,10 @@
 		"transliteration": "",
 		"position": 6,
 		"contextualForms": {
-			"isolated": "FEA1",
-			"initial": "FEA3",
-			"medial": "FEA4",
-			"final": "FEA2"
+			"isolated": "\uFEA1",
+			"initial": "\uFEA3",
+			"medial": "\uFEA4",
+			"final": "\uFEA2"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -95,10 +95,10 @@
 		"transliteration": "",
 		"position": 7,
 		"contextualForms": {
-			"isolated": "FEA5",
-			"initial": "FEA7",
-			"medial": "FEA8",
-			"final": "FEA6"
+			"isolated": "\uFEA5",
+			"initial": "\uFEA7",
+			"medial": "\uFEA8",
+			"final": "\uFEA6"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -110,10 +110,10 @@
 		"transliteration": "",
 		"position": 8,
 		"contextualForms": {
-			"isolated": "FEA9",
+			"isolated": "\uFEA9",
 			"initial": "",
 			"medial": "",
-			"final": "FEAA"
+			"final": "\uFEAA"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -125,10 +125,10 @@
 		"transliteration": "",
 		"position": 9,
 		"contextualForms": {
-			"isolated": "FEAB",
+			"isolated": "\uFEAB",
 			"initial": "",
 			"medial": "",
-			"final": "FEAC"
+			"final": "\uFEAC"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -140,10 +140,10 @@
 		"transliteration": "",
 		"position": 10,
 		"contextualForms": {
-			"isolated": "FEAD",
+			"isolated": "\uFEAD",
 			"initial": "",
 			"medial": "",
-			"final": "FEAE"
+			"final": "\uFEAE"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -155,10 +155,10 @@
 		"transliteration": "",
 		"position": 11,
 		"contextualForms": {
-			"isolated": "FEAF",
+			"isolated": "\uFEAF",
 			"initial": "",
 			"medial": "",
-			"final": "FEB0"
+			"final": "\uFEB0"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -170,10 +170,10 @@
 		"transliteration": "",
 		"position": 12,
 		"contextualForms": {
-			"isolated": "FEB1",
-			"initial": "FEB3",
-			"medial": "FEB4",
-			"final": "FEB2"
+			"isolated": "\uFEB1",
+			"initial": "\uFEB3",
+			"medial": "\uFEB4",
+			"final": "\uFEB2"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -185,10 +185,10 @@
 		"transliteration": "",
 		"position": 13,
 		"contextualForms": {
-			"isolated": "FEB5",
-			"initial": "FEB7",
-			"medial": "FEB8",
-			"final": "FEB6"
+			"isolated": "\uFEB5",
+			"initial": "\uFEB7",
+			"medial": "\uFEB8",
+			"final": "\uFEB6"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -200,10 +200,10 @@
 		"transliteration": "",
 		"position": 14,
 		"contextualForms": {
-			"isolated": "FEB9",
-			"initial": "FEBB",
-			"medial": "FEBC",
-			"final": "FEBA"
+			"isolated": "\uFEB9",
+			"initial": "\uFEBB",
+			"medial": "\uFEBC",
+			"final": "\uFEBA"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -215,10 +215,10 @@
 		"transliteration": "",
 		"position": 15,
 		"contextualForms": {
-			"isolated": "FEBD",
-			"initial": "FEBF",
-			"medial": "FEC0",
-			"final": "FEBE"
+			"isolated": "\uFEBD",
+			"initial": "\uFEBF",
+			"medial": "\uFEC0",
+			"final": "\uFEBE"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -230,10 +230,10 @@
 		"transliteration": "",
 		"position": 16,
 		"contextualForms": {
-			"isolated": "FEC1",
-			"initial": "FEC3",
-			"medial": "FEC4",
-			"final": "FEC2"
+			"isolated": "\uFEC1",
+			"initial": "\uFEC3",
+			"medial": "\uFEC4",
+			"final": "\uFEC2"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -245,10 +245,10 @@
 		"transliteration": "",
 		"position": 17,
 		"contextualForms": {
-			"isolated": "FEC5",
-			"initial": "FEC7",
-			"medial": "FEC8",
-			"final": "FEC6"
+			"isolated": "\uFEC5",
+			"initial": "\uFEC7",
+			"medial": "\uFEC8",
+			"final": "\uFEC6"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -260,10 +260,10 @@
 		"transliteration": "",
 		"position": 18,
 		"contextualForms": {
-			"isolated": "FEC9",
-			"initial": "FECB",
-			"medial": "FECC",
-			"final": "FECA"
+			"isolated": "\uFEC9",
+			"initial": "\uFECB",
+			"medial": "\uFECC",
+			"final": "\uFECA"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -275,10 +275,10 @@
 		"transliteration": "",
 		"position": 19,
 		"contextualForms": {
-			"isolated": "FECD",
-			"initial": "FECF",
-			"medial": "FED0",
-			"final": "FECE"
+			"isolated": "\uFECD",
+			"initial": "\uFECF",
+			"medial": "\uFED0",
+			"final": "\uFECE"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -290,10 +290,10 @@
 		"transliteration": "",
 		"position": 20,
 		"contextualForms": {
-			"isolated": "FED1",
-			"initial": "FED3",
-			"medial": "FED4",
-			"final": "FED2"
+			"isolated": "\uFED1",
+			"initial": "\uFED3",
+			"medial": "\uFED4",
+			"final": "\uFED2"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -305,10 +305,10 @@
 		"transliteration": "",
 		"position": 21,
 		"contextualForms": {
-			"isolated": "FED5",
-			"initial": "FED7",
-			"medial": "FED8",
-			"final": "FED6"
+			"isolated": "\uFED5",
+			"initial": "\uFED7",
+			"medial": "\uFED8",
+			"final": "\uFED6"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -320,10 +320,10 @@
 		"transliteration": "",
 		"position": 22,
 		"contextualForms": {
-			"isolated": "FEDB",
-			"initial": "FEDC",
-			"medial": "FEDA",
-			"final": "FED9"
+			"isolated": "\uFEDB",
+			"initial": "\uFEDC",
+			"medial": "\uFEDA",
+			"final": "\uFED9"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -335,10 +335,10 @@
 		"transliteration": "",
 		"position": 23,
 		"contextualForms": {
-			"isolated": "FEDD",
-			"initial": "FEDF",
-			"medial": "FEE0",
-			"final": "FEDE"
+			"isolated": "\uFEDD",
+			"initial": "\uFEDF",
+			"medial": "\uFEE0",
+			"final": "\uFEDE"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -350,10 +350,10 @@
 		"transliteration": "",
 		"position": 24,
 		"contextualForms": {
-			"isolated": "FEE1",
-			"initial": "FEE3",
-			"medial": "FEE4",
-			"final": "FEE2"
+			"isolated": "\uFEE1",
+			"initial": "\uFEE3",
+			"medial": "\uFEE4",
+			"final": "\uFEE2"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -365,10 +365,10 @@
 		"transliteration": "",
 		"position": 25,
 		"contextualForms": {
-			"isolated": "FEE5",
-			"initial": "FEE7",
-			"medial": "FEE8",
-			"final": "FEE6"
+			"isolated": "\uFEE5",
+			"initial": "\uFEE7",
+			"medial": "\uFEE8",
+			"final": "\uFEE6"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -380,10 +380,10 @@
 		"transliteration": "",
 		"position": 26,
 		"contextualForms": {
-			"isolated": "FEE9",
-			"initial": "FEEB",
-			"medial": "FEEC",
-			"final": "FEEA"
+			"isolated": "\uFEE9",
+			"initial": "\uFEEB",
+			"medial": "\uFEEC",
+			"final": "\uFEEA"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -395,10 +395,10 @@
 		"transliteration": "",
 		"position": 27,
 		"contextualForms": {
-			"isolated": "FEED",
+			"isolated": "\uFEED",
 			"initial": "",
 			"medial": "",
-			"final": "FEEE"
+			"final": "\uFEEE"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -410,10 +410,10 @@
 		"transliteration": "",
 		"position": 28,
 		"contextualForms": {
-			"isolated": "FEF1",
-			"initial": "FEF3",
-			"medial": "FEF4",
-			"final": "FEF2"
+			"isolated": "\uFEF1",
+			"initial": "\uFEF3",
+			"medial": "\uFEF4",
+			"final": "\uFEF2"
 		},
 		"tags": ["tag0", "tag1", "tag2"]
 	},
@@ -425,10 +425,10 @@
 		"transliteration": "",
 		"position": 29,
 		"contextualForms": {
-			"isolated": "FE81",
+			"isolated": "\uFE81",
 			"initial": "",
 			"medial": "",
-			"final": "FE82"
+			"final": "\uFE82"
 		},
 		"tags": ["tag0", "tag1", "tag2"],
 		"special": true
@@ -441,10 +441,10 @@
 		"transliteration": "",
 		"position": 30,
 		"contextualForms": {
-			"isolated": "FE93",
+			"isolated": "\uFE93",
 			"initial": "",
 			"medial": "",
-			"final": "FE94"
+			"final": "\uFE94"
 		},
 		"tags": ["tag0", "tag1", "tag2"],
 		"special": true
@@ -457,10 +457,10 @@
 		"transliteration": "",
 		"position": 31,
 		"contextualForms": {
-			"isolated": "FEEF",
+			"isolated": "\uFEEF",
 			"initial": "",
 			"medial": "",
-			"final": "FEF0"
+			"final": "\uFEF0"
 		},
 		"tags": ["tag0", "tag1", "tag2"],
 		"special": true
