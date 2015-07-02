@@ -54,7 +54,7 @@ describe("CardCtrl", function () {
 			scope.$apply();
 			scope.$digest();
 
-			scope.cards.current.should.include.keys("id", "initial", "medial", "final");
+			scope.cards.current.should.include.keys("id", "form");
 
 		});
 
@@ -93,21 +93,6 @@ describe("CardCtrl", function () {
 			element[0].click();
 			scope.$digest();
 			scope.cards.selected.should.equal(0);
-
-		});
-
-		it("should unselect a previous element", function () {
-
-			var body = document.body;
-			var element = $compile(cardElementHtml)(scope)[0];
-			var element2 = $compile(cardElement2Html)(scope)[0];
-			body.appendChild(element);
-			body.appendChild(element2);
-			element.click();
-			element2.click();
-			scope.cards.selected.should.equal(1);
-			element2.classList.contains("selected").should.be.true;
-			element.classList.contains("selected").should.be.false;
 
 		});
 

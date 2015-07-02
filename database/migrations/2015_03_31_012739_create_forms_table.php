@@ -24,10 +24,10 @@ class CreateFormsTable extends Migration {
 				->on("characters")
 				->onDelete("cascade")
 				->onUpdate("cascade");
-			$table->char("isolated", 4);
-			$table->char("initial", 4);
-			$table->char("medial", 4);
-			$table->char("final", 4);
+			$table->char("isolated", 1);
+			$table->char("initial", 1);
+			$table->char("medial", 1);
+			$table->char("final", 1);
 			$table->timestamps();
 		});
 	}

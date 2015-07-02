@@ -38,22 +38,9 @@
 		}
 
 		function showCurrentForm (data) {
-			for (var prop in data) {
-				this.current[prop] = getChar(data[prop]);
-				console.log("this.prop? ", this.current[prop]);
-			}
-
+			// forms are data.[initial|isolated|medial|final]
 			this.current.id = data.fk_id_characters;
-			this.current.form = "&#x" + data.initial;
-
-			function getChar (code) {
-				var isCharCode = code.length === 4;
-				if (!isCharCode) {
-					return;
-				}
-
-				return "&#x" + code;
-			}
+			this.current.form = data.initial;
 		}
 
 		function shuffleAnswers () {
