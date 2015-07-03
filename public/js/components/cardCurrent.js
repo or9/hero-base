@@ -5,8 +5,7 @@
 	function Directive () {
 		return {
 			scope: {
-				cardInfo: "=info",
-				trust: "&renderHtml"
+				cardInfo: "=info"
 			},
 			templateUrl: function (e, attr) {
 				return "/js/components/cardCurrent.html";

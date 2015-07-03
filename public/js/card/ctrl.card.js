@@ -40,16 +40,19 @@
 		function showCurrentForm (data) {
 			// forms are data.[initial|isolated|medial|final]
 			this.current.id = data.fk_id_characters;
-			this.current.form = data.initial;
+			this.current.form = data.isolated;
 		}
 
 		function shuffleAnswers () {
 
 			var rando = [];
-			var tmp = this.chars.slice(0);
-			tmp = shuffle(tmp).slice(-4);
+			var tmp = shuffle(this.chars.slice(0));
 
-			while (tmp.length > 0) {
+			tmp = tmp.filter(function (item) {
+				return item.id !== this.current.id;
+			}.bind(this));
+
+			while (rando.length < NUMBER_OF_ANSWERS - 1) {
 				rando.push(tmp.shift().id);
 			}
 
@@ -74,27 +77,22 @@
 			}
 
 			this.selected = cardId;
-			//doc.getElementById("card" + cardId)
-			//	.classList.add(SELECTED_CLASS);
 		}
 
-		function answer () {
+		function answer (id) {
 			this.loading = true;
 
-			cardService.answer(this.selected)
+			cardService.answer(this.selected || id)
 				.then(correct.bind(this), incorrect.bind(this))
 				.then(nextQuestion.bind(this));
 
 			function correct (response) {
 				this.loading = false;
 
-				doc.getElementById("card" + this.selected)
-					.classList.remove(SELECTED_CLASS);
-
 				this.selected = null;
 
-				return response;
-				//$q.resolve(response);
+				//return response;
+				$q.resolve(response);
 			}
 
 

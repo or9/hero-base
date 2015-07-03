@@ -1,5 +1,13 @@
-<input 	name="availableChoices" 
-			 	type="button"
-				value="[[cardInfo.id]] [[ cardInfo.name ]]"
- 				ng-click=""
- />
+<span>
+  <label for="choice[[ cardInfo.id ]]">
+    [[ cardInfo.name ]]
+  </label>
+
+  <input 	name="availableChoices" 
+          id="choice[[ cardInfo.id ]]"
+          type="radio"
+          value="[[ cardInfo.id ]]" 
+          ng-click="answer({id: cardInfo.id})"
+          />
+
+</span>
