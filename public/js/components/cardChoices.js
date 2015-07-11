@@ -6,9 +6,8 @@
 		return {
 			scope: {
 				cardInfo: "=info",
-				//answerChoice: "@",
-				setSelected: "&onSelect",
-				answer: "&onAnswer"
+				length: "=length",
+				select: "&onSelect"
 			},
 			templateUrl: function (e, attr) {
 				//console.log("cardCurrent directive e? ", e, " attr? ", attr);

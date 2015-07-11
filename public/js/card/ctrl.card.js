@@ -3,27 +3,80 @@
 
 	app.controller("CardCtrl", cardController);
 
+	Object.defineProperties(cardController.prototype, {
+
+		loading:	{ value: true, writable: true },
+		started:	{ value: false, writable: true },
+		chars:		{ writable: true },
+		remaining:	{ value: [], writable: true, configurable: true },
+		selected:	{ writable: true },
+		current:	{ value: {}, writable: true },
+		availableChoices: { value: [], writable: true }
+
+	});
+
 	function cardController ($scope, $q, $sce, cardService) {
 		/*jshint validthis:true */
 
-		var SELECTED_CLASS = "selected";
 		var NUMBER_OF_ANSWERS = 5;
+		var formType = "isolated";
+		var chars;
 
-		this.loading = true;
-		this.chars = null;
-		this.selected = null;
-		this.current = {};
-		this.availableChoices = [];
 		this.select = select.bind(this);
 		this.answer = answer.bind(this);
-		this.renderHtml = $sce.trustAsHtml;
+		this.start = start.bind(this);
 
 		cardService.requestCard("")
 			.success(initCharacters.bind(this))
-			.then(nextQuestion.bind(this));
+			.then(initRemainingForms.bind(this))
+			.then(setLoading.bind(this));
 
 		function initCharacters (response) {
-			this.chars = response;
+			chars = response;
+			this.chars = chars;
+		}
+
+		function initRemainingForms () {
+
+			this.loading = true;
+
+			cardService.requestForm("")
+				.success(createForms.bind(this))
+				.then(this.remaining.sort(sortRemainingById));
+
+			function createForms (data) {
+				// forms are data.[initial|isolated|medial|final]
+
+				this.remaining = data.map(function (character) {
+
+					var form = character.form;
+
+					return {
+						name: character.name,
+						form: form[formType],
+						id: form.fk_id_characters
+					};
+				});
+
+				return this.remaining;
+
+			}
+
+			function sortRemainingById (obj1, obj2) {
+				return obj1.id - obj2.id;
+			}
+
+		}
+
+		function start () {
+			this.started = true;
+
+			var i = -1;
+			while (i < this.remaining.length - 1) {
+				delete this.remaining[i += 1].name;
+			}
+
+			nextQuestion.call(this);
 		}
 
 		function nextQuestion () {
@@ -31,52 +84,69 @@
 			this.loading = true;
 
 			return cardService.next()
-				.then(cardService.requestForm)
+				.then(updateRemaining.bind(this))
 				.then(showCurrentForm.bind(this))
-				.then(shuffleAnswers.bind(this));
+				.then(shuffleAnswers.bind(this))
+				.then(select.bind(this))
+				.then(setLoading.bind(this));
 
 		}
 
-		function showCurrentForm (data) {
+		function showCurrentForm (idIndex) {
 			// forms are data.[initial|isolated|medial|final]
-			this.current.id = data.fk_id_characters;
-			this.current.form = data.isolated;
+			this.current.id = this.remaining[idIndex].id;
+			this.current.form = this.remaining[idIndex].form;
 		}
+
+
+		function updateRemaining (nextIndex) {
+			var currentIndex = 0;
+			while (currentIndex < this.remaining.length) {
+				if (this.remaining[currentIndex] && this.remaining[currentIndex].id === this.current.id) {
+					break;
+				}
+				currentIndex += 1;
+			}
+			this.remaining.splice(currentIndex, 1);
+
+			return nextIndex;
+		}
+
+
 
 		function shuffleAnswers () {
 
 			var rando = [];
-			var tmp = shuffle(this.chars.slice(0));
+			var tmp = chars.slice(0);
+			tmp = tmp.sort(shuffle);
 
 			tmp = tmp.filter(function (item) {
 				return item.id !== this.current.id;
 			}.bind(this));
 
-			while (rando.length < NUMBER_OF_ANSWERS - 1) {
+			while (rando.length > 0 && rando.length < NUMBER_OF_ANSWERS - 1) {
 				rando.push(tmp.shift().id);
 			}
 
 			rando.push(parseInt(this.current.id, 10));
 
-			this.availableChoices = shuffle(rando);
+			this.availableChoices = rando.sort(shuffle);
 
-			this.loading = false;
-
-			function shuffle (array) {
-				return array.sort(function () {
-					return 0.5 - Math.random();
-				});
+			function shuffle (a, b) {
+				return 0.5 - Math.random();
 			}
 		}
 
 
 		function select (cardId) {
-			var previous = doc.getElementById("card" + this.selected);
+			var previous = doc.getElementById("choice" + this.selected);
 			if (previous) {
 				previous.classList.remove("selected");
+				doc.getElementById("choice"+cardId).classList.add("selected");
 			}
 
 			this.selected = cardId;
+
 		}
 
 		function answer (id) {
@@ -88,6 +158,11 @@
 
 			function correct (response) {
 				this.loading = false;
+
+				var previousElement = doc.getElementById("choice" + this.selected);
+				if (previousElement) {
+					previousElement.classList.remove("selected");
+				}
 
 				this.selected = null;
 
@@ -103,8 +178,11 @@
 
 		}
 
+		function setLoading (isLoading) {
+			this.loading = !!isLoading || false;
+			return this.loading;
+		}
 	}
-
 
 
 } (angular.module("cardgameApp"), document));

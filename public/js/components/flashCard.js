@@ -5,10 +5,13 @@
 	function Directive () {
 		return {
 			scope: {
-				cardInfo: "=info"
+				cardInfo: "=",
+				cardName: "=",
+				cardForm: "=",
+				length: "=",
+				className: "@"
 			},
 			templateUrl: function (e, attr) {
-				//console.log("flashCard directive e? ", e, " attr? ", attr);
 				return "/js/components/flashCard.html";
 			},
 			replace: true,

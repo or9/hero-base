@@ -74,6 +74,7 @@
 		function answer (cardId, tries) {
 			tries = tries || 0;
 
+			console.log("posting /api/answer/.", "/api/answer/".concat( cardId));
 			return $http.post("/api/answer/".concat( cardId ))
 				.then(success, failure);
 
@@ -173,6 +174,7 @@
 				})
 				.error(function (data, status) {
 					if (tries >= retryLimit) {
+						console.log("retries exceeded");
 						errorHandler(data);
 					} else {
 						return requestCard(cardId, tries += 1);
@@ -207,18 +209,21 @@
 		 * @return Promise
 		 */
 		function requestForm (formId, tries) {
-			var defer = $q.defer();
+			//var defer = $q.defer();
 
 			tries = tries || 0;
 
-			$http.get("/api/form/".concat( formId ))
+			return $http.get("/api/form/".concat( formId ))
 				.success(function (data) {
 					forms.push(data);
-					defer.resolve(data);
+					//defer.resolve(data);
+					return data;
 				})
 				.error(function (data, status) {
 					if (tries >= retryLimit) {
-						return defer.reject(data);
+						//return defer.reject(data);
+						console.log("retries exceeded form");
+						errorHandler (data, status);
 					} else {
 						return requestForm(formId, tries += 1);
 					}
@@ -226,7 +231,7 @@
 
 				});
 
-			return defer.promise;
+			//return defer.promise;
 		}
 
 		function errorHandler (err) {

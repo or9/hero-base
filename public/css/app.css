@@ -5,6 +5,14 @@ label,
 .checkbox label {
   font: 1em/1.15em normal "Roboto", Helvetica, Arial, sans-serif;
 }
+body {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+  height: auto;
+  background: #369;
+}
 header {
   text-align: center;
   display: -webkit-flex;
@@ -12,7 +20,7 @@ header {
   display: flex;
 }
 section {
-  margin: 0 auto;
+  margin: 60px auto;
   text-align: center;
   box-sizing: border-box;
   display: inline-block;
@@ -20,6 +28,9 @@ section {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  position: relative;
+  -webkit-perspective: 300px;
+  perspective: 300px;
 }
 footer {
   text-align: left;
@@ -27,19 +38,113 @@ footer {
   display: -ms-flexbox;
   display: flex;
 }
+.cards.unanswered {
+  -webkit-perspective: 9000px;
+  perspective: 9000px;
+  min-width: 640px;
+  min-height: 480px;
+}
+.started_true .cards.unanswered {
+  -webkit-perspective: 300px;
+  perspective: 300px;
+  -webkit-perspective-origin: 92% 78%;
+  perspective-origin: 92% 78%;
+}
 .card {
+  position: relative;
   font-family: "Droid Arabic Naskh", serif;
   display: inline-block;
-  margin: 0 auto;
-  padding: 0;
+  margin: 2px;
+  padding: 0 20px;
   box-sizing: border-box;
-}
-.question {
-  background-color: #cf0;
-  height: auto;
-  font-size: 10em;
-  line-height: 1em;
+  color: #336;
+  background: #fff;
+  vertical-align: middle;
   font-weight: 100;
+  width: 161px;
+  height: 260px;
+  text-shadow: 1px -1px rgba(255, 255, 255, 0.9), 2px -2px rgba(255, 255, 255, 0.9), 3px -3px rgba(255, 255, 255, 0.9), 4px -4px rgba(255, 255, 255, 0.9), 5px -5px rgba(255, 255, 255, 0.9), 1px 1px rgba(255, 255, 255, 0.9), 0px 0px rgba(255, 255, 255, 0.9);
+  /* change to border image */
+  border-width: 20px;
+  border-image: url("/images/border-geometric.png") 50 50 50 50 round round;
+  outline: double 4px #d7d7d7;
+  outline-offset: -12px;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: -webkit-transform margin-right 0.3s;
+  transition: transform margin-right 0.3s;
+}
+.started_true .card {
+  position: absolute;
+  margin: 0;
+}
+.card .form,
+.card .name {
+  text-align: center;
+  text-indent: 0;
+  padding: 0 auto;
+  margin: 0;
+  display: inline-block;
+  width: 100%;
+  -webkit-transform: translateZ(1px);
+  transform: translateZ(1px);
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.form {
+  font-size: 7em;
+  line-height: 1.55em;
+}
+.name {
+  font-size: 1.64em;
+  line-height: 1em;
+}
+.card .form:after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 110%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.card.question {
+  -webkit-transform: translateZ(40px);
+  transform: translateZ(40px);
+}
+.question .form {
+  font-size: 10em;
+}
+.availableChoices {
+  min-width: 100px;
+  font-size: 2em;
+  line-height: 1.25em;
+  background: #eee;
+  display: inline-block;
+  border: 1px solid #fff;
+}
+.loading_true {
+  /**/
+}
+.started_true .card + .card {
+  /*margin: 0 0 0 -154px;*/
+}
+.started_true .card.question {
+  /*margin-left: -149px;*/
+}
+.started_false .card {
+  -webkit-transform: none !important;
+  transform: none !important;
+}
+.started_false .card.question {
+  display: none;
+}
+.selected {
+  background: #80ffa0;
 }
 
 /*# sourceMappingURL=app.css.map */

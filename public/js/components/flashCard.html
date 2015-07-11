@@ -1,4 +1,12 @@
-<span>
-	[[ cardInfo.name ]]<br />
-	[[ cardInfo.id ]]
-</span>
+<dl id="card[[ cardInfo.id ]]" class="[[ className ]]" 
+  style="transform: translateZ([[ 20 / length * (cardInfo.id + 1) - (length / 2) ]]px) 
+    translateX([[ length / 8 * (cardInfo.id + 1) ]]px) 
+    translateY([[ length / 8 * (cardInfo.id + 1) ]]px) 
+    rotateY([[ 2 / length * (cardInfo.id + 1) ]]deg) 
+    rotateX([[ 1 / length * (cardInfo.id + 1) ]]deg) 
+    rotateZ([[ 15 / length * (cardInfo.id + 1) ]]deg);">
+  <!-- first number represents max angle of transform -->
+
+  <dt class="form">[[ cardForm ]]</dt>
+  <dd class="name">[[ cardName ]]</dd>
+</dl>

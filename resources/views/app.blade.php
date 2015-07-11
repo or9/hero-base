@@ -13,7 +13,6 @@
 
 	<script src="{{ asset('/js/components/flashCard.js') }}"></script>
 
-	<script src="{{ asset('/js/components/cardList.js') }}"></script>
 
 	<script src="{{ asset('/js/components/cardCurrent.js') }}"></script>
 	<script src="{{ asset('/js/components/cardChoices.js') }}"></script>

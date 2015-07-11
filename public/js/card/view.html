@@ -1,21 +1,43 @@
-<section class="loading [[ cards.loading ]]">
-	<h2>Card Game</h2>
+<section class="loading_[[ cards.loading ]] started_[[ cards.started ]]">
 
-		<card-current info="cards.current">
-		</card-current>
+  <div class="control start">
+    <button id="start" ng-click="cards.start()">Start</button>
+  </div>
 
-    <label>[[ cards.selected ]]</label>
+  <div class="cards unanswered">
+    <flash-card
+       ng-repeat="card in cards.remaining"
+       card-info="card"
+       length="cards.remaining.length"
+       class-name="card">
+    </flash-card>
+
+    <flash-card
+      card-info="cards.current.id"
+      card-name=""
+      card-form="cards.current.form"
+      length="cards.remaining.length"
+      class-name="card question">
+    </flash-card>
+
+
+    <!--card-current info="cards.current"></card-current-->
+  </div>
+
+  <div class="control choices">
     <card-choices 
-          ng-repeat="choice in cards.availableChoices"
-          on-answer="cards.answer( id )"
-          info="cards.chars[ [[ choice ]] ]">
+       ng-repeat="choice in cards.availableChoices"
+       on-select="cards.select( id )"
+       info="cards.chars[ [[ choice ]] ]">
 
     </card-choices>
+  </div>
 
-    <!--
-    <button id="answer" ng-click="cards.answer()">
-      Submit &#13;
+  <div class="control answer">
+    <!-- ng-if doesn't work -->
+    <button id="answer" ng-click="cards.answer(cards.selected)">
+      Submit
     </button>
-    -->
+  </div>
 
 </section>
