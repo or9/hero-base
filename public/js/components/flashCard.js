@@ -5,10 +5,10 @@
 	function Directive () {
 		return {
 			scope: {
-				cardInfo: "=",
-				cardName: "=",
-				cardForm: "=",
-				length: "=",
+				info: "=info",
+				name: "=name",
+				form: "=form",
+				length: "=length",
 				className: "@"
 			},
 			templateUrl: function (e, attr) {

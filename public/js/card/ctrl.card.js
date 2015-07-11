@@ -37,6 +37,7 @@
 		}
 
 		function initRemainingForms () {
+			console.log("doing init remaining");
 
 			this.loading = true;
 
@@ -73,8 +74,11 @@
 
 			var i = -1;
 			while (i < this.remaining.length - 1) {
+				console.log("deleting name");
 				delete this.remaining[i += 1].name;
 			}
+
+			console.log("starting");
 
 			nextQuestion.call(this);
 		}
@@ -101,6 +105,7 @@
 
 		function updateRemaining (nextIndex) {
 			var currentIndex = 0;
+			console.log("updating remaining");
 			while (currentIndex < this.remaining.length) {
 				if (this.remaining[currentIndex] && this.remaining[currentIndex].id === this.current.id) {
 					break;
