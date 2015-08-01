@@ -5,7 +5,7 @@
 	function Directive () {
 		return {
 			scope: {
-				cardInfo: "=info",
+				info: "=info",
 				length: "=length",
 				select: "&onSelect"
 			},

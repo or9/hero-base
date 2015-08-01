@@ -20,7 +20,7 @@
 
 		var NUMBER_OF_ANSWERS = 5;
 		var formType = "isolated";
-		var chars;
+		var allCharacters;
 
 		this.select = select.bind(this);
 		this.answer = answer.bind(this);
@@ -32,8 +32,13 @@
 			.then(setLoading.bind(this));
 
 		function initCharacters (response) {
-			chars = response;
-			this.chars = chars;
+			allCharacters = response.sort(sortAscending);
+			this.chars = allCharacters.slice(0);
+			console.log("all chars? ", allCharacters);
+
+			function sortAscending (a, b) {
+				return a.id - b.id;
+			}
 		}
 
 		function initRemainingForms () {
@@ -48,9 +53,10 @@
 			function createForms (data) {
 				// forms are data.[initial|isolated|medial|final]
 
-				this.remaining = data.map(function (character) {
+				this.remaining = data.map(function (character, i) {
 
 					var form = character.form;
+					allCharacters[i].form = form[formType];
 
 					return {
 						name: character.name,
@@ -73,14 +79,14 @@
 			this.started = true;
 
 			var i = -1;
-			while (i < this.remaining.length - 1) {
-				console.log("deleting name");
-				delete this.remaining[i += 1].name;
-			}
+			//while (i < this.remaining.length - 1) {
+				//delete this.remaining[i += 1].name;
+			//}
 
 			console.log("starting");
 
 			nextQuestion.call(this);
+			console.log("this.remaining: ", this.remaining, this.remaining.length);
 		}
 
 		function nextQuestion () {
@@ -98,8 +104,9 @@
 
 		function showCurrentForm (idIndex) {
 			// forms are data.[initial|isolated|medial|final]
-			this.current.id = this.remaining[idIndex].id;
-			this.current.form = this.remaining[idIndex].form;
+			this.current.id = allCharacters[idIndex].id;
+			this.current.form = allCharacters[idIndex].form;
+			console.log("this.current: ", this.current);
 		}
 
 
@@ -113,6 +120,7 @@
 				currentIndex += 1;
 			}
 			this.remaining.splice(currentIndex, 1);
+			console.log("this.remaining: ", this.remaining, this.remaining.length);
 
 			return nextIndex;
 		}
@@ -122,20 +130,21 @@
 		function shuffleAnswers () {
 
 			var rando = [];
-			var tmp = chars.slice(0);
+			var tmp = allCharacters.slice(0);
 			tmp = tmp.sort(shuffle);
 
 			tmp = tmp.filter(function (item) {
 				return item.id !== this.current.id;
 			}.bind(this));
 
-			while (rando.length > 0 && rando.length < NUMBER_OF_ANSWERS - 1) {
+			while (tmp.length > 0 && rando.length < NUMBER_OF_ANSWERS - 1) {
 				rando.push(tmp.shift().id);
 			}
 
 			rando.push(parseInt(this.current.id, 10));
 
 			this.availableChoices = rando.sort(shuffle);
+			console.log("this.availableChoices? ", this.availableChoices, this.availableChoices.length);
 
 			function shuffle (a, b) {
 				return 0.5 - Math.random();
@@ -146,6 +155,7 @@
 		function select (cardId) {
 			var previous = doc.getElementById("choice" + this.selected);
 			if (previous) {
+				console.log("yes, previous. It's: ", previous);
 				previous.classList.remove("selected");
 				doc.getElementById("choice"+cardId).classList.add("selected");
 			}
@@ -156,6 +166,8 @@
 
 		function answer (id) {
 			this.loading = true;
+			console.log("answering: ", this.selected);
+			console.log("answer is: ", this.current);
 
 			cardService.answer(this.selected || id)
 				.then(correct.bind(this), incorrect.bind(this))

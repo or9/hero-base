@@ -56,18 +56,28 @@ class GameServiceTest extends \TestCase {
 		$this->assertEquals(3, $this->gameService->countRemaining());
 	}
 
-	public function testAnswer ()
+	public function testCorrectAnswer ()
 	{
 		$this->gameService->reset();
 
+		$mockAltData = new FakeData([
+			[3, "3 stuff"],
+			[0, "zero stuff"],
+			[9, "99 stuff"]
+		]);
+
+		$this->gameService->add($mockAltData);
+		$this->assertEquals(3, $this->gameService->countRemaining());
+
 		apc_store("GAME_SERVICE_CURRENT_ANSWER_INDEX", "0");
 
-		//$this->gameService->add($this->mockData[0]);
 		$isCorrect = $this->gameService->answer(0);
 		$this->assertEquals("true", $isCorrect);
 
 		$isCorrect = $this->gameService->answer("0");
 		$this->assertEquals("true", $isCorrect);
+
+		$this->assertEquals(2, $this->gameService->countRemaining());
 
 		apc_delete("GAME_SERVICE_CURRENT_ANSWER_INDEX");
 

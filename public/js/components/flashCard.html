@@ -1,10 +1,8 @@
 <dl id="card[[ info.id ]]" class="[[ className ]]" 
-  style="transform: translateZ([[ 20 / length * (info.id + 1) - (length / 2) ]]px) 
-    translateX([[ length / 8 * (info.id + 1) ]]px) 
-    translateY([[ length / 8 * (info.id + 1) ]]px) 
-    rotateY([[ 2 / length * (info.id + 1) ]]deg) 
-    rotateX([[ 1 / length * (info.id + 1) ]]deg) 
-    rotateZ([[ 15 / length * (info.id + 1) ]]deg);">
+  style="transform: translateZ([[ length * (translateZ + 1) - (length * 34) ]]px) 
+    translateX([[ length / 8 * (translateZ + 1) - (length * translateZ / 4) ]]px) 
+		translateY([[ length / 8 * (translateZ + 1) - (length * translateZ / 5) ]]px)
+		rotateY([[ 0.33 / length * translateZ ]]deg);">
   <!-- first number represents max angle of transform -->
 
   <dt class="form">[[ form ]]</dt>

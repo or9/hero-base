@@ -57,6 +57,9 @@ class GameService {
 
 		if (strval($answerIndex) === self::$current_answer_index) {
 			$isCorrect = "true";
+
+			unset(self::$remaining[self::$current_answer_index]);
+			apc_store(self::REMAINING, self::$remaining);
 		}
 
 		return $isCorrect;
@@ -72,6 +75,7 @@ class GameService {
 		self::$current_answer_index = (string) array_rand(apc_fetch(self::REMAINING));
 
 		apc_store(self::CURRENT_ANSWER_INDEX, self::$current_answer_index);
+
 
 		return self::$current_answer_index;
 	}

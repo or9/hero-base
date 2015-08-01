@@ -47,8 +47,7 @@ footer {
 .started_true .cards.unanswered {
   -webkit-perspective: 300px;
   perspective: 300px;
-  -webkit-perspective-origin: 92% 78%;
-  perspective-origin: 92% 78%;
+  /*perspective-origin: 92% 78%;*/
 }
 .card {
   position: relative;
@@ -58,7 +57,7 @@ footer {
   padding: 0 20px;
   box-sizing: border-box;
   color: #336;
-  background: #fff;
+  background: #d7d7d7;
   vertical-align: middle;
   font-weight: 100;
   width: 161px;
@@ -113,6 +112,7 @@ footer {
   left: 0;
 }
 .card.question {
+  background: #fff;
   -webkit-transform: translateZ(40px);
   transform: translateZ(40px);
 }

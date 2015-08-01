@@ -8,6 +8,7 @@
 				info: "=info",
 				name: "=name",
 				form: "=form",
+				translateZ: "=translateZ",
 				length: "=length",
 				className: "@"
 			},
