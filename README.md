@@ -55,6 +55,8 @@ brew uninstall --force php56-mcrypt php56-igbinary
 brew install --build-from-source php56-mcrypt php56-igbinary
 brew install php56 --with-thread-safety --with-postgresql php56-mcrypt --with-homebrew-php php56-igbinary --with-homebrew-php 
 ```
+Issue: `Undefined class constant MYSQL_ATTR_SSL_CA`  
+Resolution: Maybe don't have a `.env` file? Copy `.env.example` to `.env`
 
 ###Windows
 Issue: "Windows sucks".

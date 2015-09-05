@@ -6,7 +6,9 @@ if (env("APP_ENV") != "local") {
 	$configOptions = [
 		PDO::MYSQL_ATTR_SSL_KEY		=> env("SSL_KEY"),
 		PDO::MYSQL_ATTR_SSL_CERT 	=> env("SSL_CERT"),
-		PDO::MSYQL_ATTR_SSL_CA		=> env("SSL_CA")
+		PDO::MYSQL_ATTR_SSL_CA		=> env("SSL_CA"),
+		PDO::MYSQL_ATTR_CAPATH		=> env("SSL_CAPATH"),
+		PDO::MYSQL_ATTR_COMPRESS	=> true
 	];
 }
 
