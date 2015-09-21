@@ -31,7 +31,8 @@
 			"php artisan clear-compiled",
 			"php artisan optimize",
 			"php artisan config:cache",
-			"bower install"
+			"php artisan db:seed",
+			"npm start"
 		],
 		"post-update-cmd": [
 			"php artisan clear-compiled",

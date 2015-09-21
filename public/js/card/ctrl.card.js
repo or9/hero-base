@@ -15,12 +15,12 @@
 
 	});
 
-	function cardController ($scope, $q, $sce, cardService) {
+	function cardController ($scope, $q, cardService) {
 		/*jshint validthis:true */
 
 		var NUMBER_OF_ANSWERS = 5;
 		var formType = "isolated";
-		var allCharacters;
+		var allCharacters = [];
 
 		this.select = select.bind(this);
 		this.answer = answer.bind(this);
@@ -52,11 +52,13 @@
 
 			function createForms (data) {
 				// forms are data.[initial|isolated|medial|final]
+				console.log("mapping data: ", data.length, " data 4? ", data[4]);
 
-				this.remaining = data.map(function (character, i) {
+				this.remaining = data.map(function (character, index, shit) {
 
 					var form = character.form;
-					allCharacters[i].form = form[formType];
+					console.log("allCharacters[i]? ", allCharacters[index], index);
+					allCharacters[index].form = form[formType];
 
 					return {
 						name: character.name,
@@ -79,14 +81,8 @@
 			this.started = true;
 
 			var i = -1;
-			//while (i < this.remaining.length - 1) {
-				//delete this.remaining[i += 1].name;
-			//}
-
-			console.log("starting");
 
 			nextQuestion.call(this);
-			console.log("this.remaining: ", this.remaining, this.remaining.length);
 		}
 
 		function nextQuestion () {
@@ -144,7 +140,6 @@
 			rando.push(parseInt(this.current.id, 10));
 
 			this.availableChoices = rando.sort(shuffle);
-			console.log("this.availableChoices? ", this.availableChoices, this.availableChoices.length);
 
 			function shuffle (a, b) {
 				return 0.5 - Math.random();
@@ -199,6 +194,7 @@
 			this.loading = !!isLoading || false;
 			return this.loading;
 		}
+
 	}
 
 

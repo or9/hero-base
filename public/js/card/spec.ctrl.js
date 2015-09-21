@@ -6,12 +6,14 @@ describe("CardCtrl", function () {
 		scope,
 		$httpBackend,
 		$compile,
-		$q;
+		$q,
+		cardService,
+		sandbox;
 
 	var mockChar = getMockChar(0);
-	var mockChars = [mockChar, getMockChar(1), getMockChar(2), getMockChar(3)];
+	var mockChars = [getMockChar(0), getMockChar(1), getMockChar(2), getMockChar(3), getMockChar(4)];
 	var mockForm = getMockForm(0);
-	var mockForms = [mockForm, getMockForm(1), getMockForm(2), getMockForm(3), getMockForm(4)];
+	var mockForms = [getMockForm(0), getMockForm(1), getMockForm(2), getMockForm(3), getMockForm(4)];
 	var cardElementHtml = "<ul ng-click='cards.select(0)' id='card0' class='card'>" +
 		"<li>test1<li>" +
 		"<li>0</li>";
@@ -43,7 +45,7 @@ describe("CardCtrl", function () {
 		it("Should immediately add card models to scope", function () {
 
 			scope.$digest();
-			scope.cards.chars.length.should.equal(4);
+			scope.cards.chars.length.should.equal(5);
 
 		});
 
@@ -105,26 +107,24 @@ describe("CardCtrl", function () {
 	xdescribe("#answer", function () {
 
 		it("should reset selected card upon true answer", function () {
+
+			var deferred = $q.defer();
+
 			scope.cards.start();
 
-			scope.$digest();
-			scope.$apply();
-			$httpBackend.flush();
-			scope.$apply();
-
 			scope.cards.selected = 0;
+			scope.cards.current = { id: 0 };
+
+			//$httpBackend.expectPOST("/api/answer/0").respond( 200, "true" );
+
+			deferred.resolve(true);
+
+			//scope.cards.answer();
+
+			//$httpBackend.flush();
 			scope.$digest();
-			$httpBackend.expectPOST("/api/answer/0").respond( 200, "true" );
 
-
-			scope.cards.answer();
-			$httpBackend.flush();
 			scope.$digest();
-
-			scope.$apply();
-
-
-			//scope.$digest();
 			var selected = scope.cards.selected;
 			expect(selected).to.be.null;
 
@@ -173,7 +173,7 @@ describe("CardCtrl", function () {
 		});
 	}
 
-	function setupController (_$rootScope_, _$controller_, _$httpBackend_, _$compile_, _$q_, cardService) {
+	function setupController (_$rootScope_, _$controller_, _$httpBackend_, _$compile_, _$q_, _cardService_) {
 		var url = {
 			leng: "/api/characters/length",
 			char: "/api/character/0",
@@ -185,6 +185,7 @@ describe("CardCtrl", function () {
 
 		};
 		$q = _$q_;
+		cardService = _cardService_;
 		scope = _$rootScope_.$new();
 
 		$httpBackend = _$httpBackend_;
@@ -194,7 +195,7 @@ describe("CardCtrl", function () {
 		$httpBackend.whenGET(url.leng).respond(200, 1);
 		$httpBackend.whenGET(url.char).respond(mockChar);
 		$httpBackend.whenGET(url.chars).respond(mockChars);
-		$httpBackend.whenGET(url.forms).respond(mockForms);
+		$httpBackend.whenGET(url.forms).respond(logMockForms());
 
 		$httpBackend.whenGET(url.form).respond( 200, mockForms[2] );
 		$httpBackend.whenGET(url.next).respond( 200, "2" );
@@ -209,6 +210,12 @@ describe("CardCtrl", function () {
 			$scope: scope,
 			cardService: cardService
 		});
+
+		function logMockForms () {
+
+			return mockForms;
+
+		}
 
 
 		$httpBackend.flush();
