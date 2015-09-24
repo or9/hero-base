@@ -74,7 +74,6 @@
 		function answer (cardId, tries) {
 			tries = tries || 0;
 
-			console.log("posting /api/answer/.", "/api/answer/".concat( cardId));
 			return $http.post("/api/answer/".concat( cardId ))
 				.then(success, failure);
 

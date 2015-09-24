@@ -104,41 +104,47 @@ describe("CardCtrl", function () {
 	});
 
 	// too easy to break karma / angularjs tests. Don't test.
-	xdescribe("#answer", function () {
+	describe("#answer", function () {
 
-		it("should reset selected card upon true answer", function () {
+		it("should remove correct answer from remaining", function () {
 
 			var deferred = $q.defer();
+			var selected;
 
 			scope.cards.start();
 
 			scope.cards.selected = 0;
 			scope.cards.current = { id: 0 };
+			scope.cards.remaining[0].id.should.equal(0);
 
-			//$httpBackend.expectPOST("/api/answer/0").respond( 200, "true" );
+			$httpBackend.expectPOST("/api/answer/0").respond( 200, "true" );
 
-			deferred.resolve(true);
+			scope.cards.answer();
 
-			//scope.cards.answer();
-
-			//$httpBackend.flush();
-			scope.$digest();
+			$httpBackend.flush();
 
 			scope.$digest();
-			var selected = scope.cards.selected;
-			expect(selected).to.be.null;
+
+			selected = scope.cards.selected;
+
+			expect(selected).not.to.exist;
+
+			scope.cards.remaining[0].id.should.not.equal(0);
 
 		});
 
-		it("Should not reset selected upon false answer", function () {
-			scope.cards.selected = 0;
-			$httpBackend.expectPOST("/api/answer/0").respond( 200, "false" );
+		it("Should not remove incorrect answer from remaining", function () {
+			scope.cards.selected = 2;
+			scope.cards.current = { id: 0 };
+			$httpBackend.expectPOST("/api/answer/2").respond( 200, "false" );
 
 			scope.cards.answer();
 			$httpBackend.flush();
 
-			scope.cards.loading.should.be.false;
-			scope.cards.selected.should.equal(0);
+			scope.$digest();
+
+			scope.cards.selected.should.equal(2);
+			scope.cards.remaining[0].id.should.equal(0);
 		});
 
 	});

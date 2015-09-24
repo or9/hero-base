@@ -42,7 +42,6 @@
 		}
 
 		function initRemainingForms () {
-			console.log("doing init remaining");
 
 			this.loading = true;
 
@@ -52,12 +51,10 @@
 
 			function createForms (data) {
 				// forms are data.[initial|isolated|medial|final]
-				console.log("mapping data: ", data.length, " data 4? ", data[4]);
 
 				this.remaining = data.map(function (character, index, shit) {
 
 					var form = character.form;
-					console.log("allCharacters[i]? ", allCharacters[index], index);
 					allCharacters[index].form = form[formType];
 
 					return {
@@ -86,6 +83,7 @@
 		}
 
 		function nextQuestion () {
+			console.log("going to next question");
 
 			this.loading = true;
 
@@ -161,8 +159,12 @@
 
 		function answer (id) {
 			this.loading = true;
-			console.log("answering: ", this.selected);
+			console.log("answering: ", this.selected, id);
 			console.log("answer is: ", this.current);
+
+			if (this.selected === 0) {
+				this.selected = "0";
+			}
 
 			cardService.answer(this.selected || id)
 				.then(correct.bind(this), incorrect.bind(this))
@@ -178,7 +180,6 @@
 
 				this.selected = null;
 
-				//return response;
 				$q.resolve(response);
 			}
 
