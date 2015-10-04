@@ -23,12 +23,14 @@ function getFiles () {
 	];
 	var javascriptFiles = [
 		"public/**/*.js",
-		"public/**/*.html",
-		"gulpfile.js"
+		"gulpfile.js",
+		"public/**/*.html"
 	];
 	var jshintFiles = [
 		javascriptFiles[0],
-		javascriptFiles[1]
+		javascriptFiles[1],
+		"!public/vendor/**/*.js",
+		"!public/vendor/**/*.html",
 	];
 
 	return {
