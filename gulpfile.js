@@ -55,7 +55,8 @@ function task_jshint () {
 function task_karmaunit (done) {
 	return karma.start({
 		configFile: __dirname + "/karma.conf.js",
-		singleRun: true
+		singleRun: true,
+		autoWatch: false
 	}, done);
 }
 

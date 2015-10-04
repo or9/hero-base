@@ -1,10 +1,10 @@
 {
   "private": true,
   "scripts": {
-        "prestart": "npm update && bower update",
-        "start": "",
-        "poststart": "",
-        "test": ""
+    "prestart": "npm update && bower update",
+    "start": "",
+    "poststart": "",
+    "test": ""
   },
   "devDependencies": {
     "angular": "^1.*",
@@ -16,6 +16,7 @@
     "jshint-stylish": "^2.0.1",
     "karma": "^0.12.*",
     "karma-chai": "^0.1.*",
+    "karma-coverage": "^0.5.2",
     "karma-mocha": "^0.2.0",
     "karma-mocha-reporter": "^1.1.1",
     "karma-phantomjs2-launcher": "^0.3.2",

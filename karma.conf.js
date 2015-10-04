@@ -1,83 +1,72 @@
-// Karma configuration
-// Generated on Wed Apr 22 2015 22:30:19 GMT-0400 (EDT)
+var excludeCoverage = [
+	"public/vendor/**/*.js",
+	"public/**/spec.*.js"
+];
 
-module.exports = function(config) {
-  config.set({
+var coverageConfig = {
+	global: {
+		excludes: excludeCoverage
+	}
+};
 
-    // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
+module.exports = function karma (config) {
 
-    plugins: [
-	    "karma-mocha",
-	    "karma-mocha-reporter",
-	    "karma-sinon-chai",
-	    "karma-phantomjs2-launcher"
-    ],
+	config.set({
+		basePath: '',
 
-    mochaReporter: {
-	    output: "autowatch"
-    },
+		plugins: [
+			"karma-mocha",
+			"karma-mocha-reporter",
+			"karma-sinon-chai",
+			"karma-phantomjs2-launcher"
+		],
 
+		mochaReporter: {
+			output: "autowatch"
+		},
 
-    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ["mocha", "sinon-chai"],
+		frameworks: ["mocha", "sinon-chai"],
 
+		files: [
+			'public/vendor/angularjs/angular.js',
+			'public/vendor/angular-route/angular-route.js',
+			'node_modules/angular-mocks/angular-mocks.js',
+			'public/js/lib/util.js',
+			'public/js/**/*.html',
+			'public/js/**/*.js',
+			'public/js/**/spec.*.js'
+		],
 
-    // list of files / patterns to load in the browser
-    files: [
-	'public/vendor/angularjs/angular.js',
-	'public/vendor/angular-route/angular-route.js',
-	'node_modules/angular-mocks/angular-mocks.js',
-	'public/js/lib/util.js',
-	'public/js/**/*.html',
-	'public/js/**/*.js',
-	'public/js/**/spec.*.js'
-    ],
+		exclude: ["**/*.swp", "**/*.swo"],
 
+		preprocessors: {
+			"public/**/*.js": ["coverage"]
+		},
 
-    // list of files to exclude
-    exclude: [
-	'**/*.swp',
-	'**/*.swo'
-    ],
+		reporters: [
+			"mocha",
+			"coverage"
+		],
 
+		coverageReporter: {
+			type: "text-summary",
+			check: coverageConfig
+		},
 
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-	// "public/**/*.js": ["coverage"]
-	// "**/*.html": ["ng-html2js"]
-    },
+		port: 9876,
 
+		colors: true,
 
-    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: [
-	"mocha"
-	//"progress",
-	//"coverage"
-	],
+		// config.[LOG_DISABLE|LOG_ERROR|LOG_WARN|LOG_INFO|LOG_DEBUG]
+		logLevel: config.LOG_ERROR,
 
+		autoWatch: true,
 
-    port: 9876,
+		browsers: ['PhantomJS2'],
 
+		singleRun: false
 
-    // enable / disable colors in the output (reporters and logs)
-    colors: true,
+	});
 
+};
 
-    // level of logging
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_ERROR,
-
-
-    autoWatch: true,
-
-
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS2'],
-
-
-    // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
-  });
-  };
