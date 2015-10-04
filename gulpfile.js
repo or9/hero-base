@@ -9,13 +9,13 @@ var jshint = require("gulp-jshint");
 var files = getFiles();
 
 gulp.task("jshint", task_jshint);
-gulp.task("phpunit", phpunit);
-gulp.task("karmaunit", ["jshint"], karmaunit);
-gulp.task("gulp-watch", watch);
+gulp.task("phpunit", task_phpunit);
+gulp.task("karmaunit", ["jshint"], task_karmaunit);
+gulp.task("watch", task_watch);
 
 function getFiles () {
 	var phpFiles = [
-		"test/**/*",
+		"tests/*",
 		"app/**/*.php",
 		"config/**/*.php",
 		"bootstrap/**/*.php",
@@ -38,16 +38,7 @@ function getFiles () {
 	};
 }
 
-elixir(function(mix) {
-	mix.less('app.less');
-
-	mix.task("karmaunit", files.javascript);
-
-	mix.task("phpunit", files.php);
-
-});
-
-function phpunit () {
+function task_phpunit () {
 	exec("vendor/bin/phpunit", function (error, stdout) {
 		sys.puts(stdout);
 	});
@@ -59,7 +50,7 @@ function task_jshint () {
 		.pipe(jshint.reporter("jshint-stylish"));
 }
 
-function karmaunit (done) {
+function task_karmaunit (done) {
 	return karma.start({
 		configFile: __dirname + "/karma.conf.js",
 		singleRun: true
@@ -72,8 +63,8 @@ function karmatdd (done) {
 	}, done);
 }
 
-function watch () {
+function task_watch () {
 	gulp.watch(files.php, ["phpunit"]);
-
 	gulp.watch(files.javascript, ["jshint", "karmaunit"]);
 }
+
