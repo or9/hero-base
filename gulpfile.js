@@ -4,35 +4,39 @@ var util = require("gulp-util");
 var exec = require("child_process").exec;
 var sys = require("sys");
 var karma = require("karma").server;
-//var karma = require("gulp-karma");
 var jshint = require("gulp-jshint");
 
-var files = {};
-files.php = [
-	"tests/**/*",
-	"app/**/*.php",
-	"config/**/*.php",
-	"bootstrap/**/*.php",
-	"resources/**/*.blade*"
-];
-
-files.javascript = [
-	"public/**/*.js",
-	"public/**/*.html",
-	"gulpfile.js"
-];
-
-files.jshint = [
-	files.javascript[0],
-	files.javascript[2],
-	"!public/vendor/**"
-];
+var files = getFiles();
 
 gulp.task("jshint", task_jshint);
 gulp.task("phpunit", phpunit);
 gulp.task("karmaunit", ["jshint"], karmaunit);
 gulp.task("gulp-watch", watch);
-//gulp.task("default", ["phpunit", "karmaunit"]);
+
+function getFiles () {
+	var phpFiles = [
+		"test/**/*",
+		"app/**/*.php",
+		"config/**/*.php",
+		"bootstrap/**/*.php",
+		"resources/**/*.blade*"
+	];
+	var javascriptFiles = [
+		"public/**/*.js",
+		"public/**/*.html",
+		"gulpfile.js"
+	];
+	var jshintFiles = [
+		javascriptFiles[0],
+		javascriptFiles[1]
+	];
+
+	return {
+		php: phpFiles,
+		javascript: javascriptFiles,
+		jshint: jshintFiles
+	};
+}
 
 elixir(function(mix) {
 	mix.less('app.less');
@@ -41,28 +45,10 @@ elixir(function(mix) {
 
 	mix.task("phpunit", files.php);
 
-	// mix.scripts([
-	//		"vendor/angularjs/angular.min.js",
-	//		"vendor/angular-route/angular-route.min.js",
-	//
-	//	], "public/js/framework.js")
-	//
-	//	.scripts([
-	//		"app.js",
-	//		"card/*.js",
-	//		"!card/spec.*.js",
-	//		"components/*",
-	//		"scoreboard/*.js",
-	//		"!scoreboard/spec.*.js"
-	//
-	//	], "public/js/app.min.js");
-	//
-	// mix.scriptsIn("somepath/js", "somepath/js/compiled.js");
-
 });
 
 function phpunit () {
-	exec("phpunit", function (error, stdout) {
+	exec("vendor/bin/phpunit", function (error, stdout) {
 		sys.puts(stdout);
 	});
 }
@@ -91,4 +77,3 @@ function watch () {
 
 	gulp.watch(files.javascript, ["jshint", "karmaunit"]);
 }
-
