@@ -1,31 +1,24 @@
-<?php namespace App;
+<?php
+
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Character extends Model {
+class User extends Model
+{
 
-	protected $table = "characters";
+	protected $fillable = ["name", "score"];
 
-	protected $guarded = ["*"];
-
-	public $timestamps = false;
-
-
-	public function form ()
-	{
-		return $this->hasOne("App\Form");
+	public function scopeScoreboard ($query) {
+		return $query->all()->get();
 	}
 
-	public function initialForm () {
+	public function scopeTopScore ($query) {
+
+		return $query->all()
+			->orderBy("score", "desc")
+			->take(10)
+			->get();
+
 	}
-
-	/*
- 	public function diacrytic
-	{
-		return $this->hasMany("App\Diacrytic");
-	}
-	*/
-
-
-
 }

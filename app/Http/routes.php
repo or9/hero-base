@@ -18,6 +18,7 @@ Route::group(["prefix" => "api"], function() {
 
 	Route::get("next", "GameController@next");
 
+	Route::post("scoreboard", "ScoreboardController@save");
 	Route::get("scoreboard", "ScoreboardController@get");
 
 });
