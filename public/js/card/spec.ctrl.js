@@ -4,6 +4,7 @@ describe("Card Controller", function () {
 
 	var	ctrl,
 		scope,
+		$rootScope,
 		$httpBackend,
 		$compile,
 		$q,
@@ -129,7 +130,6 @@ describe("Card Controller", function () {
 
 		it("should remove correct answer from remaining", function () {
 
-			var deferred = $q.defer();
 			var selected;
 
 			scope.cards.start();
@@ -182,8 +182,6 @@ describe("Card Controller", function () {
 		});
 
 		it("should remove class 'incorrect' from body upon correct answer", function () {
-			var deferred = $q.defer();
-			var selected;
 
 			scope.cards.start();
 			document.body.classList.add("incorrect");
@@ -220,6 +218,36 @@ describe("Card Controller", function () {
 			scope.cards.start();
 
 			scope.should.have.a.property("score", 0);
+		});
+
+		it("should increase the score upon correct answer", function () {
+
+			var oldScore = $rootScope.score = 0;
+			scope.cards.start();
+
+			scope.cards.selected = 0;
+			scope.cards.current = { id: 0 };
+
+			$httpBackend.expectPOST("/api/answer/0").respond( 200, "true" );
+			scope.cards.answer();
+			$httpBackend.flush();
+			// scope.$digest();
+			$rootScope.score.should.be.greaterThan(oldScore);
+		});
+
+		it("should decrease the score by 1 upon incorrect answer", function () {
+
+			$rootScope.score = 1;
+			scope.cards.start();
+
+			scope.cards.selected = 0;
+			scope.cards.current = { id: 1 };
+
+			$httpBackend.expectPOST("/api/answer/0").respond( 200, "false" );
+			scope.cards.answer();
+			$httpBackend.flush();
+
+			$rootScope.score.should.equal(0);
 		});
 
 	});
@@ -265,6 +293,7 @@ describe("Card Controller", function () {
 			sendAnswer: "/api/answer"
 
 		};
+		$rootScope = _$rootScope_;
 		$q = _$q_;
 		$location = _$location_;
 		cardService = _cardService_;
@@ -290,6 +319,7 @@ describe("Card Controller", function () {
 		// use `Ctrl as ctrl` syntax to get scope.ctrl
 		ctrl = _$controller_("CardCtrl as cards", {
 			$scope: scope,
+			$rootScope: $rootScope,
 			cardService: cardService
 		});
 

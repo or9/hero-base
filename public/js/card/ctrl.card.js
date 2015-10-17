@@ -21,10 +21,11 @@
 		var NUMBER_OF_ANSWERS = 5;
 		var formType = "isolated";
 		var allCharacters = [];
-		var score = 0;
 		var previousSelectedElement,
 			startTime,
 			timeDiff;
+
+		$rootScope.score = 0;
 
 		this.select = select.bind(this);
 		this.answer = answer.bind(this);
@@ -106,7 +107,6 @@
 		}
 
 		function end () {
-			$rootScope.score = score;
 			$location.url("/scoreboard");
 		}
 
@@ -189,9 +189,11 @@
 
 			function correct (response) {
 				// var previousElement = doc.getElementById("choice" + this.selected);
+				var scoreCalc = (timeDiff / NUMBER_OF_ANSWERS) * 100000;
+
 				previousSelectedElement = doc.querySelector(".selected");
 				doc.body.classList.remove("incorrect");
-				score += (timeDiff / NUMBER_OF_ANSWERS) * 100000;
+				$rootScope.score += Math.max(1, scoreCalc);
 
 				this.loading = false;
 
@@ -207,6 +209,8 @@
 
 			function incorrect (response) {
 				this.loading = false;
+
+				$rootScope.score -= 1;
 
 				if (previousSelectedElement) {
 					previousSelectedElement.classList.add("incorrect");
