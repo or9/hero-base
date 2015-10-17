@@ -10,8 +10,7 @@
 
 	function ScoreboardController ($rootScope, $scope, scoreboardService) {
 
-
-		this.score = $rootScope.score;
+		this.score = Math.max(1, $rootScope.score);
 		delete $rootScope.score;
 
 		function getLeaderboard () {

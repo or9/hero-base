@@ -37,6 +37,12 @@ describe("Scoreboard Controller", function () {
 			ctrl = getScoreboardController();
 			should.not.exist($rootScope.score);
 		});
+
+		it("should set score to 1 if score is less than 1", function () {
+			$rootScope.score = -1234567890;
+			ctrl = getScoreboardController();
+			ctrl.score.should.equal(1);
+		});
 	});
 
 	function cleanupAfterEach () {
