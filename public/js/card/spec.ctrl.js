@@ -7,6 +7,7 @@ describe("Card Controller", function () {
 		$httpBackend,
 		$compile,
 		$q,
+		$location,
 		cardService,
 		sandbox;
 
@@ -205,6 +206,22 @@ describe("Card Controller", function () {
 			Date.now.calledOnce.should.be.true;
 		});
 
+		it("should change $location.url to scoreboard if no cards remaining", function () {
+
+			scope.cards.remaining = [];
+			scope.cards.start();
+
+			$location.url().should.contain("/scoreboard");
+		});
+
+		it("should pass score in $location.search if no cards remaining", function () {
+
+			scope.cards.remaining = [];
+			scope.cards.start();
+
+			$location.url().should.contain("?score=0");
+		});
+
 	});
 
 	function getMockChar (index) {
@@ -237,7 +254,7 @@ describe("Card Controller", function () {
 		});
 	}
 
-	function setupController (_$rootScope_, _$controller_, _$httpBackend_, _$compile_, _$q_, _cardService_) {
+	function setupController (_$rootScope_, _$controller_, _$httpBackend_, _$compile_, _$q_, _$location_, _cardService_) {
 		var url = {
 			leng: "/api/characters/length",
 			char: "/api/character/0",
@@ -249,6 +266,7 @@ describe("Card Controller", function () {
 
 		};
 		$q = _$q_;
+		$location = _$location_;
 		cardService = _cardService_;
 		scope = _$rootScope_.$new();
 

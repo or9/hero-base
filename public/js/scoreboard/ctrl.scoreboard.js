@@ -9,7 +9,10 @@
 	});
 
 	function ScoreboardController ($scope, $routeParams, scoreboard) {
-		this.score = $routeParams.score;
+
+		if ($location.path() === "/") {
+			this.score = $routeParams.score;
+		}
 
 		function getLeaderboard () {
 

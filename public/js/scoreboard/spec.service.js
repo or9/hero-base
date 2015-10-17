@@ -7,18 +7,6 @@ describe("Scoreboard Service", function () {
 		$http,
 		sandbox;
 
-	beforeEach(module("cardgameApp"));
-
-	beforeEach(inject(setupInject));
-
-	beforeEach(function () {
-		sandbox = sinon.sandbox.create();
-	});
-
-	afterEach(function () {
-		sandbox.restore();
-	});
-
 	it("should have expected methods", function () {
 		var expectedProperties = [
 			"get",
@@ -59,6 +47,19 @@ describe("Scoreboard Service", function () {
 		sandbox.stub($http, "post", function () {});
 		scoreboardService.save("asdf", 1234);
 		$http.post.calledWith("/api/scoreboard", { name: "asdf", score: 1234 }).should.be.true;
+	});
+
+
+	beforeEach(module("cardgameApp"));
+
+	beforeEach(inject(setupInject));
+
+	beforeEach(function () {
+		sandbox = sinon.sandbox.create();
+	});
+
+	afterEach(function () {
+		sandbox.restore();
 	});
 
 	function setupInject (_scoreboardService_, _$httpBackend_, _$http_) {

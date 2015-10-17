@@ -15,7 +15,7 @@
 
 	});
 
-	function CardController ($scope, $q, cardService) {
+	function CardController ($scope, $q, $location, cardService) {
 		/*jshint validthis:true */
 
 		var NUMBER_OF_ANSWERS = 5;
@@ -92,6 +92,10 @@
 
 			this.loading = true;
 
+			if (!this.remaining.length) {
+				return end();
+			}
+
 			return cardService.next()
 				.then(updateRemaining.bind(this))
 				.then(showCurrentForm.bind(this))
@@ -99,6 +103,10 @@
 				.then(select.bind(this))
 				.then(setLoading.bind(this));
 
+		}
+
+		function end () {
+			$location.url("/scoreboard").search("score", score);
 		}
 
 		function showCurrentForm (idIndex) {
@@ -111,6 +119,7 @@
 
 		function updateRemaining (nextIndex) {
 			var currentIndex = 0;
+			console.log("rem? ", this.remaining);
 			console.log("updating remaining");
 			while (currentIndex < this.remaining.length) {
 				if (this.remaining[currentIndex] && this.remaining[currentIndex].id === this.current.id) {
