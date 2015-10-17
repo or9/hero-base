@@ -21,6 +21,10 @@
 		var NUMBER_OF_ANSWERS = 5;
 		var formType = "isolated";
 		var allCharacters = [];
+		var score = 0;
+		var previousSelectedElement,
+			startTime,
+			timeDiff;
 
 		this.select = select.bind(this);
 		this.answer = answer.bind(this);
@@ -80,10 +84,11 @@
 			var i = -1;
 
 			nextQuestion.call(this);
+
+			startTime = Date.now();
 		}
 
 		function nextQuestion () {
-			console.log("going to next question");
 
 			this.loading = true;
 
@@ -146,11 +151,13 @@
 
 
 		function select (cardId) {
-			var previous = doc.getElementById("choice" + this.selected);
-			if (previous) {
+			// previousSelectedElement = doc.getElementById("choice" + this.selected);
+			previousSelectedElement = doc.querySelector(".selected");
+
+			if (previousSelectedElement) {
 				console.log("yes, previous. It's: ", previous);
 				previous.classList.remove("selected");
-				doc.getElementById("choice"+cardId).classList.add("selected");
+				doc.getElementById( "choice"+cardId ).classList.add("selected");
 			}
 
 			this.selected = cardId;
@@ -159,8 +166,8 @@
 
 		function answer (id) {
 			this.loading = true;
-			console.log("answering: ", this.selected, id);
-			console.log("answer is: ", this.current);
+			console.log("answering: ", this.selected, id, "and answer is ", this.current);
+			timeDiff = Date.now() - startTime;
 
 			if (this.selected === 0) {
 				this.selected = "0";
@@ -171,11 +178,15 @@
 				.then(nextQuestion.bind(this));
 
 			function correct (response) {
+				// var previousElement = doc.getElementById("choice" + this.selected);
+				previousSelectedElement = doc.querySelector(".selected");
+				doc.body.classList.remove("incorrect");
+				score += (timeDiff / NUMBER_OF_ANSWERS) * 100000;
+
 				this.loading = false;
 
-				var previousElement = doc.getElementById("choice" + this.selected);
-				if (previousElement) {
-					previousElement.classList.remove("selected");
+				if (previousSelectedElement) {
+					previousSelectedElement.classList.remove("selected");
 				}
 
 				this.selected = null;
@@ -186,6 +197,12 @@
 
 			function incorrect (response) {
 				this.loading = false;
+
+				if (previousSelectedElement) {
+					previousSelectedElement.classList.add("incorrect");
+				}
+
+				doc.body.classList.add("incorrect");
 				return $q.reject(response);
 			}
 

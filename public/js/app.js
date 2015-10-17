@@ -24,7 +24,7 @@
 			})
 			.when("/scoreboard", {
 				templateUrl: "js/scoreboard/view.html",
-				controller: "ctrl.scoreboard",
+				controller: "scoreboardCtrl",
 				controllerAs: "scoreboard"
 			})
 			.otherwise({

@@ -27,8 +27,26 @@ describe("CardCtrl", function () {
 	beforeEach(inject(setupController));
 	afterEach(cleanupAfterEach);
 
+	function createSinonSandbox () {
+		sandbox = sinon.sandbox.create();
+	}
+
+	function restoreSinon () {
+		sandbox.restore();
+	}
+
 	describe("#[init]", function () {
-		it("Should initialize controller scope", function() {
+		beforeEach(createSinonSandbox);
+		afterEach(restoreSinon);
+
+		it("should check the current time", function () {
+			sandbox.spy(Date, "now");
+			scope.cards.start();
+			$httpBackend.flush();
+			Date.now.calledOnce.should.be.true;
+		});
+
+		it("should initialize controller scope", function() {
 			scope.cards.should.include.keys(
 				"select",
 				"answer",
@@ -42,14 +60,14 @@ describe("CardCtrl", function () {
 		});
 
 
-		it("Should immediately add card models to scope", function () {
+		it("should immediately add card models to scope", function () {
 
 			scope.$digest();
 			scope.cards.chars.length.should.equal(5);
 
 		});
 
-		it("Should call #next to set first current card", function () {
+		it("should call #next to set first current card", function () {
 
 			scope.cards.start();
 
@@ -63,7 +81,7 @@ describe("CardCtrl", function () {
 
 		});
 
-		it("Should randomly shuffle scope.availableChoices", function () {
+		it("should randomly shuffle scope.availableChoices", function () {
 
 			var i = 0;
 			var comparison = [];
@@ -105,6 +123,8 @@ describe("CardCtrl", function () {
 
 	// too easy to break karma / angularjs tests. Don't test.
 	describe("#answer", function () {
+		beforeEach(createSinonSandbox);
+		afterEach(restoreSinon);
 
 		it("should remove correct answer from remaining", function () {
 
@@ -133,7 +153,7 @@ describe("CardCtrl", function () {
 
 		});
 
-		it("Should not remove incorrect answer from remaining", function () {
+		it("should not remove incorrect answer from remaining", function () {
 			scope.cards.selected = 2;
 			scope.cards.current = { id: 0 };
 			$httpBackend.expectPOST("/api/answer/2").respond( 200, "false" );
@@ -145,6 +165,44 @@ describe("CardCtrl", function () {
 
 			scope.cards.selected.should.equal(2);
 			scope.cards.remaining[0].id.should.equal(0);
+		});
+
+		it("should add class 'incorrect' to body upon incorrect answer", function () {
+			scope.cards.selected = 2;
+			scope.cards.current = { id: 0 };
+			$httpBackend.expectPOST("/api/answer/2").respond( 200, "false" );
+
+			scope.cards.answer();
+			$httpBackend.flush();
+			scope.$digest();
+
+			document.body.classList.contains("incorrect").should.be.true;
+
+		});
+
+		it("should remove class 'incorrect' from body upon correct answer", function () {
+			var deferred = $q.defer();
+			var selected;
+
+			scope.cards.start();
+			document.body.classList.add("incorrect");
+
+			scope.cards.selected = 0;
+			scope.cards.current = { id: 0 };
+
+			$httpBackend.expectPOST("/api/answer/0").respond( 200, "true" );
+			scope.cards.answer();
+			$httpBackend.flush();
+			scope.$digest();
+
+			document.body.classList.contains("incorrect").should.be.false;
+		});
+
+		it("should request the time", function () {
+			sandbox.spy(Date, "now");
+			scope.cards.answer();
+			$httpBackend.flush();
+			Date.now.calledOnce.should.be.true;
 		});
 
 	});
