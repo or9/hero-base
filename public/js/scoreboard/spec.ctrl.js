@@ -1,3 +1,4 @@
+/* jshint expr: true */
 describe("Scoreboard Controller", function () {
 	"use strict";
 
@@ -12,6 +13,8 @@ describe("Scoreboard Controller", function () {
 
 	beforeEach(module("cardgameApp"));
 	beforeEach(inject(setupController));
+	beforeEach(createSinonSandbox);
+	afterEach(restoreSinon);
 	afterEach(cleanupAfterEach);
 
 	describe("#init", function () {
@@ -20,7 +23,7 @@ describe("Scoreboard Controller", function () {
 			$rootScope.score = 0;
 			ctrl = getScoreboardController();
 
-			ctrl.should.include.keys("score");
+			ctrl.should.include.keys("score", "save", "getUserPositionOnLeaderboard");
 
 		});
 
@@ -43,6 +46,38 @@ describe("Scoreboard Controller", function () {
 			ctrl = getScoreboardController();
 			ctrl.score.should.equal(1);
 		});
+
+		it("should call scoreboardService.get with no arguments", function () {
+			sandbox.spy(scoreboardService, "get");
+			ctrl = getScoreboardController();
+			scoreboardService.get.calledWith(undefined).should.be.true;
+		});
+	});
+
+	describe("#save", function () {
+		it("should call scoreboardService.save with scope's username and score", function () {
+
+			ctrl.score = 31;
+			ctrl.username = "hi!";
+
+			sandbox.spy(scoreboardService, "save");
+
+			ctrl.save();
+
+			scoreboardService.save.calledWith("hi!", 31).should.be.true;
+		});
+	});
+
+	describe("#getUserPositionOnLeaderboard", function () {
+		it("should call scoreboardService.get with username", function () {
+
+			ctrl.username = "aaa";
+		sandbox.spy(scoreboardService, "get");
+		ctrl.getUserPositionOnLeaderboard();
+		scoreboardService.get.calledWith("aaa").should.be.true;
+
+		});
+
 	});
 
 	function cleanupAfterEach () {

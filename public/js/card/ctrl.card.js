@@ -193,6 +193,7 @@
 
 				previousSelectedElement = doc.querySelector(".selected");
 				doc.body.classList.remove("incorrect");
+
 				$rootScope.score += Math.max(1, scoreCalc);
 
 				this.loading = false;

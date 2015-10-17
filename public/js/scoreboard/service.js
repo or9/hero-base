@@ -19,6 +19,10 @@
 		function save (_name, _score) {
 			return $http.post("/api/scoreboard", {name: _name, score: _score });
 		}
+
+		function errHandler () {
+			console.log("ScoreboardService errHandler: ", arguments);
+		}
 	}
 
 } (angular.module("cardgameApp")));
