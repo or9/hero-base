@@ -72,9 +72,9 @@ describe("Scoreboard Controller", function () {
 		it("should call scoreboardService.get with username", function () {
 
 			ctrl.username = "aaa";
-		sandbox.spy(scoreboardService, "get");
-		ctrl.getUserPositionOnLeaderboard();
-		scoreboardService.get.calledWith("aaa").should.be.true;
+			sandbox.spy(scoreboardService, "get");
+			ctrl.getUserPositionOnLeaderboard();
+			scoreboardService.get.calledWith("aaa").should.be.true;
 
 		});
 

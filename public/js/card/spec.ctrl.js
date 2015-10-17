@@ -206,18 +206,19 @@ describe("Card Controller", function () {
 
 		it("should change $location.url to scoreboard if no cards remaining", function () {
 
+			$httpBackend.expectPOST("/api/answer/0").respond( 200, "true" );
+
 			scope.cards.remaining = [];
 			scope.cards.start();
+			scope.cards.selected = 0;
+			scope.cards.remaining = [{ id: 0 }]
+			scope.cards.current = { id: 0 };
+
+			scope.cards.answer();
+
+			$httpBackend.flush();
 
 			$location.url().should.contain("/scoreboard");
-		});
-
-		it("should save score to $rootScope if no cards remaining", function () {
-
-			scope.cards.remaining = [];
-			scope.cards.start();
-
-			scope.should.have.a.property("score", 0);
 		});
 
 		it("should increase the score upon correct answer", function () {

@@ -93,16 +93,13 @@
 
 			this.loading = true;
 
-			if (!this.remaining.length) {
-				return end();
-			}
-
 			return cardService.next()
 				.then(updateRemaining.bind(this))
 				.then(showCurrentForm.bind(this))
 				.then(shuffleAnswers.bind(this))
 				.then(select.bind(this))
-				.then(setLoading.bind(this));
+				.then(setLoading.bind(this))
+				.catch(end.bind(this));
 
 		}
 
@@ -120,8 +117,7 @@
 
 		function updateRemaining (nextIndex) {
 			var currentIndex = 0;
-			// console.log("rem? ", this.remaining);
-			// console.log("updating remaining");
+
 			while (currentIndex < this.remaining.length) {
 				if (this.remaining[currentIndex] && this.remaining[currentIndex].id === this.current.id) {
 					break;
@@ -129,6 +125,11 @@
 				currentIndex += 1;
 			}
 			this.remaining.splice(currentIndex, 1);
+
+
+			if (!this.remaining.length) {
+				return $q.reject("no remaining cards");
+			}
 			// console.log("this.remaining: ", this.remaining, this.remaining.length);
 
 			return nextIndex;
