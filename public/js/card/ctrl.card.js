@@ -189,7 +189,7 @@
 
 			function correct (response) {
 				// var previousElement = doc.getElementById("choice" + this.selected);
-				var scoreCalc = (timeDiff / NUMBER_OF_ANSWERS) * 100000;
+				var scoreCalc = NUMBER_OF_ANSWERS - (timeDiff * NUMBER_OF_ANSWERS) / 50000;
 
 				previousSelectedElement = doc.querySelector(".selected");
 				doc.body.classList.remove("incorrect");
