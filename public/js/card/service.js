@@ -3,7 +3,7 @@
 
 	app.factory("cardService", CardService);
 
-	function CardService($http, $q) {
+	function CardService ($http, $q) {
 
 		var cards = [];
 		var forms = [];

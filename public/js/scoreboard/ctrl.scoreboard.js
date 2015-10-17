@@ -3,7 +3,25 @@
 
 	app.controller("scoreboardCtrl", ScoreboardController);
 
-	function ScoreboardController ($scope, scoreboard) {
+	Object.defineProperties(ScoreboardController.prototype, {
+		score: { value: 0, writable: true },
+		username: {value: "", writable: true }
+	});
+
+	function ScoreboardController ($scope, $routeParams, scoreboard) {
+		this.score = $routeParams.score;
+
+		function getLeaderboard () {
+
+		}
+
+		function getUserPositionOnLeaderboard () {
+
+		}
+
+		function updateLeaderboard () {
+
+		}
 	}
 
 

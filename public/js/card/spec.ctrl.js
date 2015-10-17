@@ -1,5 +1,5 @@
 /* jshint expr: true */
-describe("CardCtrl", function () {
+describe("Card Controller", function () {
 	"use strict";
 
 	var	ctrl,

@@ -1,5 +1,6 @@
 /* jshint expr: true */
 describe("CardService", function () {
+	"use strict";
 
 	var cardService, $httpBackend;
 

@@ -1,9 +1,9 @@
 (function (app, doc, undefined) {
 	"use strict";
 
-	app.controller("CardCtrl", cardController);
+	app.controller("CardCtrl", CardController);
 
-	Object.defineProperties(cardController.prototype, {
+	Object.defineProperties(CardController.prototype, {
 
 		loading:	{ value: true, writable: true },
 		started:	{ value: false, writable: true },
@@ -15,7 +15,7 @@
 
 	});
 
-	function cardController ($scope, $q, cardService) {
+	function CardController ($scope, $q, cardService) {
 		/*jshint validthis:true */
 
 		var NUMBER_OF_ANSWERS = 5;
