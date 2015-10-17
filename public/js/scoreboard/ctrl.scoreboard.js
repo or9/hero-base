@@ -5,14 +5,14 @@
 
 	Object.defineProperties(ScoreboardController.prototype, {
 		score: { value: 0, writable: true },
-		username: {value: "", writable: true }
+		username: { value: "", writable: true }
 	});
 
-	function ScoreboardController ($scope, $routeParams, scoreboard) {
+	function ScoreboardController ($rootScope, $scope, scoreboardService) {
 
-		if ($location.path() === "/") {
-			this.score = $routeParams.score;
-		}
+
+		this.score = $rootScope.score;
+		delete $rootScope.score;
 
 		function getLeaderboard () {
 

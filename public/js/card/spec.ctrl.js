@@ -214,12 +214,12 @@ describe("Card Controller", function () {
 			$location.url().should.contain("/scoreboard");
 		});
 
-		it("should pass score in $location.search if no cards remaining", function () {
+		it("should save score to $rootScope if no cards remaining", function () {
 
 			scope.cards.remaining = [];
 			scope.cards.start();
 
-			$location.url().should.contain("?score=0");
+			scope.should.have.a.property("score", 0);
 		});
 
 	});

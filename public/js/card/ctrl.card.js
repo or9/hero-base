@@ -15,7 +15,7 @@
 
 	});
 
-	function CardController ($scope, $q, $location, cardService) {
+	function CardController ($scope, $rootScope, $q, $location, cardService) {
 		/*jshint validthis:true */
 
 		var NUMBER_OF_ANSWERS = 5;
@@ -38,7 +38,7 @@
 		function initCharacters (response) {
 			allCharacters = response.sort(sortAscending);
 			this.chars = allCharacters.slice(0);
-			console.log("all chars? ", allCharacters);
+			// console.log("all chars? ", allCharacters);
 
 			function sortAscending (a, b) {
 				return a.id - b.id;
@@ -106,21 +106,22 @@
 		}
 
 		function end () {
-			$location.url("/scoreboard").search("score", score);
+			$rootScope.score = score;
+			$location.url("/scoreboard");
 		}
 
 		function showCurrentForm (idIndex) {
 			// forms are data.[initial|isolated|medial|final]
 			this.current.id = allCharacters[idIndex].id;
 			this.current.form = allCharacters[idIndex].form;
-			console.log("this.current: ", this.current);
+			// console.log("this.current: ", this.current);
 		}
 
 
 		function updateRemaining (nextIndex) {
 			var currentIndex = 0;
-			console.log("rem? ", this.remaining);
-			console.log("updating remaining");
+			// console.log("rem? ", this.remaining);
+			// console.log("updating remaining");
 			while (currentIndex < this.remaining.length) {
 				if (this.remaining[currentIndex] && this.remaining[currentIndex].id === this.current.id) {
 					break;
@@ -128,7 +129,7 @@
 				currentIndex += 1;
 			}
 			this.remaining.splice(currentIndex, 1);
-			console.log("this.remaining: ", this.remaining, this.remaining.length);
+			// console.log("this.remaining: ", this.remaining, this.remaining.length);
 
 			return nextIndex;
 		}
@@ -164,7 +165,7 @@
 			previousSelectedElement = doc.querySelector(".selected");
 
 			if (previousSelectedElement) {
-				console.log("yes, previous. It's: ", previous);
+				// console.log("yes, previous. It's: ", previous);
 				previous.classList.remove("selected");
 				doc.getElementById( "choice"+cardId ).classList.add("selected");
 			}
@@ -175,7 +176,7 @@
 
 		function answer (id) {
 			this.loading = true;
-			console.log("answering: ", this.selected, id, "and answer is ", this.current);
+			// console.log("answering: ", this.selected, id, "and answer is ", this.current);
 			timeDiff = Date.now() - startTime;
 
 			if (this.selected === 0) {
