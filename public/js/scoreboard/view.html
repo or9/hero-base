@@ -1,0 +1,44 @@
+<section id="scoreboard" class="scoreboard">
+
+<fieldset class="newEntry">
+	<legend>New Entry</legend>
+	<form name="newEntry">
+		<scoreboard-entry
+
+			user="scoreboard.user"
+
+			ng-model="scoreboard.user"
+
+			entry-id="newScoreboardEntry">
+
+		</scoreboard-entry>
+
+		<button ng-click="scoreboard.save()" ng-disabled="!newEntry.username.$valid">Save</button>
+
+		<p id="name[[scoreboard.user.name]]">[[scoreboard.user.name]]</p>
+		<p id="score[[scoreboard.user.score]]">[[scoreboard.user.score]]</p>
+	</form>
+
+	</fieldset>
+
+
+	<fieldset>
+		<legend>Leaderboard</legend>
+
+		<scoreboard-entry
+			ng-repeat="entry in scoreboard.entries"
+
+			user="entry"
+
+			ng-model="entry"
+
+			entry-id="entry.id"
+
+			readonly-value="true">
+
+		</scoreboard-entry>
+
+	</fieldset>
+
+
+</section>

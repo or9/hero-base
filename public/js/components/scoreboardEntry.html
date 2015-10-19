@@ -1,0 +1,26 @@
+<fieldset class="entry">
+	<input type="text" 
+		id="entryName[[ entry-id ]]" 
+		class="username"
+		name="username"
+		ng-model="ngModel.name"
+		placeholder="---"
+		ng-readonly="readonlyValue === 'true'"
+		ng-maxlength="3"
+		maxlength="3"
+		autocomplete="off"
+		autofocus
+		required />
+
+	<input type="number"
+		id="entryScore[[ entry-id ]]"
+		class="score"
+		name="score"
+		ng-model="ngModel.score"
+		placeholder="0"
+		ng-minlength="1"
+		autocomplete="off"
+		readonly
+		required />
+
+</fieldset>

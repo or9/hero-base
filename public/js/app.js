@@ -17,11 +17,11 @@
 				controller: "CardCtrl",
 				controllerAs: "cards"
 			})
-			.when("/game", {
-				templateUrl: "js/game/view.html",
-				controller: "Game",
-				controllerAs: "game"
-			})
+			// .when("/game", {
+			// 	templateUrl: "js/game/view.html",
+			// 	controller: "Game",
+			// 	controllerAs: "game"
+			// })
 			.when("/scoreboard", {
 				templateUrl: "js/scoreboard/view.html",
 				controller: "scoreboardCtrl",

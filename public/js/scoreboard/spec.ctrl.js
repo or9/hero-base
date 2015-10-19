@@ -23,7 +23,7 @@ describe("Scoreboard Controller", function () {
 			$rootScope.score = 0;
 			ctrl = getScoreboardController();
 
-			ctrl.should.include.keys("score", "save", "getUserPositionOnLeaderboard");
+			ctrl.should.include.keys("save", "getUserPositionOnLeaderboard");
 
 		});
 
@@ -31,7 +31,7 @@ describe("Scoreboard Controller", function () {
 
 			$rootScope.score = 9001;
 			ctrl = getScoreboardController();
-			ctrl.score.should.equal(9001);
+			ctrl.user.score.should.equal(9001);
 		});
 
 		it("should delete $rootScope.score", function () {
@@ -44,7 +44,7 @@ describe("Scoreboard Controller", function () {
 		it("should set score to 1 if score is less than 1", function () {
 			$rootScope.score = -1234567890;
 			ctrl = getScoreboardController();
-			ctrl.score.should.equal(1);
+			ctrl.user.score.should.equal(1);
 		});
 
 		it("should call scoreboardService.get with no arguments", function () {
@@ -57,8 +57,8 @@ describe("Scoreboard Controller", function () {
 	describe("#save", function () {
 		it("should call scoreboardService.save with scope's username and score", function () {
 
-			ctrl.score = 31;
-			ctrl.username = "hi!";
+			ctrl.user.score = 31;
+			ctrl.user.name = "hi!";
 
 			sandbox.spy(scoreboardService, "save");
 
@@ -71,7 +71,7 @@ describe("Scoreboard Controller", function () {
 	describe("#getUserPositionOnLeaderboard", function () {
 		it("should call scoreboardService.get with username", function () {
 
-			ctrl.username = "aaa";
+			ctrl.user.name = "aaa";
 			sandbox.spy(scoreboardService, "get");
 			ctrl.getUserPositionOnLeaderboard();
 			scoreboardService.get.calledWith("aaa").should.be.true;

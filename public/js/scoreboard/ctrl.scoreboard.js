@@ -5,28 +5,38 @@
 	app.controller("scoreboardCtrl", ScoreboardController);
 
 	Object.defineProperties(ScoreboardController.prototype, {
-		score: { value: 0, writable: true },
-		username: { value: "", writable: true },
+
+		user: { value: { name: "", score: 0 }, writable: true },
+
 		entries: { value: [], writable: true }
+
 	});
 
 	function ScoreboardController ($rootScope, $scope, scoreboardService) {
 
 		this.save = save.bind(this);
-		this.getUserPositionOnLeaderboard = getUserPositionOnLeaderboard.bind(this);
-		this.score = Math.max(1, $rootScope.score);
+
+		$rootScope.score = +$rootScope.score || 0;
+
+		this.user.score = Math.max(1, $rootScope.score);
 
 		delete $rootScope.score;
 
-		scoreboardService.get()
-			.then(getScoreboardInitialSuccess, scoreboardService.errHandler);
+		this.getUserPositionOnLeaderboard = getUserPositionOnLeaderboard.bind(this);
 
-		function getScoreboardInitialSuccess (data) {
-			console.log("success. loaded scoreboard", data);
+
+		scoreboardService.get()
+			.then(getScoreboardSuccess.bind(this), scoreboardService.errHandler);
+
+
+
+		function getScoreboardSuccess (response) {
+			console.log("success. loaded scoreboard", response);
+			this.entries = response.data;
 		}
 
 		function getUserPositionOnLeaderboard () {
-			scoreboardService.get(this.username)
+			scoreboardService.get(this.user.name)
 				.then(success.bind(this), scoreboardService.errHandler);
 
 			function success (data) {
@@ -35,10 +45,11 @@
 		}
 
 		function save () {
-			scoreboardService.save(this.username, this.score)
+			scoreboardService.save(this.user.name, this.user.score)
 				.then(success.bind(this), scoreboardService.errHandler);
 
 				function success (data) {
+					// do GET and update [[ entries ]]
 					console.log("saved", data);
 				}
 		}
