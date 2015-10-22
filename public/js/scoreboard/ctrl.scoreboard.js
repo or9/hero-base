@@ -31,13 +31,13 @@
 
 
 		function getScoreboardSuccess (response) {
-			console.log("success. loaded scoreboard", response);
 			this.entries = response.data;
 		}
 
 		function getUserPositionOnLeaderboard () {
 			scoreboardService.get(this.user.name)
-				.then(success.bind(this), scoreboardService.errHandler);
+				.then(success.bind(this))
+				.catch(scoreboardService.errHandler);
 
 			function success (data) {
 				console.log("user leaderboard data", data);
@@ -46,11 +46,13 @@
 
 		function save () {
 			scoreboardService.save(this.user.name, this.user.score)
-				.then(success.bind(this), scoreboardService.errHandler);
+				.then(success.bind(this))
+				.then(scoreboardService.get)
+				.then(getScoreboardSuccess.bind(this))
+				.catch(scoreboardService.errHandler);
 
-				function success (data) {
-					// do GET and update [[ entries ]]
-					console.log("saved", data);
+				function success (response) {
+					console.log("saved", response.data);
 				}
 		}
 	}

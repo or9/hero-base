@@ -4,12 +4,14 @@ describe("Scoreboard Controller", function () {
 
 	var	ctrl,
 		scope,
+		$q,
 		$rootScope,
 		$httpBackend,
 		$location,
 		$controller,
 		scoreboardService,
-		sandbox;
+		sandbox,
+		deferred;
 
 	beforeEach(module("cardgameApp"));
 	beforeEach(inject(setupController));
@@ -66,6 +68,25 @@ describe("Scoreboard Controller", function () {
 
 			scoreboardService.save.calledWith("hi!", 31).should.be.true;
 		});
+
+		it("should make a request to get scoreboard", function () {
+
+			$httpBackend.whenGET("/api/scoreboard/").respond( 200, [] );
+			$httpBackend.whenPOST("/api/scoreboard").respond( 200, { "created": true } );
+
+			ctrl = getScoreboardController();
+
+			$httpBackend.flush();
+
+			sandbox.spy(scoreboardService, "get");
+
+			ctrl.save();
+
+			$rootScope.$apply();
+			$httpBackend.flush();
+
+			scoreboardService.get.calledOnce.should.be.true;
+		});
 	});
 
 	describe("#getUserPositionOnLeaderboard", function () {
@@ -94,8 +115,9 @@ describe("Scoreboard Controller", function () {
 		sandbox.restore();
 	}
 
-	function setupController (_$rootScope_, _$controller_, _$httpBackend_, _$location_, _scoreboardService_) {
+	function setupController (_$rootScope_, _$controller_, _$httpBackend_, _$location_, _scoreboardService_, _$q_) {
 
+		$q = _$q_;
 		$controller = _$controller_;
 		$location = _$location_;
 		$httpBackend = _$httpBackend_;
@@ -104,6 +126,9 @@ describe("Scoreboard Controller", function () {
 		scoreboardService = _scoreboardService_;
 
 		ctrl = getScoreboardController();
+
+		var deferred = $q.defer();
+
 	}
 
 	function getScoreboardController () {

@@ -211,7 +211,7 @@ describe("Card Controller", function () {
 			scope.cards.remaining = [];
 			scope.cards.start();
 			scope.cards.selected = 0;
-			scope.cards.remaining = [{ id: 0 }]
+			scope.cards.remaining = [{ id: 0 }];
 			scope.cards.current = { id: 0 };
 
 			scope.cards.answer();
