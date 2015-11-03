@@ -43,6 +43,14 @@ function getFiles () {
 function task_phpunit () {
 	exec("vendor/bin/phpunit", function (error, stdout) {
 		sys.puts(stdout);
+		migrate();
+	});
+
+}
+
+function migrate () {
+	exec("php artisan migrate", function (error, stdout) {
+		sys.puts(stdout);
 	});
 }
 
