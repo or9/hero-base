@@ -14,13 +14,7 @@
 				return "/js/components/scoreboardEntry.html";
 			},
 			replace: true,
-			restrict: "E",
-			compile: function compileDirective (element, attr) {
-				console.log("element? ", element, "\nattr? ", attr);
-				if (element.readonly) {
-					console.log("yes");
-				}
-			}
+			restrict: "E"
 		};
 	}
 
