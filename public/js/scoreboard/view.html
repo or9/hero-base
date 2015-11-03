@@ -3,20 +3,22 @@
 <fieldset class="newEntry">
 	<legend>New Entry</legend>
 	<form name="newEntry">
-		<scoreboard-entry
+		<ul>
+			<scoreboard-entry
 
-			user="scoreboard.user"
+				user="scoreboard.user"
 
-			ng-model="scoreboard.user"
+				ng-model="scoreboard.user"
 
-			entry-id="newScoreboardEntry">
+				entry-id="newScoreboardEntry">
 
-		</scoreboard-entry>
+			</scoreboard-entry>
 
-		<button ng-click="scoreboard.save()" ng-disabled="!newEntry.username.$valid">Save</button>
+			<button ng-click="scoreboard.save()" ng-disabled="!newEntry.username.$valid">Save</button>
 
-		<p id="name[[scoreboard.user.name]]">[[scoreboard.user.name]]</p>
-		<p id="score[[scoreboard.user.score]]">[[scoreboard.user.score]]</p>
+			<p id="name[[scoreboard.user.name]]">[[scoreboard.user.name]]</p>
+			<p id="score[[scoreboard.user.score]]">[[scoreboard.user.score]]</p>
+		</ul>
 	</form>
 
 	</fieldset>
@@ -24,19 +26,20 @@
 
 	<fieldset>
 		<legend>Leaderboard</legend>
+		<ol>
+			<scoreboard-entry
+				ng-repeat="entry in scoreboard.entries"
 
-		<scoreboard-entry
-			ng-repeat="entry in scoreboard.entries"
+				user="entry"
 
-			user="entry"
+				ng-model="entry"
 
-			ng-model="entry"
+				entry-id="entry.id"
 
-			entry-id="entry.id"
+				readonly-value="true">
 
-			readonly-value="true">
-
-		</scoreboard-entry>
+			</scoreboard-entry>
+		</ol>
 
 	</fieldset>
 
