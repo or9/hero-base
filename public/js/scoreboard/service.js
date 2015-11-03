@@ -17,6 +17,9 @@
 		}
 
 		function save (_name, _score) {
+
+			_score = Math.round(_score);
+
 			return $http.post("/api/scoreboard", {name: _name, score: _score });
 		}
 

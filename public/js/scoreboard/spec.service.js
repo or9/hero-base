@@ -49,6 +49,20 @@ describe("Scoreboard Service", function () {
 		$http.post.calledWith("/api/scoreboard", { name: "asdf", score: 1234 }).should.be.true;
 	});
 
+	it("should round the score", function () {
+		sandbox.spy(Math, "round");
+		sandbox.stub($http, "post", function () {});
+
+		scoreboardService.save("asdf", 33.3333333);
+
+		$http.post.calledWith("/api/scoreboard", { name: "asdf", score: 33 }).should.be.true;
+
+		scoreboardService.save("fdsa", 33.6);
+
+		$http.post.calledWith("/api/scoreboard", { name: "fdsa", score: 34 }).should.be.true;
+
+	});
+
 
 	beforeEach(module("cardgameApp"));
 
