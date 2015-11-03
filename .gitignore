@@ -6,3 +6,4 @@
 *.swo
 *.log
 .DS_Store
+.phpintel/
