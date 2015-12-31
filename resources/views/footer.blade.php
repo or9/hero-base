@@ -3,4 +3,4 @@
 
 &copy; &hellip; {{ time() }}
 
-@endsection
+@show

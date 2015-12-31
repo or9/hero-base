@@ -42,8 +42,10 @@
 	<![endif]-->
 </head>
 <body ng-app="cardgameApp">
+	@section("header")
 	<h1>Hero Cards</h1>
 	<nav class=""></nav>
+	@show
 
 	@yield("content")
 

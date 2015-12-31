@@ -7,4 +7,4 @@
 
 </section>
 
-@endsection
+@stop
