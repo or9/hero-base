@@ -22,6 +22,8 @@ Route::group(["prefix" => "api"], function() {
 
 	Route::get("scoreboard", "ScoreboardController@get");
 
+	Route:;get("relatedUsers", "ScoreboardController@getRelatedUsers");
+
 	// Route::get("scoreboard/{username}}", "ScoreboardController@getUserLocation");
 
 });

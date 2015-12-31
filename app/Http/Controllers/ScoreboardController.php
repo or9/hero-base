@@ -13,10 +13,11 @@ class ScoreboardController extends Controller {
 	}
 
 	/**
+	 * Save user model to DB
 	 * @param {Request} request
 	 * @param {String} request.name
 	 * @param {int} Request.score
-	 * @return JSON Response
+	 * @return {Response} JSON Response
 	 */
 	// public function save (Request $request)
 	public function save (SaveScoreRequest $request)
@@ -39,8 +40,25 @@ class ScoreboardController extends Controller {
 	}
 
 	/**
+	 * Get rows near score of indicated user
+	 * @param {int} score - Score of user
+	 * @return {Response} JSON Response
+	 */
+	public function getRelatedUsers ( $id )
+	{
+		$user = User::find( $id );
+
+		$higherScoreUsers = User::where("score" > $user->score)->take(100)->get();
+		$lowerScoreUsers = User::where("score" < $user->score)->take(100)->get();
+		$data = array_merge($higherScoreUsers, $user, $lowerScoreUsers);
+
+		return response()->json($data);
+	}
+
+	/**
+	 * Get all database entries for users
 	 * @param {string} name
-	 * @return JSON Response
+	 * @return {Response} JSON Response
 	 */
 	public function get ($name = null)
 	{
