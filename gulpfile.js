@@ -1,7 +1,7 @@
 var gulp = require("gulp");
 var elixir = require('laravel-elixir');
 var util = require("gulp-util");
-var exec = require("child_process").exec;
+var spawn = require("child_process").spawn;
 var sys = require("sys");
 var karma = require("karma").server;
 var jshint = require("gulp-jshint");
@@ -41,17 +41,13 @@ function getFiles () {
 }
 
 function task_phpunit () {
-	exec("vendor/bin/phpunit", function (error, stdout) {
-		sys.puts(stdout);
-		migrate();
-	});
+	spawn("vendor/bin/phpunit", [], { stdio: "inherit" });
+	migrate();
 
 }
 
 function migrate () {
-	exec("php artisan migrate", function (error, stdout) {
-		sys.puts(stdout);
-	});
+	spawn("php", ["artisan", "migrate"], { stdio: "inherit" });
 }
 
 function task_jshint () {
