@@ -42,12 +42,8 @@ function getFiles () {
 
 function task_phpunit () {
 	spawn("vendor/bin/phpunit", [], { stdio: "inherit" });
-	migrate();
-
-}
-
-function migrate () {
 	spawn("php", ["artisan", "migrate"], { stdio: "inherit" });
+
 }
 
 function task_jshint () {
