@@ -2,7 +2,6 @@ var gulp = require("gulp");
 var elixir = require('laravel-elixir');
 var util = require("gulp-util");
 var spawn = require("child_process").spawn;
-var sys = require("sys");
 var karma = require("karma").server;
 var jshint = require("gulp-jshint");
 
@@ -12,6 +11,12 @@ gulp.task("jshint", task_jshint);
 gulp.task("phpunit", task_phpunit);
 gulp.task("karmaunit", ["jshint"], task_karmaunit);
 gulp.task("watch", task_watch);
+
+elixir(taskLess);
+
+function taskLess (mix) {
+	mix.less("*.less");
+}
 
 function getFiles () {
 	var phpFiles = [
@@ -32,11 +37,15 @@ function getFiles () {
 		"!public/vendor/**/*.js",
 		"!public/vendor/**/*.html",
 	];
+	var assetFiles = [
+		"resources/assets/**/*"
+	];
 
 	return {
 		php: phpFiles,
 		javascript: javascriptFiles,
-		jshint: jshintFiles
+		jshint: jshintFiles,
+		assets: assetFiles
 	};
 }
 
@@ -69,5 +78,6 @@ function karmatdd (done) {
 function task_watch () {
 	gulp.watch(files.php, ["phpunit"]);
 	gulp.watch(files.javascript, ["jshint", "karmaunit"]);
+	gulp.watch(files.assets, [elixir.bind(null, taskLess)]);
 }
 
