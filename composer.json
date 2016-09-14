@@ -32,13 +32,15 @@
 		"post-install-cmd": [
 			"php artisan optimize",
 			"php artisan config:cache",
+			"php artisan migrate",
 			"php artisan db:seed",
 			"npm start"
 		],
 		"post-update-cmd": [
 			"composer dump-autoload",
-			"bower update",
-			"bower install"
+			"php artisan migrate",
+			"php artisan db:seed",
+			"npm install & bower install & wait"
 		],
 		"post-create-project-cmd": [
 			"php -r \"copy('.env.example', '.env');\"",
