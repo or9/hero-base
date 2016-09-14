@@ -6,7 +6,7 @@
 	"type": "project",
 	"require": {
 		"php": "~5.6.20",
-		"laravel/framework": "5.*",
+		"laravel/framework": "5.1.*",
 		"ext-apcu": "*",
 		"ext-mcrypt": "*"
 	},
@@ -30,16 +30,14 @@
 	},
 	"scripts": {
 		"post-install-cmd": [
-			"php artisan clear-compiled",
 			"php artisan optimize",
 			"php artisan config:cache",
+			"php artisan config:routes",
 			"php artisan db:seed",
 			"npm start"
 		],
 		"post-update-cmd": [
-			"php artisan clear-compiled",
-			"php artisan optimize",
-			"php artisan config:cache",
+			"composer dump-autoload",
 			"bower update",
 			"bower install"
 		],
