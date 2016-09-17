@@ -19,10 +19,13 @@ Route::group(["prefix" => "api"], function() {
 	Route::get("next", "GameController@next");
 
 	Route::post("scoreboard", "ScoreboardController@save");
+	Route::put("scoreboard", "ScoreboardController@save");
 
 	Route::get("scoreboard", "ScoreboardController@get");
 
-	Route:;get("relatedUsers", "ScoreboardController@getRelatedUsers");
+	Route::get("scoreboard/{id}", "ScoreboardController@getUser");
+
+	Route::get("scoreboard/{id}/related", "ScoreboardController@getRelatedUsers");
 
 	// Route::get("scoreboard/{username}}", "ScoreboardController@getUserLocation");
 

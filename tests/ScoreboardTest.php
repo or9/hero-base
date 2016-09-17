@@ -143,4 +143,19 @@ class ScoreboardTest extends TestCase {
 
 	}
 
+	/**
+	 * Should return 20 related users
+	 */
+	public function testGetRelatedUsers ()
+	{
+
+		$response = $this->call("GET", "/api/relatedUsers");
+
+		$expectedResponse = [];
+		$actualResponse = $response->getContent();
+
+		//$this->assertEquals($expectedResponse, $actualResponse);
+
+	}
+
 }

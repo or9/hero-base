@@ -11,13 +11,16 @@ body {
   text-align: center;
   width: 100%;
   height: auto;
-  background: #369;
+  background: #222;
 }
 header {
   text-align: center;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+}
+section#content {
+  direction: rtl;
 }
 section {
   margin: 60px auto;

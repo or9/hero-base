@@ -1,13 +1,15 @@
-<?php
-
-namespace App;
+<?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class User extends Model
 {
 
 	protected $fillable = ["name", "score"];
+
+	public function getRelatedUsers ($query) {
+	}
 
 	public function scopeScoreboard ($query) {
 		return $query->all()->get();
