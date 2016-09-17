@@ -34,6 +34,7 @@
 		"post-install-cmd": [
 			"php artisan optimize",
 			"php artisan config:cache",
+			"php artisan route:cache",
 			"php artisan migrate",
 			"php artisan db:seed",
 			"npm install & bower install & wait"
@@ -41,6 +42,8 @@
 		"post-update-cmd": [
 			"composer dump-autoload",
 			"php artisan config:cache",
+			"php artisan route:clear",
+			"php artisan route:cache",
 			"php artisan optimize",
 			"php artisan migrate",
 			"php artisan db:seed",
