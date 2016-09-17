@@ -34,7 +34,7 @@
 			"php artisan config:cache",
 			"php artisan migrate",
 			"php artisan db:seed",
-			"npm start"
+			"npm install & bower install & wait"
 		],
 		"post-update-cmd": [
 			"composer dump-autoload",
