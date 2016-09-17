@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "prestart": "npm update && bower update",
+    "prestart": "npm update & bower update & wait",
     "start": "",
     "poststart": "",
     "test": ""
