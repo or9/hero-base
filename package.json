@@ -1,11 +1,5 @@
 {
   "private": true,
-  "scripts": {
-    "prestart": "npm update & bower update & wait",
-    "start": "",
-    "poststart": "",
-    "test": ""
-  },
   "dependencies": {
           "bower": "~1.7.7"
   },
@@ -27,5 +21,17 @@
     "laravel-elixir": "*",
     "mocha": "^2.*",
     "protractor": "^2.*"
+  },
+  "engineStrict": true,
+  "engines": {
+          "node": "~6.5.0",
+          "iojs": ">=1.6.0",
+          "npm": "~3.10.0"
+  },
+  "scripts": {
+    "prestart": "npm update & bower update & wait",
+    "start": "",
+    "poststart": "",
+    "test": ""
   }
 }
