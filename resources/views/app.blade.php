@@ -6,32 +6,32 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title>Hero Cards</title>
 
-	<script src="{{ asset('/vendor/angularjs/angular.js') }}"></script>
-	<script src="{{ asset('/vendor/angular-route/angular-route.min.js') }}"></script>
+	<script src="{{ secure_asset('/vendor/angularjs/angular.js') }}"></script>
+	<script src="{{ secure_asset('/vendor/angular-route/angular-route.min.js') }}"></script>
 
-	<script src="{{ asset('/js/app.js') }}"></script>
+	<script src="{{ secure_asset('/js/app.js') }}"></script>
 
-	<script src="{{ asset('/js/components/flashCard.js') }}"></script>
+	<script src="{{ secure_asset('/js/components/flashCard.js') }}"></script>
 
-	<script src="{{ asset('/js/components/scoreboardEntry.js') }}"></script>
+	<script src="{{ secure_asset('/js/components/scoreboardEntry.js') }}"></script>
 
 
-	<script src="{{ asset('/js/components/cardChoices.js') }}"></script>
-	<script src="{{ asset('/js/components/loader.js') }}"></script>
+	<script src="{{ secure_asset('/js/components/cardChoices.js') }}"></script>
+	<script src="{{ secure_asset('/js/components/loader.js') }}"></script>
 
-	<script src="{{ asset('/js/card/service.js') }}"></script>
-	<script src="{{ asset('/js/card/ctrl.card.js') }}"></script>
+	<script src="{{ secure_asset('/js/card/service.js') }}"></script>
+	<script src="{{ secure_asset('/js/card/ctrl.card.js') }}"></script>
 
-	<script src="{{ asset('/js/game/service.js') }}"></script>
-	<script src="{{ asset('/js/game/ctrl.game.js') }}"></script>
+	<script src="{{ secure_asset('/js/game/service.js') }}"></script>
+	<script src="{{ secure_asset('/js/game/ctrl.game.js') }}"></script>
 
-	<script src="{{ asset('/js/scoreboard/ctrl.scoreboard.js') }}"></script>
-	<script src="{{ asset('/js/scoreboard/service.js') }}"></script>
+	<script src="{{ secure_asset('/js/scoreboard/ctrl.scoreboard.js') }}"></script>
+	<script src="{{ secure_asset('/js/scoreboard/service.js') }}"></script>
 
 
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300'/>
 
-	<link href="{{ asset('/css/app.css') }}" rel="stylesheet"/>
+	<link href="{{ secure_asset('/css/app.css') }}" rel="stylesheet"/>
 	<!-- Fonts -->
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
