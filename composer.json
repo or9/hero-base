@@ -33,18 +33,18 @@
 	"scripts": {
 		"post-install-cmd": [
 			"php artisan optimize",
+			"php artisan migrate",
 			"php artisan cache:clear",
 			"php artisan route:clear",
-			"php artisan migrate",
 			"php artisan db:seed",
 			"npm install & bower install & wait"
 		],
 		"post-update-cmd": [
 			"composer dump-autoload",
-			"php artisan cache:clear",
-			"php artisan route:clear",
 			"php artisan optimize",
 			"php artisan migrate",
+			"php artisan cache:clear",
+			"php artisan route:clear",
 			"php artisan db:seed",
 			"npm install & bower install & wait"
 		],
